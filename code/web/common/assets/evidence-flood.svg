@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620">
+  <defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#809eb7"/><stop offset="1" stop-color="#d9e3e6"/></linearGradient><linearGradient id="water" x2="0" y2="1"><stop stop-color="#426d8f"/><stop offset="1" stop-color="#1f4564"/></linearGradient></defs>
+  <rect width="1000" height="620" fill="url(#sky)"/><g fill="#516678"><rect x="35" y="135" width="150" height="275"/><rect x="205" y="80" width="125" height="325"/><rect x="720" y="120" width="120" height="290"/><rect x="855" y="175" width="115" height="235"/></g>
+  <g fill="#d6e2e7" opacity=".68"><path d="M60 165h28v42H60zm48 0h28v42h-28zm120-55h24v38h-24zm45 0h24v38h-24zm470 45h25v40h-25zm44 0h25v40h-25z"/></g>
+  <path d="M0 340 Q210 305 410 350 T1000 330V620H0Z" fill="url(#water)"/><g fill="none" stroke="#7ea4bd" opacity=".55"><path d="M0 420q160-50 330 0t350 0t320-20"/><path d="M0 510q180-45 370 5t390-5t240 0"/></g>
+  <g fill="#e9a766"><ellipse cx="205" cy="425" rx="30" ry="12"/><ellipse cx="445" cy="500" rx="34" ry="13"/><ellipse cx="690" cy="390" rx="28" ry="11"/><ellipse cx="815" cy="520" rx="36" ry="14"/></g>
+  <g fill="#192c43" opacity=".75"><path d="M0 588h1000v32H0z"/></g><text x="24" y="602" fill="#dcecff" font-family="monospace" font-size="17">SIMULATED UAV EVIDENCE • EO CAMERA • ALT 96M • HCMC</text>
+</svg>

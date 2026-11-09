@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="SkyRescue Dispatch Station">
+  <title>SkyRescue — Dispatch</title>
+  <link rel="stylesheet" href="/common/css/styles.css?v=20261103_ui_v11">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
+</head>
+<body>
+  <main id="dispatch-login-view" class="portal-auth-view">
+    <div class="portal-auth-panel">
+      <a class="brand portal-auth-brand" href="/"><span class="brand-mark">⌖</span><span>SkyRescue<small>DISPATCH</small></span></a>
+      <section class="card portal-auth-card" aria-labelledby="dispatch-login-title">
+        <div class="portal-auth-heading">
+          <span class="role-icon" aria-hidden="true">⌖</span>
+          <p class="eyebrow">Independent Dispatch Portal</p>
+          <h1 id="dispatch-login-title">Sign in to Dispatch</h1>
+          <p class="muted">Sign in to open the operational dispatch console.</p>
+        </div>
+        <form id="dispatch-login-form" class="portal-auth-form" novalidate>
+          <div id="dispatch-login-error" class="alert danger portal-auth-error" role="alert"></div>
+          <label class="field">
+            <span>Email or username</span>
+            <input id="dispatch-login-id" type="text" autocomplete="username" placeholder="dispatch" required>
+          </label>
+          <label class="field">
+            <span>Password</span>
+            <input id="dispatch-login-pass" type="password" autocomplete="current-password" placeholder="Enter password" required>
+          </label>
+          <button class="btn full" type="submit">Enter Dispatch <span aria-hidden="true">→</span></button>
+          </form>
+      </section>
+      <!-- Standalone Command Dispatch Portal -->
+    </div>
+  </main>
+
+  <div id="dispatch-portal-view" class="portal-shell" style="display:none">
+    <aside class="sidebar">
+      <a class="brand" href="/"><span class="brand-mark">⌖</span><span>SkyRescue<small>AEGIS TACTICAL OS</small></span></a>
+      <div class="sidebar-label">Dispatch station</div>
+      <nav class="side-nav" id="dispatch-nav" aria-label="Dispatch navigation"></nav>
+      <div class="sidebar-foot"><span class="badge success"><span class="status-dot"></span>Station online</span><p style="margin:8px 0 0">Vietnam Command<br><span class="muted">Prototype data channel</span></p></div>
+    </aside>
+    <div class="portal-main">
+      <header class="portal-top"><div><strong>Vietnam Dispatch Station</strong><div class="muted" id="dispatch-clock">Operational console</div></div><div class="row"><div id="header-profile-slot" class="header-profile-slot"></div></div></header>
+      <main class="content" id="dispatch-app"></main>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+  <script src="/common/js/datasets/region-vietnam.js?v=20261104_national"></script>
+  <script src="/common/js/datasets/region-hcmc.js?v=20261104_national"></script>
+  <script src="/common/js/datasets/region-cantho.js?v=20261104_national"></script>
+  <script src="/common/js/datasets/region-hanoi.js?v=20261104_national"></script>
+  <script src="/common/js/datasets/region-danang.js?v=20261104_national"></script>
+  <script src="/common/js/datasets/region-khanhhoa.js?v=20261104_national"></script>
+  <script src="/common/js/datasets/region-lamdong.js?v=20261104_national"></script>
+  <script src="/common/js/datasets/region-quangnam.js?v=20261104_national"></script>
+  <script src="/common/js/demo-data.js?v=20261103_ui_v11"></script>
+  <script src="/api/boot.js?portal=dispatch"></script>
+  <script src="/common/js/sync-client.js"></script>
+  <script src="/common/js/shared-state.js?v=20261103_ui_v11"></script>
+  <script src="/common/js/ui.js?v=20261103_ui_v11"></script>
+  <script src="/common/js/portal-auth.js?v=20261027c"></script>
+  <script>
+    SkyPortalAuth.init({
+      portal: "dispatch",
+      loginView: "dispatch-login-view",
+      appView: "dispatch-portal-view",
+      form: "dispatch-login-form",
+      identifier: "dispatch-login-id",
+      password: "dispatch-login-pass",
+      error: "dispatch-login-error"
+    });
+  </script>
+  <script src="dss-trace.js"></script>
+  <script src="dispatch.js?v=20261103_ui_v11"></script>
+</body>
+</html>

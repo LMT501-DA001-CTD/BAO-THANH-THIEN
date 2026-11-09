@@ -1,0 +1,15 @@
+# CPU-only torch wheels come from the PyTorch index (see Dockerfile).
+torch==2.5.1+cpu
+torchvision==0.20.1+cpu
+ultralytics==8.3.40
+opencv-python-headless==4.10.0.84
+numpy==2.1.3
+scipy==1.14.1
+pandas==2.2.3
+Pillow==11.0.0
+fastapi==0.115.6
+uvicorn==0.32.1
+python-multipart==0.0.20
+# tests
+pytest==8.3.4
+httpx==0.28.1

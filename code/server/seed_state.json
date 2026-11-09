@@ -1,0 +1,4208 @@
+{
+  "schemaVersion": 2,
+  "regionMeta": {
+    "regionId": "VN-NATIONAL",
+    "operatingArea": "Vietnam",
+    "country": "Vietnam",
+    "timeZone": "Asia/Ho_Chi_Minh",
+    "tzShort": "ICT (UTC+07:00)",
+    "center": [
+      16.0544,
+      108.2022
+    ],
+    "demoAnchor": [
+      16.0544,
+      108.2022
+    ],
+    "defaultZoom": 6,
+    "datasetScope": "national",
+    "nationalIncidentCount": 20,
+    "coverageBounds": {
+      "minLat": 8.55,
+      "maxLat": 23.39,
+      "minLng": 102.14,
+      "maxLng": 109.47
+    },
+    "sectors": [
+      {
+        "name": "District 1",
+        "province": "Ho Chi Minh City",
+        "latitude": 10.7769,
+        "longitude": 106.7009,
+        "customAttributes": {
+          "access_terrain": {
+            "value": "urban_arterial",
+            "source": "Location GIS"
+          },
+          "population_density": {
+            "value": "high",
+            "source": "Location GIS"
+          }
+        }
+      },
+      {
+        "name": "District 3",
+        "province": "Ho Chi Minh City",
+        "latitude": 10.7844,
+        "longitude": 106.6844,
+        "customAttributes": {
+          "access_terrain": {
+            "value": "urban_arterial",
+            "source": "Location GIS"
+          },
+          "population_density": {
+            "value": "high",
+            "source": "Location GIS"
+          }
+        }
+      },
+      {
+        "name": "District 6",
+        "province": "Ho Chi Minh City",
+        "latitude": 10.7748,
+        "longitude": 106.6692,
+        "customAttributes": {
+          "access_terrain": {
+            "value": "urban_arterial",
+            "source": "Location GIS"
+          },
+          "population_density": {
+            "value": "high",
+            "source": "Location GIS"
+          }
+        }
+      },
+      {
+        "name": "Binh Thanh District",
+        "province": "Ho Chi Minh City",
+        "latitude": 10.8015,
+        "longitude": 106.7124,
+        "customAttributes": {
+          "access_terrain": {
+            "value": "narrow_alley",
+            "source": "Location GIS"
+          },
+          "population_density": {
+            "value": "ultra_dense",
+            "source": "Location GIS"
+          }
+        }
+      },
+      {
+        "name": "District 4",
+        "province": "Ho Chi Minh City",
+        "latitude": 10.7578,
+        "longitude": 106.7032,
+        "customAttributes": {
+          "access_terrain": {
+            "value": "narrow_alley",
+            "source": "Location GIS"
+          },
+          "population_density": {
+            "value": "ultra_dense",
+            "source": "Location GIS"
+          }
+        }
+      },
+      {
+        "name": "District 7",
+        "province": "Ho Chi Minh City",
+        "latitude": 10.7324,
+        "longitude": 106.7219,
+        "customAttributes": {
+          "access_terrain": {
+            "value": "urban_arterial",
+            "source": "Location GIS"
+          },
+          "population_density": {
+            "value": "high",
+            "source": "Location GIS"
+          }
+        }
+      },
+      {
+        "name": "Thu Duc City",
+        "province": "Ho Chi Minh City",
+        "latitude": 10.8494,
+        "longitude": 106.7582,
+        "customAttributes": {
+          "access_terrain": {
+            "value": "urban_arterial",
+            "source": "Location GIS"
+          },
+          "population_density": {
+            "value": "high",
+            "source": "Location GIS"
+          }
+        }
+      },
+      {
+        "name": "Hoan Kiem District",
+        "province": "Ha Noi",
+        "latitude": 21.0285,
+        "longitude": 105.8542,
+        "customAttributes": {
+          "access_terrain": {
+            "value": "narrow_alley",
+            "source": "Location GIS"
+          },
+          "population_density": {
+            "value": "ultra_dense",
+            "source": "Location GIS"
+          }
+        }
+      },
+      {
+        "name": "Ba Dinh District",
+        "province": "Ha Noi",
+        "latitude": 21.0341,
+        "longitude": 105.8216,
+        "customAttributes": {
+          "access_terrain": {
+            "value": "urban_arterial",
+            "source": "Location GIS"
+          },
+          "population_density": {
+            "value": "high",
+            "source": "Location GIS"
+          }
+        }
+      },
+      {
+        "name": "Tay Ho District",
+        "province": "Ha Noi",
+        "latitude": 21.0467,
+        "longitude": 105.8662,
+        "customAttributes": {
+          "access_terrain": {
+            "value": "urban_arterial",
+            "source": "Location GIS"
+          },
+          "population_density": {
+            "value": "high",
+            "source": "Location GIS"
+          }
+        }
+      },
+      {
+        "name": "Dong Da District",
+        "province": "Ha Noi",
+        "latitude": 21.0301,
+        "longitude": 105.8389,
+        "customAttributes": {
+          "access_terrain": {
+            "value": "narrow_alley",
+            "source": "Location GIS"
+          },
+          "population_density": {
+            "value": "ultra_dense",
+            "source": "Location GIS"
+          }
+        }
+      },
+      {
+        "name": "Hai Chau District",
+        "province": "Da Nang",
+        "latitude": 16.0678,
+        "longitude": 108.2208,
+        "customAttributes": {
+          "access_terrain": {
+            "value": "riverine_canal",
+            "source": "Location GIS"
+          },
+          "population_density": {
+            "value": "high",
+            "source": "Location GIS"
+          }
+        }
+      },
+      {
+        "name": "Son Tra District",
+        "province": "Da Nang",
+        "latitude": 16.0714,
+        "longitude": 108.1926,
+        "customAttributes": {
+          "access_terrain": {
+            "value": "mountain_pass",
+            "source": "Location GIS"
+          },
+          "population_density": {
+            "value": "medium",
+            "source": "Location GIS"
+          }
+        }
+      },
+      {
+        "name": "Binh Thuy District",
+        "province": "Can Tho",
+        "latitude": 10.1313,
+        "longitude": 105.6672,
+        "customAttributes": {
+          "access_terrain": {
+            "value": "urban_arterial",
+            "source": "Location GIS"
+          },
+          "population_density": {
+            "value": "high",
+            "source": "Location GIS"
+          }
+        }
+      },
+      {
+        "name": "Thot Not District",
+        "province": "Can Tho",
+        "latitude": 10.2946,
+        "longitude": 105.5486,
+        "customAttributes": {
+          "access_terrain": {
+            "value": "urban_arterial",
+            "source": "Location GIS"
+          },
+          "population_density": {
+            "value": "high",
+            "source": "Location GIS"
+          }
+        }
+      },
+      {
+        "name": "Nha Trang",
+        "province": "Khanh Hoa",
+        "latitude": 12.245,
+        "longitude": 109.18,
+        "customAttributes": {
+          "access_terrain": {
+            "value": "urban_arterial",
+            "source": "Location GIS"
+          },
+          "population_density": {
+            "value": "high",
+            "source": "Location GIS"
+          }
+        }
+      },
+      {
+        "name": "Ninh Hoa",
+        "province": "Khanh Hoa",
+        "latitude": 12.5894,
+        "longitude": 109.1386,
+        "customAttributes": {
+          "access_terrain": {
+            "value": "urban_arterial",
+            "source": "Location GIS"
+          },
+          "population_density": {
+            "value": "high",
+            "source": "Location GIS"
+          }
+        }
+      },
+      {
+        "name": "Da Lat",
+        "province": "Lam Dong",
+        "latitude": 11.9404,
+        "longitude": 108.4583,
+        "customAttributes": {
+          "access_terrain": {
+            "value": "urban_arterial",
+            "source": "Location GIS"
+          },
+          "population_density": {
+            "value": "high",
+            "source": "Location GIS"
+          }
+        }
+      },
+      {
+        "name": "Lac Duong District",
+        "province": "Lam Dong",
+        "latitude": 12.0298,
+        "longitude": 108.4562,
+        "customAttributes": {
+          "access_terrain": {
+            "value": "urban_arterial",
+            "source": "Location GIS"
+          },
+          "population_density": {
+            "value": "high",
+            "source": "Location GIS"
+          }
+        }
+      },
+      {
+        "name": "Hoi An",
+        "province": "Quang Nam",
+        "latitude": 15.879,
+        "longitude": 108.335,
+        "customAttributes": {
+          "access_terrain": {
+            "value": "urban_arterial",
+            "source": "Location GIS"
+          },
+          "population_density": {
+            "value": "high",
+            "source": "Location GIS"
+          }
+        }
+      },
+      {
+        "name": "Dong Giang District",
+        "province": "Quang Nam",
+        "latitude": 15.9209,
+        "longitude": 107.7876,
+        "customAttributes": {
+          "access_terrain": {
+            "value": "urban_arterial",
+            "source": "Location GIS"
+          },
+          "population_density": {
+            "value": "high",
+            "source": "Location GIS"
+          }
+        }
+      }
+    ]
+  },
+  "uavs": [
+    {
+      "id": "AEGIS-UAV-07",
+      "model": "DJI Mavic 3 Enterprise",
+      "make": "DJI",
+      "serial": "1581F5FJD22A0007",
+      "battery": 82,
+      "registered": true
+    },
+    {
+      "id": "AEGIS-UAV-12",
+      "model": "DJI Matrice 30T",
+      "make": "DJI",
+      "serial": "1581F4SKB23C0012",
+      "battery": 64,
+      "registered": true
+    },
+    {
+      "id": "UNKNOWN-4F2A",
+      "model": "Unregistered drone",
+      "make": "",
+      "serial": "",
+      "battery": 0,
+      "registered": false
+    }
+  ],
+  "updatedAt": "2026-11-04T16:59:34.077Z",
+  "reports": [
+    {
+      "id": "INC-8801",
+      "incidentId": "INC-8801",
+      "filename": "EXT01.jpg",
+      "reporter": {
+        "id": "USR-UAV-07",
+        "name": "Nguyen Van A",
+        "role": "Reporter",
+        "verified": true
+      },
+      "sourceType": "drone",
+      "sourceIdentity": "1581F5FJD22A0007",
+      "sourceAssurance": {
+        "deviceRegistered": true,
+        "metadataMatched": true,
+        "simulation": true
+      },
+      "verificationStatus": "unverified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "uav": {
+        "id": "AEGIS-UAV-07",
+        "model": "DJI Mavic 3 Enterprise",
+        "serial": "1581F5FJD22A0007"
+      },
+      "metadata": {
+        "latitude": 12.02981,
+        "longitude": 108.45622,
+        "captureTime": "2026-11-03T10:17:43+07:00",
+        "cameraMake": "DJI",
+        "cameraModel": "DJI Mavic 3 Enterprise",
+        "uavSerialNumber": "1581F5FJD22A0007",
+        "altitude": 96
+      },
+      "customAttributes": null,
+      "uploadStatus": "Uploaded",
+      "processingStatus": "Completed",
+      "processingTier": 3,
+      "aiResult": {
+        "incidentType": "Fire"
+      },
+      "validationErrors": [],
+      "fingerprint": "seed-INC-8801",
+      "image": "/samples/EXT01.jpg",
+      "createdAt": "2026-11-04T16:51:34.074Z",
+      "dataOrigin": "Seeded sample"
+    },
+    {
+      "id": "INC-8802",
+      "incidentId": "INC-8802",
+      "filename": "EXT02.jpeg",
+      "reporter": {
+        "id": "USR-UAV-07",
+        "name": "Nguyen Van A",
+        "role": "Reporter",
+        "verified": true
+      },
+      "sourceType": "drone",
+      "sourceIdentity": "1581F5FJD22A0007",
+      "sourceAssurance": {
+        "deviceRegistered": true,
+        "metadataMatched": true,
+        "simulation": true
+      },
+      "verificationStatus": "verified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "uav": {
+        "id": "AEGIS-UAV-07",
+        "model": "DJI Mavic 3 Enterprise",
+        "serial": "1581F5FJD22A0007"
+      },
+      "metadata": {
+        "latitude": 15.886219,
+        "longitude": 108.326411,
+        "captureTime": "2026-11-03T15:24:08+07:00",
+        "cameraMake": "DJI",
+        "cameraModel": "DJI Mavic 3 Enterprise",
+        "uavSerialNumber": "1581F5FJD22A0007",
+        "altitude": 96
+      },
+      "customAttributes": null,
+      "uploadStatus": "Uploaded",
+      "processingStatus": "Completed",
+      "processingTier": 3,
+      "aiResult": {
+        "incidentType": "Fire"
+      },
+      "validationErrors": [],
+      "fingerprint": "seed-INC-8802",
+      "image": "/samples/EXT02.jpeg",
+      "createdAt": "2026-11-04T16:13:34.074Z",
+      "dataOrigin": "Seeded sample"
+    },
+    {
+      "id": "INC-8803",
+      "incidentId": "INC-8803",
+      "filename": "EXT03.jpg",
+      "reporter": {
+        "id": "USR-UAV-07",
+        "name": "Nguyen Van A",
+        "role": "Reporter",
+        "verified": true
+      },
+      "sourceType": "drone",
+      "sourceIdentity": "1581F5FJD22A0007",
+      "sourceAssurance": {
+        "deviceRegistered": true,
+        "metadataMatched": true,
+        "simulation": true
+      },
+      "verificationStatus": "verified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "uav": {
+        "id": "AEGIS-UAV-07",
+        "model": "DJI Mavic 3 Enterprise",
+        "serial": "1581F5FJD22A0007"
+      },
+      "metadata": {
+        "latitude": 15.92088,
+        "longitude": 107.78762,
+        "captureTime": "2026-11-04T09:42:25+07:00",
+        "cameraMake": "DJI",
+        "cameraModel": "DJI Mavic 3 Enterprise",
+        "uavSerialNumber": "1581F5FJD22A0007",
+        "altitude": 96
+      },
+      "customAttributes": null,
+      "uploadStatus": "Uploaded",
+      "processingStatus": "Completed",
+      "processingTier": 3,
+      "aiResult": {
+        "incidentType": "Fire"
+      },
+      "validationErrors": [],
+      "fingerprint": "seed-INC-8803",
+      "image": "/samples/EXT03.jpg",
+      "createdAt": "2026-11-04T05:59:34.074Z",
+      "dataOrigin": "Seeded sample"
+    },
+    {
+      "id": "INC-8804",
+      "incidentId": "INC-8804",
+      "filename": "EXT04.jpg",
+      "reporter": {
+        "id": "USR-UAV-07",
+        "name": "Nguyen Van A",
+        "role": "Reporter",
+        "verified": true
+      },
+      "sourceType": "drone",
+      "sourceIdentity": "1581F5FJD22A0007",
+      "sourceAssurance": {
+        "deviceRegistered": true,
+        "metadataMatched": true,
+        "simulation": true
+      },
+      "verificationStatus": "verified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "uav": {
+        "id": "AEGIS-UAV-07",
+        "model": "DJI Mavic 3 Enterprise",
+        "serial": "1581F5FJD22A0007"
+      },
+      "metadata": {
+        "latitude": 21.02376,
+        "longitude": 105.84123,
+        "captureTime": "2026-11-03T11:36:12+07:00",
+        "cameraMake": "DJI",
+        "cameraModel": "DJI Mavic 3 Enterprise",
+        "uavSerialNumber": "1581F5FJD22A0007",
+        "altitude": 96
+      },
+      "customAttributes": null,
+      "uploadStatus": "Uploaded",
+      "processingStatus": "Completed",
+      "processingTier": 3,
+      "aiResult": {
+        "incidentType": "Building Collapse"
+      },
+      "validationErrors": [],
+      "fingerprint": "seed-INC-8804",
+      "image": "/samples/EXT04.jpg",
+      "createdAt": "2026-11-04T14:51:34.075Z",
+      "dataOrigin": "Seeded sample"
+    },
+    {
+      "id": "INC-8805",
+      "incidentId": "INC-8805",
+      "filename": "EXT05.jpg",
+      "reporter": {
+        "id": "USR-UAV-07",
+        "name": "Nguyen Van A",
+        "role": "Reporter",
+        "verified": true
+      },
+      "sourceType": "drone",
+      "sourceIdentity": "1581F5FJD22A0007",
+      "sourceAssurance": {
+        "deviceRegistered": true,
+        "metadataMatched": true,
+        "simulation": true
+      },
+      "verificationStatus": "verified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "uav": {
+        "id": "AEGIS-UAV-07",
+        "model": "DJI Mavic 3 Enterprise",
+        "serial": "1581F5FJD22A0007"
+      },
+      "metadata": {
+        "latitude": 16.05562,
+        "longitude": 108.21841,
+        "captureTime": "2026-11-03T14:19:51+07:00",
+        "cameraMake": "DJI",
+        "cameraModel": "DJI Mavic 3 Enterprise",
+        "uavSerialNumber": "1581F5FJD22A0007",
+        "altitude": 96
+      },
+      "customAttributes": null,
+      "uploadStatus": "Uploaded",
+      "processingStatus": "Completed",
+      "processingTier": 3,
+      "aiResult": {
+        "incidentType": "Building Collapse"
+      },
+      "validationErrors": [],
+      "fingerprint": "seed-INC-8805",
+      "image": "/samples/EXT05.jpg",
+      "createdAt": "2026-11-04T14:23:34.075Z",
+      "dataOrigin": "Seeded sample"
+    },
+    {
+      "id": "INC-8806",
+      "incidentId": "INC-8806",
+      "filename": "EXT06.jpeg",
+      "reporter": {
+        "id": "USR-UAV-07",
+        "name": "Nguyen Van A",
+        "role": "Reporter",
+        "verified": true
+      },
+      "sourceType": "drone",
+      "sourceIdentity": "1581F5FJD22A0007",
+      "sourceAssurance": {
+        "deviceRegistered": true,
+        "metadataMatched": true,
+        "simulation": true
+      },
+      "verificationStatus": "verified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "uav": {
+        "id": "AEGIS-UAV-07",
+        "model": "DJI Mavic 3 Enterprise",
+        "serial": "1581F5FJD22A0007"
+      },
+      "metadata": {
+        "latitude": 10.774831,
+        "longitude": 106.669219,
+        "captureTime": "2026-11-04T08:26:14+07:00",
+        "cameraMake": "DJI",
+        "cameraModel": "DJI Mavic 3 Enterprise",
+        "uavSerialNumber": "1581F5FJD22A0007",
+        "altitude": 96
+      },
+      "customAttributes": null,
+      "uploadStatus": "Uploaded",
+      "processingStatus": "Completed",
+      "processingTier": 3,
+      "aiResult": {
+        "incidentType": "Building Collapse"
+      },
+      "validationErrors": [],
+      "fingerprint": "seed-INC-8806",
+      "image": "/samples/EXT06.jpeg",
+      "createdAt": "2026-11-04T16:01:34.075Z",
+      "dataOrigin": "Seeded sample"
+    },
+    {
+      "id": "INC-8807",
+      "incidentId": "INC-8807",
+      "filename": "EXT07.jpeg",
+      "reporter": {
+        "id": "USR-UAV-07",
+        "name": "Nguyen Van A",
+        "role": "Reporter",
+        "verified": true
+      },
+      "sourceType": "drone",
+      "sourceIdentity": "1581F5FJD22A0007",
+      "sourceAssurance": {
+        "deviceRegistered": true,
+        "metadataMatched": true,
+        "simulation": true
+      },
+      "verificationStatus": "verified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "uav": {
+        "id": "AEGIS-UAV-07",
+        "model": "DJI Mavic 3 Enterprise",
+        "serial": "1581F5FJD22A0007"
+      },
+      "metadata": {
+        "latitude": 12.251119,
+        "longitude": 109.173719,
+        "captureTime": "2026-11-04T10:57:33+07:00",
+        "cameraMake": "DJI",
+        "cameraModel": "DJI Mavic 3 Enterprise",
+        "uavSerialNumber": "1581F5FJD22A0007",
+        "altitude": 96
+      },
+      "customAttributes": null,
+      "uploadStatus": "Uploaded",
+      "processingStatus": "Completed",
+      "processingTier": 3,
+      "aiResult": {
+        "incidentType": "Building Collapse"
+      },
+      "validationErrors": [],
+      "fingerprint": "seed-INC-8807",
+      "image": "/samples/EXT07.jpeg",
+      "createdAt": "2026-11-04T04:59:34.075Z",
+      "dataOrigin": "Seeded sample"
+    },
+    {
+      "id": "INC-8808",
+      "incidentId": "INC-8808",
+      "filename": "EXT08.jpeg",
+      "reporter": {
+        "id": "USR-UAV-07",
+        "name": "Nguyen Van A",
+        "role": "Reporter",
+        "verified": true
+      },
+      "sourceType": "drone",
+      "sourceIdentity": "1581F5FJD22A0007",
+      "sourceAssurance": {
+        "deviceRegistered": true,
+        "metadataMatched": true,
+        "simulation": true
+      },
+      "verificationStatus": "unverified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "uav": {
+        "id": "AEGIS-UAV-07",
+        "model": "DJI Mavic 3 Enterprise",
+        "serial": "1581F5FJD22A0007"
+      },
+      "metadata": {
+        "latitude": 12.589419,
+        "longitude": 109.138611,
+        "captureTime": "2026-11-03T12:48:56+07:00",
+        "cameraMake": "DJI",
+        "cameraModel": "DJI Mavic 3 Enterprise",
+        "uavSerialNumber": "1581F5FJD22A0007",
+        "altitude": 96
+      },
+      "customAttributes": null,
+      "uploadStatus": "Uploaded",
+      "processingStatus": "Completed",
+      "processingTier": 3,
+      "aiResult": {
+        "incidentType": "Building Collapse"
+      },
+      "validationErrors": [],
+      "fingerprint": "seed-INC-8808",
+      "image": "/samples/EXT08.jpeg",
+      "createdAt": "2026-11-04T16:37:34.075Z",
+      "dataOrigin": "Seeded sample"
+    },
+    {
+      "id": "INC-8809",
+      "incidentId": "INC-8809",
+      "filename": "EXT09.jpeg",
+      "reporter": {
+        "id": "USR-UAV-07",
+        "name": "Nguyen Van A",
+        "role": "Reporter",
+        "verified": true
+      },
+      "sourceType": "drone",
+      "sourceIdentity": "1581F5FJD22A0007",
+      "sourceAssurance": {
+        "deviceRegistered": true,
+        "metadataMatched": true,
+        "simulation": true
+      },
+      "verificationStatus": "verified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "uav": {
+        "id": "AEGIS-UAV-07",
+        "model": "DJI Mavic 3 Enterprise",
+        "serial": "1581F5FJD22A0007"
+      },
+      "metadata": {
+        "latitude": 10.131311,
+        "longitude": 105.667219,
+        "captureTime": "2026-11-03T09:13:28+07:00",
+        "cameraMake": "DJI",
+        "cameraModel": "DJI Mavic 3 Enterprise",
+        "uavSerialNumber": "1581F5FJD22A0007",
+        "altitude": 96
+      },
+      "customAttributes": null,
+      "uploadStatus": "Uploaded",
+      "processingStatus": "Completed",
+      "processingTier": 3,
+      "aiResult": {
+        "incidentType": "Traffic Accident"
+      },
+      "validationErrors": [],
+      "fingerprint": "seed-INC-8809",
+      "image": "/samples/EXT09.jpeg",
+      "createdAt": "2026-11-04T15:47:34.076Z",
+      "dataOrigin": "Seeded sample"
+    },
+    {
+      "id": "INC-8810",
+      "incidentId": "INC-8810",
+      "filename": "EXT10.jpeg",
+      "reporter": {
+        "id": "USR-UAV-07",
+        "name": "Nguyen Van A",
+        "role": "Reporter",
+        "verified": true
+      },
+      "sourceType": "drone",
+      "sourceIdentity": "1581F5FJD22A0007",
+      "sourceAssurance": {
+        "deviceRegistered": true,
+        "metadataMatched": true,
+        "simulation": true
+      },
+      "verificationStatus": "verified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "uav": {
+        "id": "AEGIS-UAV-07",
+        "model": "DJI Mavic 3 Enterprise",
+        "serial": "1581F5FJD22A0007"
+      },
+      "metadata": {
+        "latitude": 10.29462,
+        "longitude": 105.54864,
+        "captureTime": "2026-11-03T13:41:09+07:00",
+        "cameraMake": "DJI",
+        "cameraModel": "DJI Mavic 3 Enterprise",
+        "uavSerialNumber": "1581F5FJD22A0007",
+        "altitude": 96
+      },
+      "customAttributes": null,
+      "uploadStatus": "Uploaded",
+      "processingStatus": "Completed",
+      "processingTier": 3,
+      "aiResult": {
+        "incidentType": "Traffic Accident"
+      },
+      "validationErrors": [],
+      "fingerprint": "seed-INC-8810",
+      "image": "/samples/EXT10.jpeg",
+      "createdAt": "2026-11-04T02:19:34.076Z",
+      "dataOrigin": "Seeded sample"
+    },
+    {
+      "id": "INC-8811",
+      "incidentId": "INC-8811",
+      "filename": "EXT11.jpeg",
+      "reporter": {
+        "id": "USR-UAV-07",
+        "name": "Nguyen Van A",
+        "role": "Reporter",
+        "verified": true
+      },
+      "sourceType": "drone",
+      "sourceIdentity": "1581F5FJD22A0007",
+      "sourceAssurance": {
+        "deviceRegistered": true,
+        "metadataMatched": true,
+        "simulation": true
+      },
+      "verificationStatus": "verified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "uav": {
+        "id": "AEGIS-UAV-07",
+        "model": "DJI Mavic 3 Enterprise",
+        "serial": "1581F5FJD22A0007"
+      },
+      "metadata": {
+        "latitude": 11.900639,
+        "longitude": 108.451811,
+        "captureTime": "2026-11-03T07:52:35+07:00",
+        "cameraMake": "DJI",
+        "cameraModel": "DJI Mavic 3 Enterprise",
+        "uavSerialNumber": "1581F5FJD22A0007",
+        "altitude": 96
+      },
+      "customAttributes": null,
+      "uploadStatus": "Uploaded",
+      "processingStatus": "Completed",
+      "processingTier": 3,
+      "aiResult": {
+        "incidentType": "Traffic Accident"
+      },
+      "validationErrors": [],
+      "fingerprint": "seed-INC-8811",
+      "image": "/samples/EXT11.jpeg",
+      "createdAt": "2026-11-04T14:03:34.076Z",
+      "dataOrigin": "Seeded sample"
+    },
+    {
+      "id": "INC-8812",
+      "incidentId": "INC-8812",
+      "filename": "EXT12.jpg",
+      "reporter": {
+        "id": "USR-UAV-07",
+        "name": "Nguyen Van A",
+        "role": "Reporter",
+        "verified": true
+      },
+      "sourceType": "drone",
+      "sourceIdentity": "1581F5FJD22A0007",
+      "sourceAssurance": {
+        "deviceRegistered": true,
+        "metadataMatched": true,
+        "simulation": true
+      },
+      "verificationStatus": "unverified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "uav": {
+        "id": "AEGIS-UAV-07",
+        "model": "DJI Mavic 3 Enterprise",
+        "serial": "1581F5FJD22A0007"
+      },
+      "metadata": {
+        "latitude": 15.87281,
+        "longitude": 108.32954,
+        "captureTime": "2026-11-04T08:58:17+07:00",
+        "cameraMake": "DJI",
+        "cameraModel": "DJI Mavic 3 Enterprise",
+        "uavSerialNumber": "1581F5FJD22A0007",
+        "altitude": 96
+      },
+      "customAttributes": null,
+      "uploadStatus": "Uploaded",
+      "processingStatus": "Completed",
+      "processingTier": 3,
+      "aiResult": {
+        "incidentType": "Flood"
+      },
+      "validationErrors": [],
+      "fingerprint": "seed-INC-8812",
+      "image": "/samples/EXT12.jpg",
+      "createdAt": "2026-11-04T16:44:34.076Z",
+      "dataOrigin": "Seeded sample"
+    },
+    {
+      "id": "INC-8813",
+      "incidentId": "INC-8813",
+      "filename": "EXT13.jpg",
+      "reporter": {
+        "id": "USR-UAV-07",
+        "name": "Nguyen Van A",
+        "role": "Reporter",
+        "verified": true
+      },
+      "sourceType": "drone",
+      "sourceIdentity": "1581F5FJD22A0007",
+      "sourceAssurance": {
+        "deviceRegistered": true,
+        "metadataMatched": true,
+        "simulation": true
+      },
+      "verificationStatus": "verified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "uav": {
+        "id": "AEGIS-UAV-07",
+        "model": "DJI Mavic 3 Enterprise",
+        "serial": "1581F5FJD22A0007"
+      },
+      "metadata": {
+        "latitude": 10.78802,
+        "longitude": 106.71632,
+        "captureTime": "2026-11-04T10:11:26+07:00",
+        "cameraMake": "DJI",
+        "cameraModel": "DJI Mavic 3 Enterprise",
+        "uavSerialNumber": "1581F5FJD22A0007",
+        "altitude": 96
+      },
+      "customAttributes": null,
+      "uploadStatus": "Uploaded",
+      "processingStatus": "Completed",
+      "processingTier": 3,
+      "aiResult": {
+        "incidentType": "Flood"
+      },
+      "validationErrors": [],
+      "fingerprint": "seed-INC-8813",
+      "image": "/samples/EXT13.jpg",
+      "createdAt": "2026-11-04T13:01:34.076Z",
+      "dataOrigin": "Seeded sample"
+    },
+    {
+      "id": "INC-8814",
+      "incidentId": "INC-8814",
+      "filename": "EXT14.jpeg",
+      "reporter": {
+        "id": "USR-UAV-07",
+        "name": "Nguyen Van A",
+        "role": "Reporter",
+        "verified": true
+      },
+      "sourceType": "drone",
+      "sourceIdentity": "1581F5FJD22A0007",
+      "sourceAssurance": {
+        "deviceRegistered": true,
+        "metadataMatched": true,
+        "simulation": true
+      },
+      "verificationStatus": "verified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "uav": {
+        "id": "AEGIS-UAV-07",
+        "model": "DJI Mavic 3 Enterprise",
+        "serial": "1581F5FJD22A0007"
+      },
+      "metadata": {
+        "latitude": 21.04671,
+        "longitude": 105.86624,
+        "captureTime": "2026-11-04T11:29:42+07:00",
+        "cameraMake": "DJI",
+        "cameraModel": "DJI Mavic 3 Enterprise",
+        "uavSerialNumber": "1581F5FJD22A0007",
+        "altitude": 96
+      },
+      "customAttributes": null,
+      "uploadStatus": "Uploaded",
+      "processingStatus": "Completed",
+      "processingTier": 3,
+      "aiResult": {
+        "incidentType": "Flood"
+      },
+      "validationErrors": [],
+      "fingerprint": "seed-INC-8814",
+      "image": "/samples/EXT14.jpeg",
+      "createdAt": "2026-11-04T15:23:34.076Z",
+      "dataOrigin": "Seeded sample"
+    },
+    {
+      "id": "INC-8815",
+      "incidentId": "INC-8815",
+      "filename": "EXT15.jpeg",
+      "reporter": {
+        "id": "USR-UAV-07",
+        "name": "Nguyen Van A",
+        "role": "Reporter",
+        "verified": true
+      },
+      "sourceType": "drone",
+      "sourceIdentity": "1581F5FJD22A0007",
+      "sourceAssurance": {
+        "deviceRegistered": true,
+        "metadataMatched": true,
+        "simulation": true
+      },
+      "verificationStatus": "verified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "uav": {
+        "id": "AEGIS-UAV-07",
+        "model": "DJI Mavic 3 Enterprise",
+        "serial": "1581F5FJD22A0007"
+      },
+      "metadata": {
+        "latitude": 16.06257,
+        "longitude": 108.21964,
+        "captureTime": "2026-11-03T09:47:03+07:00",
+        "cameraMake": "DJI",
+        "cameraModel": "DJI Mavic 3 Enterprise",
+        "uavSerialNumber": "1581F5FJD22A0007",
+        "altitude": 96
+      },
+      "customAttributes": null,
+      "uploadStatus": "Uploaded",
+      "processingStatus": "Completed",
+      "processingTier": 3,
+      "aiResult": {
+        "incidentType": "Normal"
+      },
+      "validationErrors": [],
+      "fingerprint": "seed-INC-8815",
+      "image": "/samples/EXT15.jpeg",
+      "createdAt": "2026-11-03T16:59:34.076Z",
+      "dataOrigin": "Seeded sample"
+    },
+    {
+      "id": "INC-8816",
+      "incidentId": "INC-8816",
+      "filename": "EXT16.jpeg",
+      "reporter": {
+        "id": "USR-UAV-07",
+        "name": "Nguyen Van A",
+        "role": "Reporter",
+        "verified": true
+      },
+      "sourceType": "drone",
+      "sourceIdentity": "1581F5FJD22A0007",
+      "sourceAssurance": {
+        "deviceRegistered": true,
+        "metadataMatched": true,
+        "simulation": true
+      },
+      "verificationStatus": "unverified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "uav": {
+        "id": "AEGIS-UAV-07",
+        "model": "DJI Mavic 3 Enterprise",
+        "serial": "1581F5FJD22A0007"
+      },
+      "metadata": {
+        "latitude": 12.24013,
+        "longitude": 109.19482,
+        "captureTime": "2026-11-03T23:42:18+07:00",
+        "cameraMake": "DJI",
+        "cameraModel": "DJI Mavic 3 Enterprise",
+        "uavSerialNumber": "1581F5FJD22A0007",
+        "altitude": 96
+      },
+      "customAttributes": null,
+      "uploadStatus": "Uploaded",
+      "processingStatus": "Completed",
+      "processingTier": 3,
+      "aiResult": {
+        "incidentType": "Normal"
+      },
+      "validationErrors": [],
+      "fingerprint": "seed-INC-8816",
+      "image": "/samples/EXT16.jpeg",
+      "createdAt": "2026-11-04T16:23:34.076Z",
+      "dataOrigin": "Seeded sample"
+    },
+    {
+      "id": "INC-8817",
+      "incidentId": "INC-8817",
+      "filename": "EXT17.jpeg",
+      "reporter": {
+        "id": "USR-UAV-07",
+        "name": "Nguyen Van A",
+        "role": "Reporter",
+        "verified": true
+      },
+      "sourceType": "drone",
+      "sourceIdentity": "1581F5FJD22A0007",
+      "sourceAssurance": {
+        "deviceRegistered": true,
+        "metadataMatched": true,
+        "simulation": true
+      },
+      "verificationStatus": "verified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "uav": {
+        "id": "AEGIS-UAV-07",
+        "model": "DJI Mavic 3 Enterprise",
+        "serial": "1581F5FJD22A0007"
+      },
+      "metadata": {
+        "latitude": 21.03012,
+        "longitude": 105.83893,
+        "captureTime": "2026-11-04T12:07:36+07:00",
+        "cameraMake": "DJI",
+        "cameraModel": "DJI Mavic 3 Enterprise",
+        "uavSerialNumber": "1581F5FJD22A0007",
+        "altitude": 96
+      },
+      "customAttributes": null,
+      "uploadStatus": "Uploaded",
+      "processingStatus": "Completed",
+      "processingTier": 3,
+      "aiResult": {
+        "incidentType": "Normal"
+      },
+      "validationErrors": [],
+      "fingerprint": "seed-INC-8817",
+      "image": "/samples/EXT17.jpeg",
+      "createdAt": "2026-11-03T10:59:34.077Z",
+      "dataOrigin": "Seeded sample"
+    },
+    {
+      "id": "INC-8818",
+      "incidentId": "INC-8818",
+      "filename": "EXT18.jpeg",
+      "reporter": {
+        "id": "USR-UAV-07",
+        "name": "Nguyen Van A",
+        "role": "Reporter",
+        "verified": true
+      },
+      "sourceType": "drone",
+      "sourceIdentity": "1581F5FJD22A0007",
+      "sourceAssurance": {
+        "deviceRegistered": true,
+        "metadataMatched": true,
+        "simulation": true
+      },
+      "verificationStatus": "verified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "uav": {
+        "id": "AEGIS-UAV-07",
+        "model": "DJI Mavic 3 Enterprise",
+        "serial": "1581F5FJD22A0007"
+      },
+      "metadata": {
+        "latitude": 16.071369,
+        "longitude": 108.192611,
+        "captureTime": "2026-11-04T01:16:45+07:00",
+        "cameraMake": "DJI",
+        "cameraModel": "DJI Mavic 3 Enterprise",
+        "uavSerialNumber": "1581F5FJD22A0007",
+        "altitude": 96
+      },
+      "customAttributes": null,
+      "uploadStatus": "Uploaded",
+      "processingStatus": "Completed",
+      "processingTier": 3,
+      "aiResult": {
+        "incidentType": "Fire"
+      },
+      "validationErrors": [],
+      "fingerprint": "seed-INC-8818",
+      "image": "/samples/EXT18.jpeg",
+      "createdAt": "2026-11-04T11:59:34.077Z",
+      "dataOrigin": "Seeded sample"
+    },
+    {
+      "id": "INC-8819",
+      "incidentId": "INC-8819",
+      "filename": "EXT19.jpeg",
+      "reporter": {
+        "id": "USR-UAV-07",
+        "name": "Nguyen Van A",
+        "role": "Reporter",
+        "verified": true
+      },
+      "sourceType": "drone",
+      "sourceIdentity": "1581F5FJD22A0007",
+      "sourceAssurance": {
+        "deviceRegistered": true,
+        "metadataMatched": true,
+        "simulation": true
+      },
+      "verificationStatus": "verified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "uav": {
+        "id": "AEGIS-UAV-07",
+        "model": "DJI Mavic 3 Enterprise",
+        "serial": "1581F5FJD22A0007"
+      },
+      "metadata": {
+        "latitude": 21.00719,
+        "longitude": 105.82156,
+        "captureTime": "2026-11-04T09:23:41+07:00",
+        "cameraMake": "DJI",
+        "cameraModel": "DJI Mavic 3 Enterprise",
+        "uavSerialNumber": "1581F5FJD22A0007",
+        "altitude": 96
+      },
+      "customAttributes": null,
+      "uploadStatus": "Uploaded",
+      "processingStatus": "Completed",
+      "processingTier": 3,
+      "aiResult": {
+        "incidentType": "Flood"
+      },
+      "validationErrors": [],
+      "fingerprint": "seed-INC-8819",
+      "image": "/samples/EXT19.jpeg",
+      "createdAt": "2026-11-04T10:59:34.077Z",
+      "dataOrigin": "Seeded sample"
+    },
+    {
+      "id": "INC-8820",
+      "incidentId": "INC-8820",
+      "filename": "EXT20.jpeg",
+      "reporter": {
+        "id": "USR-UAV-07",
+        "name": "Nguyen Van A",
+        "role": "Reporter",
+        "verified": true
+      },
+      "sourceType": "drone",
+      "sourceIdentity": "1581F5FJD22A0007",
+      "sourceAssurance": {
+        "deviceRegistered": true,
+        "metadataMatched": true,
+        "simulation": true
+      },
+      "verificationStatus": "verified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "uav": {
+        "id": "AEGIS-UAV-07",
+        "model": "DJI Mavic 3 Enterprise",
+        "serial": "1581F5FJD22A0007"
+      },
+      "metadata": {
+        "latitude": 10.78183,
+        "longitude": 106.69421,
+        "captureTime": "2026-11-04T03:37:09+07:00",
+        "cameraMake": "DJI",
+        "cameraModel": "DJI Mavic 3 Enterprise",
+        "uavSerialNumber": "1581F5FJD22A0007",
+        "altitude": 96
+      },
+      "customAttributes": null,
+      "uploadStatus": "Uploaded",
+      "processingStatus": "Completed",
+      "processingTier": 3,
+      "aiResult": {
+        "incidentType": "Traffic Accident"
+      },
+      "validationErrors": [],
+      "fingerprint": "seed-INC-8820",
+      "image": "/samples/EXT20.jpeg",
+      "createdAt": "2026-11-04T09:59:34.077Z",
+      "dataOrigin": "Seeded sample"
+    }
+  ],
+  "incidents": [
+    {
+      "id": "INC-8801",
+      "reportId": "INC-8801",
+      "originalType": "Fire",
+      "reviewedType": null,
+      "draftReviewedType": "Fire",
+      "aiConfidence": 96.2,
+      "poseConfidence": 91.4,
+      "severityScore": 88,
+      "severitySource": "Visual reference label (demo dataset)",
+      "detectedPeopleCount": 2,
+      "customTags": [
+        "narrow_entrance"
+      ],
+      "customAttributes": {
+        "narrow_entrance": {
+          "value": true,
+          "source": "Reporter"
+        },
+        "detected_people_count": {
+          "value": 2,
+          "source": "Admin"
+        }
+      },
+      "detections": [
+        {
+          "id": "P1",
+          "bbox": [
+            13,
+            20,
+            14,
+            34
+          ],
+          "pose": "Non-Upright",
+          "confidence": 99,
+          "latitude": 12.02981,
+          "longitude": 108.45622,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P2",
+          "bbox": [
+            37,
+            43,
+            13,
+            31
+          ],
+          "pose": "Upright",
+          "confidence": 97.7,
+          "latitude": 12.02951,
+          "longitude": 108.45662,
+          "locationSource": "Simulated GPS"
+        }
+      ],
+      "location": {
+        "district": "Lac Duong District",
+        "province": "Lam Dong",
+        "latitude": 12.02981,
+        "longitude": 108.45622
+      },
+      "status": "Unverified",
+      "verificationStatus": "unverified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "assignedTeamId": null,
+      "dispatchId": null,
+      "createdAt": "2026-11-04T16:51:34.073Z",
+      "verifiedAt": null,
+      "closedAt": null,
+      "image": "/samples/EXT01.jpg",
+      "reviewNotes": "",
+      "resolutionNote": "",
+      "sourceType": "drone"
+    },
+    {
+      "id": "INC-8802",
+      "reportId": "INC-8802",
+      "originalType": "Fire",
+      "reviewedType": "Fire",
+      "draftReviewedType": "Fire",
+      "aiConfidence": 97.1,
+      "poseConfidence": 93,
+      "severityScore": 91.5,
+      "severitySource": "Visual reference label (demo dataset)",
+      "detectedPeopleCount": 3,
+      "customTags": [
+        "narrow_entrance"
+      ],
+      "customAttributes": {
+        "narrow_entrance": {
+          "value": true,
+          "source": "Reporter"
+        },
+        "detected_people_count": {
+          "value": 3,
+          "source": "Admin"
+        }
+      },
+      "detections": [
+        {
+          "id": "P1",
+          "bbox": [
+            13,
+            20,
+            14,
+            34
+          ],
+          "pose": "Non-Upright",
+          "confidence": 99,
+          "latitude": 15.886219,
+          "longitude": 108.326411,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P2",
+          "bbox": [
+            37,
+            43,
+            13,
+            31
+          ],
+          "pose": "Upright",
+          "confidence": 97.7,
+          "latitude": 15.885919,
+          "longitude": 108.326811,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P3",
+          "bbox": [
+            61,
+            18,
+            15,
+            35
+          ],
+          "pose": "Upright",
+          "confidence": 96.4,
+          "latitude": 15.885619,
+          "longitude": 108.327211,
+          "locationSource": "Simulated GPS"
+        }
+      ],
+      "location": {
+        "district": "Hoi An",
+        "province": "Quang Nam",
+        "latitude": 15.886219,
+        "longitude": 108.326411
+      },
+      "status": "Matching Team",
+      "verificationStatus": "verified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "assignedTeamId": null,
+      "dispatchId": null,
+      "createdAt": "2026-11-04T16:13:34.074Z",
+      "verifiedAt": "2026-11-04T16:21:34.074Z",
+      "closedAt": null,
+      "image": "/samples/EXT02.jpeg",
+      "reviewNotes": "",
+      "resolutionNote": "",
+      "sourceType": "drone"
+    },
+    {
+      "id": "INC-8803",
+      "reportId": "INC-8803",
+      "originalType": "Fire",
+      "reviewedType": "Fire",
+      "draftReviewedType": "Fire",
+      "aiConfidence": 95,
+      "poseConfidence": 89.8,
+      "severityScore": 84,
+      "severitySource": "Visual reference label (demo dataset)",
+      "detectedPeopleCount": 2,
+      "customTags": [
+        "narrow_entrance"
+      ],
+      "customAttributes": {
+        "narrow_entrance": {
+          "value": true,
+          "source": "Reporter"
+        },
+        "detected_people_count": {
+          "value": 2,
+          "source": "Admin"
+        }
+      },
+      "detections": [
+        {
+          "id": "P1",
+          "bbox": [
+            13,
+            20,
+            14,
+            34
+          ],
+          "pose": "Non-Upright",
+          "confidence": 99,
+          "latitude": 15.92088,
+          "longitude": 107.78762,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P2",
+          "bbox": [
+            37,
+            43,
+            13,
+            31
+          ],
+          "pose": "Upright",
+          "confidence": 97.7,
+          "latitude": 15.92058,
+          "longitude": 107.78802,
+          "locationSource": "Simulated GPS"
+        }
+      ],
+      "location": {
+        "district": "Dong Giang District",
+        "province": "Quang Nam",
+        "latitude": 15.92088,
+        "longitude": 107.78762
+      },
+      "status": "Resolved",
+      "verificationStatus": "verified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "assignedTeamId": "QN-FIRE-01",
+      "dispatchId": "DSP-2208",
+      "createdAt": "2026-11-04T05:59:34.074Z",
+      "verifiedAt": "2026-11-04T06:07:34.074Z",
+      "closedAt": "2026-11-04T06:34:34.074Z",
+      "image": "/samples/EXT03.jpg",
+      "reviewNotes": "",
+      "resolutionNote": "",
+      "sourceType": "drone"
+    },
+    {
+      "id": "INC-8804",
+      "reportId": "INC-8804",
+      "originalType": "Building Collapse",
+      "reviewedType": "Building Collapse",
+      "draftReviewedType": "Building Collapse",
+      "aiConfidence": 97.6,
+      "poseConfidence": 94.1,
+      "severityScore": 93,
+      "severitySource": "Visual reference label (demo dataset)",
+      "detectedPeopleCount": 6,
+      "customTags": [
+        "narrow_entrance",
+        "heavy_debris"
+      ],
+      "customAttributes": {
+        "narrow_entrance": {
+          "value": true,
+          "source": "Reporter"
+        },
+        "detected_people_count": {
+          "value": 6,
+          "source": "Admin"
+        }
+      },
+      "detections": [
+        {
+          "id": "P1",
+          "bbox": [
+            13,
+            20,
+            14,
+            34
+          ],
+          "pose": "Non-Upright",
+          "confidence": 99,
+          "latitude": 21.02376,
+          "longitude": 105.84123,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P2",
+          "bbox": [
+            37,
+            43,
+            13,
+            31
+          ],
+          "pose": "Upright",
+          "confidence": 97.7,
+          "latitude": 21.02346,
+          "longitude": 105.84163,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P3",
+          "bbox": [
+            61,
+            18,
+            15,
+            35
+          ],
+          "pose": "Upright",
+          "confidence": 96.4,
+          "latitude": 21.02316,
+          "longitude": 105.84203,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P4",
+          "bbox": [
+            73,
+            51,
+            17,
+            26
+          ],
+          "pose": "Non-Upright",
+          "confidence": 95.1,
+          "latitude": 21.02286,
+          "longitude": 105.84243,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P5",
+          "bbox": [
+            27,
+            55,
+            13,
+            28
+          ],
+          "pose": "Upright",
+          "confidence": 93.8,
+          "latitude": 21.02256,
+          "longitude": 105.84283,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P6",
+          "bbox": [
+            51,
+            48,
+            14,
+            29
+          ],
+          "pose": "Non-Upright",
+          "confidence": 92.5,
+          "latitude": 21.02226,
+          "longitude": 105.84323,
+          "locationSource": "Simulated GPS"
+        }
+      ],
+      "location": {
+        "district": "Hoan Kiem District",
+        "province": "Ha Noi",
+        "latitude": 21.02376,
+        "longitude": 105.84123
+      },
+      "status": "In Progress",
+      "verificationStatus": "verified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "assignedTeamId": "HN-USAR-01",
+      "dispatchId": "DSP-2201",
+      "createdAt": "2026-11-04T14:51:34.074Z",
+      "verifiedAt": "2026-11-04T14:59:34.074Z",
+      "closedAt": null,
+      "image": "/samples/EXT04.jpg",
+      "reviewNotes": "",
+      "resolutionNote": "",
+      "sourceType": "drone"
+    },
+    {
+      "id": "INC-8805",
+      "reportId": "INC-8805",
+      "originalType": "Building Collapse",
+      "reviewedType": "Building Collapse",
+      "draftReviewedType": "Building Collapse",
+      "aiConfidence": 96.4,
+      "poseConfidence": 92,
+      "severityScore": 87,
+      "severitySource": "Visual reference label (demo dataset)",
+      "detectedPeopleCount": 4,
+      "customTags": [
+        "heavy_debris"
+      ],
+      "customAttributes": {
+        "narrow_entrance": {
+          "value": false,
+          "source": "Reporter"
+        },
+        "detected_people_count": {
+          "value": 4,
+          "source": "Admin"
+        }
+      },
+      "detections": [
+        {
+          "id": "P1",
+          "bbox": [
+            13,
+            20,
+            14,
+            34
+          ],
+          "pose": "Non-Upright",
+          "confidence": 99,
+          "latitude": 16.05562,
+          "longitude": 108.21841,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P2",
+          "bbox": [
+            37,
+            43,
+            13,
+            31
+          ],
+          "pose": "Upright",
+          "confidence": 97.7,
+          "latitude": 16.05532,
+          "longitude": 108.21881,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P3",
+          "bbox": [
+            61,
+            18,
+            15,
+            35
+          ],
+          "pose": "Upright",
+          "confidence": 96.4,
+          "latitude": 16.05502,
+          "longitude": 108.21921,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P4",
+          "bbox": [
+            73,
+            51,
+            17,
+            26
+          ],
+          "pose": "Non-Upright",
+          "confidence": 95.1,
+          "latitude": 16.05472,
+          "longitude": 108.21961,
+          "locationSource": "Simulated GPS"
+        }
+      ],
+      "location": {
+        "district": "Hai Chau District",
+        "province": "Da Nang",
+        "latitude": 16.05562,
+        "longitude": 108.21841
+      },
+      "status": "In Progress",
+      "verificationStatus": "verified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "assignedTeamId": "DN-USAR-01",
+      "dispatchId": "DSP-2202",
+      "createdAt": "2026-11-04T14:23:34.075Z",
+      "verifiedAt": "2026-11-04T14:31:34.075Z",
+      "closedAt": null,
+      "image": "/samples/EXT05.jpg",
+      "reviewNotes": "",
+      "resolutionNote": "",
+      "sourceType": "drone"
+    },
+    {
+      "id": "INC-8806",
+      "reportId": "INC-8806",
+      "originalType": "Building Collapse",
+      "reviewedType": "Building Collapse",
+      "draftReviewedType": "Building Collapse",
+      "aiConfidence": 96.8,
+      "poseConfidence": 92.6,
+      "severityScore": 89.5,
+      "severitySource": "Visual reference label (demo dataset)",
+      "detectedPeopleCount": 5,
+      "customTags": [
+        "heavy_debris"
+      ],
+      "customAttributes": {
+        "narrow_entrance": {
+          "value": false,
+          "source": "Reporter"
+        },
+        "detected_people_count": {
+          "value": 5,
+          "source": "Admin"
+        }
+      },
+      "detections": [
+        {
+          "id": "P1",
+          "bbox": [
+            13,
+            20,
+            14,
+            34
+          ],
+          "pose": "Non-Upright",
+          "confidence": 99,
+          "latitude": 10.774831,
+          "longitude": 106.669219,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P2",
+          "bbox": [
+            37,
+            43,
+            13,
+            31
+          ],
+          "pose": "Upright",
+          "confidence": 97.7,
+          "latitude": 10.774531,
+          "longitude": 106.669619,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P3",
+          "bbox": [
+            61,
+            18,
+            15,
+            35
+          ],
+          "pose": "Upright",
+          "confidence": 96.4,
+          "latitude": 10.774231,
+          "longitude": 106.670019,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P4",
+          "bbox": [
+            73,
+            51,
+            17,
+            26
+          ],
+          "pose": "Non-Upright",
+          "confidence": 95.1,
+          "latitude": 10.773931,
+          "longitude": 106.670419,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P5",
+          "bbox": [
+            27,
+            55,
+            13,
+            28
+          ],
+          "pose": "Upright",
+          "confidence": 93.8,
+          "latitude": 10.773631,
+          "longitude": 106.670819,
+          "locationSource": "Simulated GPS"
+        }
+      ],
+      "location": {
+        "district": "District 6",
+        "province": "Ho Chi Minh City",
+        "latitude": 10.774831,
+        "longitude": 106.669219
+      },
+      "status": "Matching Team",
+      "verificationStatus": "verified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "assignedTeamId": null,
+      "dispatchId": null,
+      "createdAt": "2026-11-04T16:01:34.075Z",
+      "verifiedAt": "2026-11-04T16:09:34.075Z",
+      "closedAt": null,
+      "image": "/samples/EXT06.jpeg",
+      "reviewNotes": "",
+      "resolutionNote": "",
+      "sourceType": "drone"
+    },
+    {
+      "id": "INC-8807",
+      "reportId": "INC-8807",
+      "originalType": "Building Collapse",
+      "reviewedType": "Building Collapse",
+      "draftReviewedType": "Building Collapse",
+      "aiConfidence": 95.3,
+      "poseConfidence": 90.2,
+      "severityScore": 82,
+      "severitySource": "Visual reference label (demo dataset)",
+      "detectedPeopleCount": 3,
+      "customTags": [
+        "heavy_debris"
+      ],
+      "customAttributes": {
+        "narrow_entrance": {
+          "value": false,
+          "source": "Reporter"
+        },
+        "detected_people_count": {
+          "value": 3,
+          "source": "Admin"
+        }
+      },
+      "detections": [
+        {
+          "id": "P1",
+          "bbox": [
+            13,
+            20,
+            14,
+            34
+          ],
+          "pose": "Non-Upright",
+          "confidence": 99,
+          "latitude": 12.251119,
+          "longitude": 109.173719,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P2",
+          "bbox": [
+            37,
+            43,
+            13,
+            31
+          ],
+          "pose": "Upright",
+          "confidence": 97.7,
+          "latitude": 12.250819,
+          "longitude": 109.174119,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P3",
+          "bbox": [
+            61,
+            18,
+            15,
+            35
+          ],
+          "pose": "Upright",
+          "confidence": 96.4,
+          "latitude": 12.250519,
+          "longitude": 109.174519,
+          "locationSource": "Simulated GPS"
+        }
+      ],
+      "location": {
+        "district": "Nha Trang",
+        "province": "Khanh Hoa",
+        "latitude": 12.251119,
+        "longitude": 109.173719
+      },
+      "status": "Resolved",
+      "verificationStatus": "verified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "assignedTeamId": "KH-USAR-01",
+      "dispatchId": "DSP-2209",
+      "createdAt": "2026-11-04T04:59:34.075Z",
+      "verifiedAt": "2026-11-04T05:07:34.075Z",
+      "closedAt": "2026-11-04T05:34:34.075Z",
+      "image": "/samples/EXT07.jpeg",
+      "reviewNotes": "",
+      "resolutionNote": "",
+      "sourceType": "drone"
+    },
+    {
+      "id": "INC-8808",
+      "reportId": "INC-8808",
+      "originalType": "Building Collapse",
+      "reviewedType": null,
+      "draftReviewedType": "Building Collapse",
+      "aiConfidence": 95.9,
+      "poseConfidence": 91,
+      "severityScore": 85,
+      "severitySource": "Visual reference label (demo dataset)",
+      "detectedPeopleCount": 4,
+      "customTags": [
+        "heavy_debris"
+      ],
+      "customAttributes": {
+        "narrow_entrance": {
+          "value": false,
+          "source": "Reporter"
+        },
+        "detected_people_count": {
+          "value": 4,
+          "source": "Admin"
+        }
+      },
+      "detections": [
+        {
+          "id": "P1",
+          "bbox": [
+            13,
+            20,
+            14,
+            34
+          ],
+          "pose": "Non-Upright",
+          "confidence": 99,
+          "latitude": 12.589419,
+          "longitude": 109.138611,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P2",
+          "bbox": [
+            37,
+            43,
+            13,
+            31
+          ],
+          "pose": "Upright",
+          "confidence": 97.7,
+          "latitude": 12.589119,
+          "longitude": 109.139011,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P3",
+          "bbox": [
+            61,
+            18,
+            15,
+            35
+          ],
+          "pose": "Upright",
+          "confidence": 96.4,
+          "latitude": 12.588819,
+          "longitude": 109.139411,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P4",
+          "bbox": [
+            73,
+            51,
+            17,
+            26
+          ],
+          "pose": "Non-Upright",
+          "confidence": 95.1,
+          "latitude": 12.588519,
+          "longitude": 109.139811,
+          "locationSource": "Simulated GPS"
+        }
+      ],
+      "location": {
+        "district": "Ninh Hoa",
+        "province": "Khanh Hoa",
+        "latitude": 12.589419,
+        "longitude": 109.138611
+      },
+      "status": "Unverified",
+      "verificationStatus": "unverified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "assignedTeamId": null,
+      "dispatchId": null,
+      "createdAt": "2026-11-04T16:37:34.075Z",
+      "verifiedAt": null,
+      "closedAt": null,
+      "image": "/samples/EXT08.jpeg",
+      "reviewNotes": "",
+      "resolutionNote": "",
+      "sourceType": "drone"
+    },
+    {
+      "id": "INC-8809",
+      "reportId": "INC-8809",
+      "originalType": "Traffic Accident",
+      "reviewedType": "Traffic Accident",
+      "draftReviewedType": "Traffic Accident",
+      "aiConfidence": 93.8,
+      "poseConfidence": 88.5,
+      "severityScore": 72,
+      "severitySource": "Visual reference label (demo dataset)",
+      "detectedPeopleCount": 2,
+      "customTags": [
+        "critical_trauma"
+      ],
+      "customAttributes": {
+        "narrow_entrance": {
+          "value": false,
+          "source": "Reporter"
+        },
+        "detected_people_count": {
+          "value": 2,
+          "source": "Admin"
+        }
+      },
+      "detections": [
+        {
+          "id": "P1",
+          "bbox": [
+            13,
+            20,
+            14,
+            34
+          ],
+          "pose": "Non-Upright",
+          "confidence": 99,
+          "latitude": 10.131311,
+          "longitude": 105.667219,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P2",
+          "bbox": [
+            37,
+            43,
+            13,
+            31
+          ],
+          "pose": "Upright",
+          "confidence": 97.7,
+          "latitude": 10.131011,
+          "longitude": 105.667619,
+          "locationSource": "Simulated GPS"
+        }
+      ],
+      "location": {
+        "district": "Binh Thuy District",
+        "province": "Can Tho",
+        "latitude": 10.131311,
+        "longitude": 105.667219
+      },
+      "status": "Matching Team",
+      "verificationStatus": "verified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "assignedTeamId": null,
+      "dispatchId": null,
+      "createdAt": "2026-11-04T15:47:34.075Z",
+      "verifiedAt": "2026-11-04T15:55:34.075Z",
+      "closedAt": null,
+      "image": "/samples/EXT09.jpeg",
+      "reviewNotes": "",
+      "resolutionNote": "",
+      "sourceType": "drone"
+    },
+    {
+      "id": "INC-8810",
+      "reportId": "INC-8810",
+      "originalType": "Traffic Accident",
+      "reviewedType": "Traffic Accident",
+      "draftReviewedType": "Traffic Accident",
+      "aiConfidence": 92.8,
+      "poseConfidence": 87.2,
+      "severityScore": 68,
+      "severitySource": "Visual reference label (demo dataset)",
+      "detectedPeopleCount": 1,
+      "customTags": [
+        "critical_trauma"
+      ],
+      "customAttributes": {
+        "narrow_entrance": {
+          "value": false,
+          "source": "Reporter"
+        },
+        "detected_people_count": {
+          "value": 1,
+          "source": "Admin"
+        }
+      },
+      "detections": [
+        {
+          "id": "P1",
+          "bbox": [
+            13,
+            20,
+            14,
+            34
+          ],
+          "pose": "Non-Upright",
+          "confidence": 99,
+          "latitude": 10.29462,
+          "longitude": 105.54864,
+          "locationSource": "Simulated GPS"
+        }
+      ],
+      "location": {
+        "district": "Thot Not District",
+        "province": "Can Tho",
+        "latitude": 10.29462,
+        "longitude": 105.54864
+      },
+      "status": "Resolved",
+      "verificationStatus": "verified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "assignedTeamId": "CT-TRAFFIC-01",
+      "dispatchId": "DSP-2210",
+      "createdAt": "2026-11-04T02:19:34.076Z",
+      "verifiedAt": "2026-11-04T02:27:34.076Z",
+      "closedAt": "2026-11-04T02:54:34.076Z",
+      "image": "/samples/EXT10.jpeg",
+      "reviewNotes": "",
+      "resolutionNote": "",
+      "sourceType": "drone"
+    },
+    {
+      "id": "INC-8811",
+      "reportId": "INC-8811",
+      "originalType": "Traffic Accident",
+      "reviewedType": "Traffic Accident",
+      "draftReviewedType": "Traffic Accident",
+      "aiConfidence": 94.5,
+      "poseConfidence": 89.1,
+      "severityScore": 74.5,
+      "severitySource": "Visual reference label (demo dataset)",
+      "detectedPeopleCount": 2,
+      "customTags": [
+        "critical_trauma"
+      ],
+      "customAttributes": {
+        "narrow_entrance": {
+          "value": false,
+          "source": "Reporter"
+        },
+        "detected_people_count": {
+          "value": 2,
+          "source": "Admin"
+        }
+      },
+      "detections": [
+        {
+          "id": "P1",
+          "bbox": [
+            13,
+            20,
+            14,
+            34
+          ],
+          "pose": "Non-Upright",
+          "confidence": 99,
+          "latitude": 11.900639,
+          "longitude": 108.451811,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P2",
+          "bbox": [
+            37,
+            43,
+            13,
+            31
+          ],
+          "pose": "Upright",
+          "confidence": 97.7,
+          "latitude": 11.900339,
+          "longitude": 108.452211,
+          "locationSource": "Simulated GPS"
+        }
+      ],
+      "location": {
+        "district": "Da Lat",
+        "province": "Lam Dong",
+        "latitude": 11.900639,
+        "longitude": 108.451811
+      },
+      "status": "In Progress",
+      "verificationStatus": "verified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "assignedTeamId": "LD-TRAFFIC-01",
+      "dispatchId": "DSP-2203",
+      "createdAt": "2026-11-04T14:03:34.076Z",
+      "verifiedAt": "2026-11-04T14:11:34.076Z",
+      "closedAt": null,
+      "image": "/samples/EXT11.jpeg",
+      "reviewNotes": "",
+      "resolutionNote": "",
+      "sourceType": "drone"
+    },
+    {
+      "id": "INC-8812",
+      "reportId": "INC-8812",
+      "originalType": "Flood",
+      "reviewedType": null,
+      "draftReviewedType": "Flood",
+      "aiConfidence": 95.4,
+      "poseConfidence": 90.8,
+      "severityScore": 78.5,
+      "severitySource": "Visual reference label (demo dataset)",
+      "detectedPeopleCount": 4,
+      "customTags": [
+        "deep_submerged",
+        "fast_current"
+      ],
+      "customAttributes": {
+        "narrow_entrance": {
+          "value": false,
+          "source": "Reporter"
+        },
+        "detected_people_count": {
+          "value": 4,
+          "source": "Admin"
+        }
+      },
+      "detections": [
+        {
+          "id": "P1",
+          "bbox": [
+            13,
+            20,
+            14,
+            34
+          ],
+          "pose": "Non-Upright",
+          "confidence": 99,
+          "latitude": 15.87281,
+          "longitude": 108.32954,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P2",
+          "bbox": [
+            37,
+            43,
+            13,
+            31
+          ],
+          "pose": "Upright",
+          "confidence": 97.7,
+          "latitude": 15.87251,
+          "longitude": 108.32994,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P3",
+          "bbox": [
+            61,
+            18,
+            15,
+            35
+          ],
+          "pose": "Upright",
+          "confidence": 96.4,
+          "latitude": 15.87221,
+          "longitude": 108.33034,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P4",
+          "bbox": [
+            73,
+            51,
+            17,
+            26
+          ],
+          "pose": "Non-Upright",
+          "confidence": 95.1,
+          "latitude": 15.87191,
+          "longitude": 108.33074,
+          "locationSource": "Simulated GPS"
+        }
+      ],
+      "location": {
+        "district": "Hoi An",
+        "province": "Quang Nam",
+        "latitude": 15.87281,
+        "longitude": 108.32954
+      },
+      "status": "Unverified",
+      "verificationStatus": "unverified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "assignedTeamId": null,
+      "dispatchId": null,
+      "createdAt": "2026-11-04T16:44:34.076Z",
+      "verifiedAt": null,
+      "closedAt": null,
+      "image": "/samples/EXT12.jpg",
+      "reviewNotes": "",
+      "resolutionNote": "",
+      "sourceType": "drone"
+    },
+    {
+      "id": "INC-8813",
+      "reportId": "INC-8813",
+      "originalType": "Flood",
+      "reviewedType": "Flood",
+      "draftReviewedType": "Flood",
+      "aiConfidence": 96,
+      "poseConfidence": 91.7,
+      "severityScore": 81,
+      "severitySource": "Visual reference label (demo dataset)",
+      "detectedPeopleCount": 3,
+      "customTags": [
+        "deep_submerged"
+      ],
+      "customAttributes": {
+        "narrow_entrance": {
+          "value": true,
+          "source": "Reporter"
+        },
+        "detected_people_count": {
+          "value": 3,
+          "source": "Admin"
+        }
+      },
+      "detections": [
+        {
+          "id": "P1",
+          "bbox": [
+            13,
+            20,
+            14,
+            34
+          ],
+          "pose": "Non-Upright",
+          "confidence": 99,
+          "latitude": 10.78802,
+          "longitude": 106.71632,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P2",
+          "bbox": [
+            37,
+            43,
+            13,
+            31
+          ],
+          "pose": "Upright",
+          "confidence": 97.7,
+          "latitude": 10.78772,
+          "longitude": 106.71672,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P3",
+          "bbox": [
+            61,
+            18,
+            15,
+            35
+          ],
+          "pose": "Upright",
+          "confidence": 96.4,
+          "latitude": 10.78742,
+          "longitude": 106.71712,
+          "locationSource": "Simulated GPS"
+        }
+      ],
+      "location": {
+        "district": "Binh Thanh District",
+        "province": "Ho Chi Minh City",
+        "latitude": 10.78802,
+        "longitude": 106.71632
+      },
+      "status": "In Progress",
+      "verificationStatus": "verified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "assignedTeamId": "WATER-01",
+      "dispatchId": "DSP-2204",
+      "createdAt": "2026-11-04T13:01:34.076Z",
+      "verifiedAt": "2026-11-04T13:09:34.076Z",
+      "closedAt": null,
+      "image": "/samples/EXT13.jpg",
+      "reviewNotes": "",
+      "resolutionNote": "",
+      "sourceType": "drone"
+    },
+    {
+      "id": "INC-8814",
+      "reportId": "INC-8814",
+      "originalType": "Flood",
+      "reviewedType": "Flood",
+      "draftReviewedType": "Flood",
+      "aiConfidence": 94.9,
+      "poseConfidence": 89.9,
+      "severityScore": 76,
+      "severitySource": "Visual reference label (demo dataset)",
+      "detectedPeopleCount": 2,
+      "customTags": [
+        "deep_submerged"
+      ],
+      "customAttributes": {
+        "narrow_entrance": {
+          "value": false,
+          "source": "Reporter"
+        },
+        "detected_people_count": {
+          "value": 2,
+          "source": "Admin"
+        }
+      },
+      "detections": [
+        {
+          "id": "P1",
+          "bbox": [
+            13,
+            20,
+            14,
+            34
+          ],
+          "pose": "Non-Upright",
+          "confidence": 99,
+          "latitude": 21.04671,
+          "longitude": 105.86624,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P2",
+          "bbox": [
+            37,
+            43,
+            13,
+            31
+          ],
+          "pose": "Upright",
+          "confidence": 97.7,
+          "latitude": 21.04641,
+          "longitude": 105.86664,
+          "locationSource": "Simulated GPS"
+        }
+      ],
+      "location": {
+        "district": "Tay Ho District",
+        "province": "Ha Noi",
+        "latitude": 21.04671,
+        "longitude": 105.86624
+      },
+      "status": "Matching Team",
+      "verificationStatus": "verified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "assignedTeamId": null,
+      "dispatchId": null,
+      "createdAt": "2026-11-04T15:23:34.076Z",
+      "verifiedAt": "2026-11-04T15:31:34.076Z",
+      "closedAt": null,
+      "image": "/samples/EXT14.jpeg",
+      "reviewNotes": "",
+      "resolutionNote": "",
+      "sourceType": "drone"
+    },
+    {
+      "id": "INC-8815",
+      "reportId": "INC-8815",
+      "originalType": "Normal",
+      "reviewedType": "Normal",
+      "draftReviewedType": "Normal",
+      "aiConfidence": 97.2,
+      "poseConfidence": 0,
+      "severityScore": 9,
+      "severitySource": "Visual reference label (demo dataset)",
+      "detectedPeopleCount": 0,
+      "customTags": [],
+      "customAttributes": {
+        "narrow_entrance": {
+          "value": false,
+          "source": "Reporter"
+        },
+        "detected_people_count": {
+          "value": 0,
+          "source": "Admin"
+        }
+      },
+      "detections": [],
+      "location": {
+        "district": "Hai Chau District",
+        "province": "Da Nang",
+        "latitude": 16.06257,
+        "longitude": 108.21964
+      },
+      "status": "Resolved",
+      "verificationStatus": "verified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "assignedTeamId": null,
+      "dispatchId": null,
+      "createdAt": "2026-11-03T16:59:34.076Z",
+      "verifiedAt": "2026-11-03T17:07:34.076Z",
+      "closedAt": "2026-11-03T17:34:34.076Z",
+      "image": "/samples/EXT15.jpeg",
+      "reviewNotes": "",
+      "resolutionNote": "",
+      "sourceType": "drone"
+    },
+    {
+      "id": "INC-8816",
+      "reportId": "INC-8816",
+      "originalType": "Normal",
+      "reviewedType": null,
+      "draftReviewedType": "Normal",
+      "aiConfidence": 96.7,
+      "poseConfidence": 0,
+      "severityScore": 12,
+      "severitySource": "Visual reference label (demo dataset)",
+      "detectedPeopleCount": 0,
+      "customTags": [],
+      "customAttributes": {
+        "narrow_entrance": {
+          "value": false,
+          "source": "Reporter"
+        },
+        "detected_people_count": {
+          "value": 0,
+          "source": "Admin"
+        }
+      },
+      "detections": [],
+      "location": {
+        "district": "Nha Trang",
+        "province": "Khanh Hoa",
+        "latitude": 12.24013,
+        "longitude": 109.19482
+      },
+      "status": "Unverified",
+      "verificationStatus": "unverified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "assignedTeamId": null,
+      "dispatchId": null,
+      "createdAt": "2026-11-04T16:23:34.076Z",
+      "verifiedAt": null,
+      "closedAt": null,
+      "image": "/samples/EXT16.jpeg",
+      "reviewNotes": "",
+      "resolutionNote": "",
+      "sourceType": "drone"
+    },
+    {
+      "id": "INC-8817",
+      "reportId": "INC-8817",
+      "originalType": "Normal",
+      "reviewedType": "Normal",
+      "draftReviewedType": "Normal",
+      "aiConfidence": 97.8,
+      "poseConfidence": 0,
+      "severityScore": 7.5,
+      "severitySource": "Visual reference label (demo dataset)",
+      "detectedPeopleCount": 0,
+      "customTags": [],
+      "customAttributes": {
+        "narrow_entrance": {
+          "value": true,
+          "source": "Reporter"
+        },
+        "detected_people_count": {
+          "value": 0,
+          "source": "Admin"
+        }
+      },
+      "detections": [],
+      "location": {
+        "district": "Dong Da District",
+        "province": "Ha Noi",
+        "latitude": 21.03012,
+        "longitude": 105.83893
+      },
+      "status": "Resolved",
+      "verificationStatus": "verified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "assignedTeamId": null,
+      "dispatchId": null,
+      "createdAt": "2026-11-03T10:59:34.076Z",
+      "verifiedAt": "2026-11-03T11:07:34.076Z",
+      "closedAt": "2026-11-03T11:34:34.076Z",
+      "image": "/samples/EXT17.jpeg",
+      "reviewNotes": "",
+      "resolutionNote": "",
+      "sourceType": "drone"
+    },
+    {
+      "id": "INC-8818",
+      "reportId": "INC-8818",
+      "originalType": "Fire",
+      "reviewedType": "Fire",
+      "draftReviewedType": "Fire",
+      "aiConfidence": 96.6,
+      "poseConfidence": 92.3,
+      "severityScore": 86.5,
+      "severitySource": "Visual reference label (demo dataset)",
+      "detectedPeopleCount": 3,
+      "customTags": [
+        "narrow_entrance"
+      ],
+      "customAttributes": {
+        "narrow_entrance": {
+          "value": true,
+          "source": "Reporter"
+        },
+        "detected_people_count": {
+          "value": 3,
+          "source": "Admin"
+        }
+      },
+      "detections": [
+        {
+          "id": "P1",
+          "bbox": [
+            13,
+            20,
+            14,
+            34
+          ],
+          "pose": "Non-Upright",
+          "confidence": 99,
+          "latitude": 16.071369,
+          "longitude": 108.192611,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P2",
+          "bbox": [
+            37,
+            43,
+            13,
+            31
+          ],
+          "pose": "Upright",
+          "confidence": 97.7,
+          "latitude": 16.071069,
+          "longitude": 108.193011,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P3",
+          "bbox": [
+            61,
+            18,
+            15,
+            35
+          ],
+          "pose": "Upright",
+          "confidence": 96.4,
+          "latitude": 16.070769,
+          "longitude": 108.193411,
+          "locationSource": "Simulated GPS"
+        }
+      ],
+      "location": {
+        "district": "Son Tra District",
+        "province": "Da Nang",
+        "latitude": 16.071369,
+        "longitude": 108.192611
+      },
+      "status": "In Progress",
+      "verificationStatus": "verified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "assignedTeamId": "DN-FIRE-01",
+      "dispatchId": "DSP-2205",
+      "createdAt": "2026-11-04T11:59:34.077Z",
+      "verifiedAt": "2026-11-04T12:07:34.077Z",
+      "closedAt": null,
+      "image": "/samples/EXT18.jpeg",
+      "reviewNotes": "",
+      "resolutionNote": "",
+      "sourceType": "drone"
+    },
+    {
+      "id": "INC-8819",
+      "reportId": "INC-8819",
+      "originalType": "Flood",
+      "reviewedType": "Flood",
+      "draftReviewedType": "Flood",
+      "aiConfidence": 95.7,
+      "poseConfidence": 91.2,
+      "severityScore": 79,
+      "severitySource": "Visual reference label (demo dataset)",
+      "detectedPeopleCount": 3,
+      "customTags": [
+        "deep_submerged",
+        "fast_current"
+      ],
+      "customAttributes": {
+        "narrow_entrance": {
+          "value": false,
+          "source": "Reporter"
+        },
+        "detected_people_count": {
+          "value": 3,
+          "source": "Admin"
+        }
+      },
+      "detections": [
+        {
+          "id": "P1",
+          "bbox": [
+            13,
+            20,
+            14,
+            34
+          ],
+          "pose": "Non-Upright",
+          "confidence": 99,
+          "latitude": 21.00719,
+          "longitude": 105.82156,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P2",
+          "bbox": [
+            37,
+            43,
+            13,
+            31
+          ],
+          "pose": "Upright",
+          "confidence": 97.7,
+          "latitude": 21.00689,
+          "longitude": 105.82196,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P3",
+          "bbox": [
+            61,
+            18,
+            15,
+            35
+          ],
+          "pose": "Upright",
+          "confidence": 96.4,
+          "latitude": 21.00659,
+          "longitude": 105.82236,
+          "locationSource": "Simulated GPS"
+        }
+      ],
+      "location": {
+        "district": "Ba Dinh District",
+        "province": "Ha Noi",
+        "latitude": 21.00719,
+        "longitude": 105.82156
+      },
+      "status": "In Progress",
+      "verificationStatus": "verified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "assignedTeamId": "HN-WATER-01",
+      "dispatchId": "DSP-2206",
+      "createdAt": "2026-11-04T10:59:34.077Z",
+      "verifiedAt": "2026-11-04T11:07:34.077Z",
+      "closedAt": null,
+      "image": "/samples/EXT19.jpeg",
+      "reviewNotes": "",
+      "resolutionNote": "",
+      "sourceType": "drone"
+    },
+    {
+      "id": "INC-8820",
+      "reportId": "INC-8820",
+      "originalType": "Traffic Accident",
+      "reviewedType": "Traffic Accident",
+      "draftReviewedType": "Traffic Accident",
+      "aiConfidence": 93.2,
+      "poseConfidence": 88,
+      "severityScore": 70,
+      "severitySource": "Visual reference label (demo dataset)",
+      "detectedPeopleCount": 2,
+      "customTags": [
+        "critical_trauma"
+      ],
+      "customAttributes": {
+        "narrow_entrance": {
+          "value": false,
+          "source": "Reporter"
+        },
+        "detected_people_count": {
+          "value": 2,
+          "source": "Admin"
+        }
+      },
+      "detections": [
+        {
+          "id": "P1",
+          "bbox": [
+            13,
+            20,
+            14,
+            34
+          ],
+          "pose": "Non-Upright",
+          "confidence": 99,
+          "latitude": 10.78183,
+          "longitude": 106.69421,
+          "locationSource": "Simulated GPS"
+        },
+        {
+          "id": "P2",
+          "bbox": [
+            37,
+            43,
+            13,
+            31
+          ],
+          "pose": "Upright",
+          "confidence": 97.7,
+          "latitude": 10.78153,
+          "longitude": 106.69461,
+          "locationSource": "Simulated GPS"
+        }
+      ],
+      "location": {
+        "district": "District 1",
+        "province": "Ho Chi Minh City",
+        "latitude": 10.78183,
+        "longitude": 106.69421
+      },
+      "status": "In Progress",
+      "verificationStatus": "verified",
+      "verificationLabel": "Verified (Drone Telemetry)",
+      "verificationReason": "Registered AEGIS-UAV demo telemetry source.",
+      "corroboratedBy": [],
+      "assignedTeamId": "VOL-01",
+      "dispatchId": "DSP-2207",
+      "createdAt": "2026-11-04T09:59:34.077Z",
+      "verifiedAt": "2026-11-04T10:07:34.077Z",
+      "closedAt": null,
+      "image": "/samples/EXT20.jpeg",
+      "reviewNotes": "",
+      "resolutionNote": "",
+      "sourceType": "drone"
+    }
+  ],
+  "teams": [
+    {
+      "id": "SAR-01",
+      "name": "HCMC Rapid Urban Search & Rescue Unit",
+      "commander": "Tran Van Phong",
+      "members": 8,
+      "capacity": 8,
+      "area": "Binh Thanh District",
+      "province": "Ho Chi Minh City",
+      "status": "Available",
+      "currentMissionId": null,
+      "distanceKm": 2.1,
+      "matchScore": 98,
+      "equipment": "02 rescue boats · 04 UAVs · medical kit",
+      "coverage": [
+        "Binh Thanh District"
+      ],
+      "equipment_inventory": {
+        "rescue_boats": 2,
+        "pump_units": 1,
+        "heavy_debris_gear": 1,
+        "rope_sets": 2,
+        "thermal_drones": 4,
+        "medical_kits": 5,
+        "stretchers": 4
+      },
+      "customAttributes": {
+        "vehicle_type": {
+          "value": "rescue_boat",
+          "source": "Admin"
+        },
+        "heavy_debris_gear": {
+          "value": true,
+          "source": "Admin"
+        }
+      }
+    },
+    {
+      "id": "FIRE-01",
+      "name": "HCMC Fire & Rescue Unit",
+      "commander": "Le Quoc Hung",
+      "members": 10,
+      "capacity": 10,
+      "area": "Binh Thanh District",
+      "province": "Ho Chi Minh City",
+      "status": "Available",
+      "currentMissionId": null,
+      "distanceKm": 3.8,
+      "matchScore": 91,
+      "equipment": "03 fire engines · thermal kit",
+      "coverage": [
+        "Binh Thanh District"
+      ],
+      "equipment_inventory": {
+        "rescue_boats": 0,
+        "pump_units": 2,
+        "heavy_debris_gear": 1,
+        "rope_sets": 2,
+        "thermal_drones": 2,
+        "medical_kits": 1,
+        "stretchers": 1
+      },
+      "customAttributes": {
+        "vehicle_type": {
+          "value": "heavy_truck",
+          "source": "Admin"
+        },
+        "heavy_debris_gear": {
+          "value": true,
+          "source": "Admin"
+        }
+      }
+    },
+    {
+      "id": "VOL-01",
+      "name": "HCMC Traffic & Volunteer Rescue Unit",
+      "commander": "Nguyen Minh Hoang",
+      "members": 12,
+      "capacity": 12,
+      "area": "District 1",
+      "province": "Ho Chi Minh City",
+      "status": "On Mission",
+      "currentMissionId": "DSP-2207",
+      "distanceKm": 1,
+      "matchScore": 95,
+      "equipment": "traffic rescue van · hydraulic extrication · medical kit",
+      "coverage": [
+        "District 1",
+        "District 3"
+      ],
+      "equipment_inventory": {
+        "rescue_boats": 0,
+        "pump_units": 0,
+        "heavy_debris_gear": 2,
+        "rope_sets": 3,
+        "thermal_drones": 0,
+        "medical_kits": 5,
+        "stretchers": 4
+      },
+      "customAttributes": {
+        "vehicle_type": {
+          "value": "rescue_van",
+          "source": "Admin"
+        },
+        "heavy_debris_gear": {
+          "value": true,
+          "source": "Admin"
+        }
+      }
+    },
+    {
+      "id": "SAR-02",
+      "name": "HCMC Heavy Urban Search & Rescue Unit",
+      "commander": "Vo Minh Tri",
+      "members": 10,
+      "capacity": 10,
+      "area": "Thu Duc City",
+      "province": "Ho Chi Minh City",
+      "status": "Available",
+      "currentMissionId": null,
+      "distanceKm": 7.2,
+      "matchScore": 96,
+      "equipment": "rope rescue · hydraulic cutter · thermal drone",
+      "coverage": [
+        "Binh Thanh District",
+        "District 6",
+        "Thu Duc City"
+      ],
+      "equipment_inventory": {
+        "rescue_boats": 0,
+        "pump_units": 0,
+        "heavy_debris_gear": 2,
+        "rope_sets": 3,
+        "thermal_drones": 2,
+        "medical_kits": 2,
+        "stretchers": 2
+      },
+      "customAttributes": {
+        "vehicle_type": {
+          "value": "rescue_van",
+          "source": "Admin"
+        },
+        "heavy_debris_gear": {
+          "value": true,
+          "source": "Admin"
+        }
+      }
+    },
+    {
+      "id": "WATER-01",
+      "name": "HCMC Waterway & Flood Rescue Unit",
+      "commander": "Dang Quoc Khanh",
+      "members": 8,
+      "capacity": 8,
+      "area": "District 4",
+      "province": "Ho Chi Minh City",
+      "status": "On Mission",
+      "currentMissionId": "DSP-2204",
+      "distanceKm": 8,
+      "matchScore": 66,
+      "equipment": "03 rescue boats · flood lights",
+      "coverage": [
+        "Binh Thanh District",
+        "District 4"
+      ],
+      "equipment_inventory": {
+        "rescue_boats": 3,
+        "pump_units": 2,
+        "heavy_debris_gear": 0,
+        "rope_sets": 1,
+        "thermal_drones": 0,
+        "medical_kits": 1,
+        "stretchers": 1
+      },
+      "customAttributes": {
+        "vehicle_type": {
+          "value": "rescue_boat",
+          "source": "Admin"
+        },
+        "heavy_debris_gear": {
+          "value": false,
+          "source": "Admin"
+        }
+      }
+    },
+    {
+      "id": "MED-01",
+      "name": "HCMC Mobile Field Medical Unit",
+      "commander": "Pham Thu Trang",
+      "members": 6,
+      "capacity": 6,
+      "area": "District 7",
+      "province": "Ho Chi Minh City",
+      "status": "Available",
+      "currentMissionId": null,
+      "distanceKm": 9.5,
+      "matchScore": 60,
+      "equipment": "field triage module · 02 rescue vans",
+      "coverage": [
+        "District 6",
+        "District 7"
+      ],
+      "equipment_inventory": {
+        "rescue_boats": 0,
+        "pump_units": 0,
+        "heavy_debris_gear": 0,
+        "rope_sets": 1,
+        "thermal_drones": 0,
+        "medical_kits": 5,
+        "stretchers": 4
+      },
+      "customAttributes": {
+        "vehicle_type": {
+          "value": "rescue_van",
+          "source": "Admin"
+        },
+        "heavy_debris_gear": {
+          "value": false,
+          "source": "Admin"
+        }
+      }
+    },
+    {
+      "id": "SAR-03",
+      "name": "HCMC UAV Technical Support Unit",
+      "commander": "Vu Dinh Trong",
+      "members": 5,
+      "capacity": 5,
+      "area": "Thu Duc City",
+      "province": "Ho Chi Minh City",
+      "status": "Offline",
+      "currentMissionId": null,
+      "distanceKm": 11,
+      "matchScore": 40,
+      "equipment": "UAV repair module",
+      "coverage": [
+        "Thu Duc City"
+      ],
+      "equipment_inventory": {
+        "rescue_boats": 0,
+        "pump_units": 0,
+        "heavy_debris_gear": 1,
+        "rope_sets": 2,
+        "thermal_drones": 2,
+        "medical_kits": 2,
+        "stretchers": 2
+      },
+      "customAttributes": {
+        "vehicle_type": {
+          "value": "rescue_van",
+          "source": "Admin"
+        },
+        "heavy_debris_gear": {
+          "value": true,
+          "source": "Admin"
+        }
+      }
+    },
+    {
+      "id": "HN-USAR-01",
+      "name": "Hanoi Urban Search & Rescue Unit",
+      "commander": "Le Minh Quang",
+      "members": 10,
+      "capacity": 10,
+      "area": "Hoan Kiem District",
+      "province": "Ha Noi",
+      "status": "On Mission",
+      "currentMissionId": "DSP-2201",
+      "distanceKm": 1.4,
+      "matchScore": 97,
+      "equipment": "heavy hydraulic extrication · rope rescue · thermal drone",
+      "coverage": [
+        "Hoan Kiem District",
+        "Dong Da District"
+      ],
+      "equipment_inventory": {
+        "rescue_boats": 2,
+        "pump_units": 1,
+        "heavy_debris_gear": 2,
+        "rope_sets": 3,
+        "thermal_drones": 2,
+        "medical_kits": 2,
+        "stretchers": 2
+      },
+      "customAttributes": {
+        "vehicle_type": {
+          "value": "rescue_van",
+          "source": "Admin"
+        },
+        "heavy_debris_gear": {
+          "value": true,
+          "source": "Admin"
+        }
+      }
+    },
+    {
+      "id": "HN-WATER-01",
+      "name": "Hanoi Red River Flood Rescue Unit",
+      "commander": "Pham Chanh Phong",
+      "members": 8,
+      "capacity": 8,
+      "area": "Ba Dinh District",
+      "province": "Ha Noi",
+      "status": "On Mission",
+      "currentMissionId": "DSP-2206",
+      "distanceKm": 3.1,
+      "matchScore": 94,
+      "equipment": "02 rescue boats · flood lights · medical kit",
+      "coverage": [
+        "Ba Dinh District"
+      ],
+      "equipment_inventory": {
+        "rescue_boats": 2,
+        "pump_units": 2,
+        "heavy_debris_gear": 0,
+        "rope_sets": 1,
+        "thermal_drones": 0,
+        "medical_kits": 5,
+        "stretchers": 4
+      },
+      "customAttributes": {
+        "vehicle_type": {
+          "value": "rescue_boat",
+          "source": "Admin"
+        },
+        "heavy_debris_gear": {
+          "value": false,
+          "source": "Admin"
+        }
+      }
+    },
+    {
+      "id": "HN-WATER-02",
+      "name": "Hanoi West Lake Flood & Rescue Unit",
+      "commander": "Phung Thanh Do",
+      "members": 8,
+      "capacity": 8,
+      "area": "Tay Ho District",
+      "province": "Ha Noi",
+      "status": "Available",
+      "currentMissionId": null,
+      "distanceKm": 4.6,
+      "matchScore": 92,
+      "equipment": "02 rescue boats · pump unit · medical kit",
+      "coverage": [
+        "Tay Ho District",
+        "Dong Da District",
+        "Ba Dinh District"
+      ],
+      "equipment_inventory": {
+        "rescue_boats": 2,
+        "pump_units": 2,
+        "heavy_debris_gear": 0,
+        "rope_sets": 1,
+        "thermal_drones": 0,
+        "medical_kits": 5,
+        "stretchers": 4
+      },
+      "customAttributes": {
+        "vehicle_type": {
+          "value": "rescue_boat",
+          "source": "Admin"
+        },
+        "heavy_debris_gear": {
+          "value": false,
+          "source": "Admin"
+        }
+      }
+    },
+    {
+      "id": "DN-FIRE-01",
+      "name": "Da Nang Fire & Rescue Unit",
+      "commander": "Nguyen Dang Khoi",
+      "members": 10,
+      "capacity": 10,
+      "area": "Son Tra District",
+      "province": "Da Nang",
+      "status": "On Mission",
+      "currentMissionId": "DSP-2205",
+      "distanceKm": 0.1,
+      "matchScore": 98,
+      "equipment": "03 fire engines · thermal kit",
+      "coverage": [
+        "Son Tra District"
+      ],
+      "equipment_inventory": {
+        "rescue_boats": 0,
+        "pump_units": 2,
+        "heavy_debris_gear": 1,
+        "rope_sets": 2,
+        "thermal_drones": 2,
+        "medical_kits": 1,
+        "stretchers": 1
+      },
+      "customAttributes": {
+        "vehicle_type": {
+          "value": "heavy_truck",
+          "source": "Admin"
+        },
+        "heavy_debris_gear": {
+          "value": true,
+          "source": "Admin"
+        }
+      }
+    },
+    {
+      "id": "DN-USAR-01",
+      "name": "Da Nang Urban Search & Rescue Unit",
+      "commander": "Bui Huu Toan",
+      "members": 9,
+      "capacity": 9,
+      "area": "Hai Chau District",
+      "province": "Da Nang",
+      "status": "On Mission",
+      "currentMissionId": "DSP-2202",
+      "distanceKm": 1.4,
+      "matchScore": 96,
+      "equipment": "rope rescue · hydraulic cutter · thermal drone",
+      "coverage": [
+        "Hai Chau District"
+      ],
+      "equipment_inventory": {
+        "rescue_boats": 2,
+        "pump_units": 1,
+        "heavy_debris_gear": 2,
+        "rope_sets": 3,
+        "thermal_drones": 2,
+        "medical_kits": 2,
+        "stretchers": 2
+      },
+      "customAttributes": {
+        "vehicle_type": {
+          "value": "rescue_van",
+          "source": "Admin"
+        },
+        "heavy_debris_gear": {
+          "value": true,
+          "source": "Admin"
+        }
+      }
+    },
+    {
+      "id": "CT-TRAFFIC-01",
+      "name": "Can Tho Road Traffic Rescue Unit",
+      "commander": "Nguyen Huu Lam",
+      "members": 8,
+      "capacity": 8,
+      "area": "Binh Thuy District",
+      "province": "Can Tho",
+      "status": "Available",
+      "currentMissionId": null,
+      "distanceKm": 10.5,
+      "matchScore": 88,
+      "equipment": "traffic rescue van · hydraulic extrication · medical kit",
+      "coverage": [
+        "Binh Thuy District",
+        "Thot Not District"
+      ],
+      "equipment_inventory": {
+        "rescue_boats": 0,
+        "pump_units": 0,
+        "heavy_debris_gear": 2,
+        "rope_sets": 3,
+        "thermal_drones": 0,
+        "medical_kits": 5,
+        "stretchers": 4
+      },
+      "customAttributes": {
+        "vehicle_type": {
+          "value": "rescue_van",
+          "source": "Admin"
+        },
+        "heavy_debris_gear": {
+          "value": true,
+          "source": "Admin"
+        }
+      }
+    },
+    {
+      "id": "KH-USAR-01",
+      "name": "Nha Trang Urban Search & Rescue Unit",
+      "commander": "Pham Cong Vinh",
+      "members": 9,
+      "capacity": 9,
+      "area": "Nha Trang",
+      "province": "Khanh Hoa",
+      "status": "Available",
+      "currentMissionId": null,
+      "distanceKm": 0.9,
+      "matchScore": 97,
+      "equipment": "rope rescue · hydraulic cutter · thermal drone",
+      "coverage": [
+        "Nha Trang",
+        "Ninh Hoa"
+      ],
+      "equipment_inventory": {
+        "rescue_boats": 2,
+        "pump_units": 1,
+        "heavy_debris_gear": 2,
+        "rope_sets": 3,
+        "thermal_drones": 2,
+        "medical_kits": 2,
+        "stretchers": 2
+      },
+      "customAttributes": {
+        "vehicle_type": {
+          "value": "rescue_van",
+          "source": "Admin"
+        },
+        "heavy_debris_gear": {
+          "value": true,
+          "source": "Admin"
+        }
+      }
+    },
+    {
+      "id": "LD-FIRE-01",
+      "name": "Da Lat Wildfire Response Unit",
+      "commander": "Phan Bao Long",
+      "members": 8,
+      "capacity": 8,
+      "area": "Lac Duong District",
+      "province": "Lam Dong",
+      "status": "Available",
+      "currentMissionId": null,
+      "distanceKm": 0.1,
+      "matchScore": 96,
+      "equipment": "wildfire engine · water tanker · thermal drone",
+      "coverage": [
+        "Lac Duong District"
+      ],
+      "equipment_inventory": {
+        "rescue_boats": 0,
+        "pump_units": 2,
+        "heavy_debris_gear": 1,
+        "rope_sets": 2,
+        "thermal_drones": 2,
+        "medical_kits": 1,
+        "stretchers": 1
+      },
+      "customAttributes": {
+        "vehicle_type": {
+          "value": "heavy_truck",
+          "source": "Admin"
+        },
+        "heavy_debris_gear": {
+          "value": true,
+          "source": "Admin"
+        }
+      }
+    },
+    {
+      "id": "LD-TRAFFIC-01",
+      "name": "Lam Dong Mountain Road Rescue Unit",
+      "commander": "Do Tan Tai",
+      "members": 7,
+      "capacity": 7,
+      "area": "Da Lat",
+      "province": "Lam Dong",
+      "status": "On Mission",
+      "currentMissionId": "DSP-2203",
+      "distanceKm": 4.5,
+      "matchScore": 91,
+      "equipment": "traffic rescue van · hydraulic extrication · rope kit",
+      "coverage": [
+        "Da Lat"
+      ],
+      "equipment_inventory": {
+        "rescue_boats": 0,
+        "pump_units": 0,
+        "heavy_debris_gear": 2,
+        "rope_sets": 3,
+        "thermal_drones": 0,
+        "medical_kits": 1,
+        "stretchers": 1
+      },
+      "customAttributes": {
+        "vehicle_type": {
+          "value": "rescue_van",
+          "source": "Admin"
+        },
+        "heavy_debris_gear": {
+          "value": true,
+          "source": "Admin"
+        }
+      }
+    },
+    {
+      "id": "QN-FIRE-01",
+      "name": "Hoi An Fire & Rescue Unit",
+      "commander": "Nguyen Tai Loc",
+      "members": 9,
+      "capacity": 9,
+      "area": "Hoi An",
+      "province": "Quang Nam",
+      "status": "Available",
+      "currentMissionId": null,
+      "distanceKm": 0.9,
+      "matchScore": 96,
+      "equipment": "02 fire engines · thermal kit",
+      "coverage": [
+        "Hoi An",
+        "Dong Giang District"
+      ],
+      "equipment_inventory": {
+        "rescue_boats": 0,
+        "pump_units": 2,
+        "heavy_debris_gear": 1,
+        "rope_sets": 2,
+        "thermal_drones": 2,
+        "medical_kits": 1,
+        "stretchers": 1
+      },
+      "customAttributes": {
+        "vehicle_type": {
+          "value": "heavy_truck",
+          "source": "Admin"
+        },
+        "heavy_debris_gear": {
+          "value": true,
+          "source": "Admin"
+        }
+      }
+    },
+    {
+      "id": "QN-WATER-01",
+      "name": "Hoi An Flood Rescue Unit",
+      "commander": "Tran Tuan Phat",
+      "members": 8,
+      "capacity": 8,
+      "area": "Hoi An",
+      "province": "Quang Nam",
+      "status": "Available",
+      "currentMissionId": null,
+      "distanceKm": 0.8,
+      "matchScore": 95,
+      "equipment": "02 rescue boats · pump unit · medical kit",
+      "coverage": [
+        "Hoi An"
+      ],
+      "equipment_inventory": {
+        "rescue_boats": 2,
+        "pump_units": 2,
+        "heavy_debris_gear": 0,
+        "rope_sets": 1,
+        "thermal_drones": 0,
+        "medical_kits": 5,
+        "stretchers": 4
+      },
+      "customAttributes": {
+        "vehicle_type": {
+          "value": "rescue_boat",
+          "source": "Admin"
+        },
+        "heavy_debris_gear": {
+          "value": false,
+          "source": "Admin"
+        }
+      }
+    }
+  ],
+  "dispatchOrders": [
+    {
+      "id": "DSP-2208",
+      "incidentId": "INC-8803",
+      "teamId": "QN-FIRE-01",
+      "matchScore": 71,
+      "distanceKm": 60.2,
+      "status": "Completed",
+      "createdAt": "2026-11-04T06:04:34.074Z",
+      "confirmedAt": "2026-11-04T06:03:34.074Z",
+      "completedAt": "2026-11-04T07:29:34.074Z",
+      "confirmedBy": "DISPATCH",
+      "prioritySnapshot": null,
+      "ruleEvaluation": {
+        "configVersion": "v2.5.0-controlled",
+        "eligible": true,
+        "overriddenHardConstraint": false,
+        "overrideReason": null,
+        "finalMatchScore": 71,
+        "hardPassed": [],
+        "hardFailed": [],
+        "softApplied": [],
+        "missingWarnings": []
+      }
+    },
+    {
+      "id": "DSP-2201",
+      "incidentId": "INC-8804",
+      "teamId": "HN-USAR-01",
+      "matchScore": 97,
+      "distanceKm": 1.4,
+      "status": "Confirmed",
+      "createdAt": "2026-11-04T14:56:34.075Z",
+      "confirmedAt": "2026-11-04T14:55:34.075Z",
+      "completedAt": null,
+      "confirmedBy": "DISPATCH",
+      "prioritySnapshot": null,
+      "ruleEvaluation": {
+        "configVersion": "v2.5.0-controlled",
+        "eligible": true,
+        "overriddenHardConstraint": false,
+        "overrideReason": null,
+        "finalMatchScore": 97,
+        "hardPassed": [],
+        "hardFailed": [],
+        "softApplied": [],
+        "missingWarnings": []
+      }
+    },
+    {
+      "id": "DSP-2202",
+      "incidentId": "INC-8805",
+      "teamId": "DN-USAR-01",
+      "matchScore": 96,
+      "distanceKm": 1.4,
+      "status": "Confirmed",
+      "createdAt": "2026-11-04T14:28:34.075Z",
+      "confirmedAt": "2026-11-04T14:27:34.075Z",
+      "completedAt": null,
+      "confirmedBy": "DISPATCH",
+      "prioritySnapshot": null,
+      "ruleEvaluation": {
+        "configVersion": "v2.5.0-controlled",
+        "eligible": true,
+        "overriddenHardConstraint": false,
+        "overrideReason": null,
+        "finalMatchScore": 96,
+        "hardPassed": [],
+        "hardFailed": [],
+        "softApplied": [],
+        "missingWarnings": []
+      }
+    },
+    {
+      "id": "DSP-2209",
+      "incidentId": "INC-8807",
+      "teamId": "KH-USAR-01",
+      "matchScore": 97,
+      "distanceKm": 0.9,
+      "status": "Completed",
+      "createdAt": "2026-11-04T05:04:34.075Z",
+      "confirmedAt": "2026-11-04T05:03:34.075Z",
+      "completedAt": "2026-11-04T06:29:34.075Z",
+      "confirmedBy": "DISPATCH",
+      "prioritySnapshot": null,
+      "ruleEvaluation": {
+        "configVersion": "v2.5.0-controlled",
+        "eligible": true,
+        "overriddenHardConstraint": false,
+        "overrideReason": null,
+        "finalMatchScore": 97,
+        "hardPassed": [],
+        "hardFailed": [],
+        "softApplied": [],
+        "missingWarnings": []
+      }
+    },
+    {
+      "id": "DSP-2210",
+      "incidentId": "INC-8810",
+      "teamId": "CT-TRAFFIC-01",
+      "matchScore": 94,
+      "distanceKm": 0.1,
+      "status": "Completed",
+      "createdAt": "2026-11-04T02:24:34.076Z",
+      "confirmedAt": "2026-11-04T02:23:34.076Z",
+      "completedAt": "2026-11-04T03:49:34.076Z",
+      "confirmedBy": "DISPATCH",
+      "prioritySnapshot": null,
+      "ruleEvaluation": {
+        "configVersion": "v2.5.0-controlled",
+        "eligible": true,
+        "overriddenHardConstraint": false,
+        "overrideReason": null,
+        "finalMatchScore": 94,
+        "hardPassed": [],
+        "hardFailed": [],
+        "softApplied": [],
+        "missingWarnings": []
+      }
+    },
+    {
+      "id": "DSP-2203",
+      "incidentId": "INC-8811",
+      "teamId": "LD-TRAFFIC-01",
+      "matchScore": 91,
+      "distanceKm": 4.5,
+      "status": "Confirmed",
+      "createdAt": "2026-11-04T14:08:34.076Z",
+      "confirmedAt": "2026-11-04T14:07:34.076Z",
+      "completedAt": null,
+      "confirmedBy": "DISPATCH",
+      "prioritySnapshot": null,
+      "ruleEvaluation": {
+        "configVersion": "v2.5.0-controlled",
+        "eligible": true,
+        "overriddenHardConstraint": false,
+        "overrideReason": null,
+        "finalMatchScore": 91,
+        "hardPassed": [],
+        "hardFailed": [],
+        "softApplied": [],
+        "missingWarnings": []
+      }
+    },
+    {
+      "id": "DSP-2204",
+      "incidentId": "INC-8813",
+      "teamId": "WATER-01",
+      "matchScore": 92,
+      "distanceKm": 1.7,
+      "status": "Confirmed",
+      "createdAt": "2026-11-04T13:06:34.076Z",
+      "confirmedAt": "2026-11-04T13:05:34.076Z",
+      "completedAt": null,
+      "confirmedBy": "DISPATCH",
+      "prioritySnapshot": null,
+      "ruleEvaluation": {
+        "configVersion": "v2.5.0-controlled",
+        "eligible": true,
+        "overriddenHardConstraint": false,
+        "overrideReason": null,
+        "finalMatchScore": 92,
+        "hardPassed": [],
+        "hardFailed": [],
+        "softApplied": [],
+        "missingWarnings": []
+      }
+    },
+    {
+      "id": "DSP-2205",
+      "incidentId": "INC-8818",
+      "teamId": "DN-FIRE-01",
+      "matchScore": 98,
+      "distanceKm": 0.1,
+      "status": "Confirmed",
+      "createdAt": "2026-11-04T12:04:34.077Z",
+      "confirmedAt": "2026-11-04T12:03:34.077Z",
+      "completedAt": null,
+      "confirmedBy": "DISPATCH",
+      "prioritySnapshot": null,
+      "ruleEvaluation": {
+        "configVersion": "v2.5.0-controlled",
+        "eligible": true,
+        "overriddenHardConstraint": false,
+        "overrideReason": null,
+        "finalMatchScore": 98,
+        "hardPassed": [],
+        "hardFailed": [],
+        "softApplied": [],
+        "missingWarnings": []
+      }
+    },
+    {
+      "id": "DSP-2206",
+      "incidentId": "INC-8819",
+      "teamId": "HN-WATER-01",
+      "matchScore": 94,
+      "distanceKm": 3.1,
+      "status": "Confirmed",
+      "createdAt": "2026-11-04T11:04:34.077Z",
+      "confirmedAt": "2026-11-04T11:03:34.077Z",
+      "completedAt": null,
+      "confirmedBy": "DISPATCH",
+      "prioritySnapshot": null,
+      "ruleEvaluation": {
+        "configVersion": "v2.5.0-controlled",
+        "eligible": true,
+        "overriddenHardConstraint": false,
+        "overrideReason": null,
+        "finalMatchScore": 94,
+        "hardPassed": [],
+        "hardFailed": [],
+        "softApplied": [],
+        "missingWarnings": []
+      }
+    },
+    {
+      "id": "DSP-2207",
+      "incidentId": "INC-8820",
+      "teamId": "VOL-01",
+      "matchScore": 95,
+      "distanceKm": 1,
+      "status": "Confirmed",
+      "createdAt": "2026-11-04T10:04:34.077Z",
+      "confirmedAt": "2026-11-04T10:03:34.077Z",
+      "completedAt": null,
+      "confirmedBy": "DISPATCH",
+      "prioritySnapshot": null,
+      "ruleEvaluation": {
+        "configVersion": "v2.5.0-controlled",
+        "eligible": true,
+        "overriddenHardConstraint": false,
+        "overrideReason": null,
+        "finalMatchScore": 95,
+        "hardPassed": [],
+        "hardFailed": [],
+        "softApplied": [],
+        "missingWarnings": []
+      }
+    }
+  ],
+  "settings": {
+    "operatingArea": "Vietnam",
+    "reportOverloadLimit": 50,
+    "defcon1Alert": true,
+    "autoPushSevere": true,
+    "notificationChannels": {
+      "siren": true,
+      "browserPush": true,
+      "commanderSms": true,
+      "emergencyRadio": false
+    },
+    "alertThresholds": {
+      "Fire": 85,
+      "Flood": 75,
+      "Building Collapse": 90,
+      "Traffic Accident": 70
+    },
+    "matchConfig": {
+      "bonusPoints": 5,
+      "distanceDivisorKm": 15,
+      "sameAreaBonus": 10
+    },
+    "ruleEngine": {
+      "version": "v2.5.0-controlled",
+      "updatedAt": "2026-10-26T04:00:00.000Z",
+      "missingDataPolicy": "soft_warning",
+      "conflictPolicy": "hard_overrides_soft",
+      "rules": [
+        {
+          "id": "HC-02",
+          "name": "Narrow Entrance Heavy Truck Restriction",
+          "category": "Hard",
+          "enabled": true,
+          "targetEntities": [
+            "Report",
+            "RescueTeam"
+          ],
+          "requiredTags": [
+            "narrow_entrance",
+            "vehicle_type"
+          ],
+          "conditionSummary": "!(Report.narrow_entrance == true && RescueTeam.vehicle_type == 'heavy_truck')",
+          "failureReason": "Heavy fire/rescue trucks cannot enter narrow alley entrances."
+        },
+        {
+          "id": "HC-03",
+          "name": "Deep Flood & Riverine Water Capability Gate",
+          "category": "Hard",
+          "enabled": true,
+          "targetEntities": [
+            "Location",
+            "RescueTeam"
+          ],
+          "requiredTags": [
+            "access_terrain",
+            "vehicle_type"
+          ],
+          "conditionSummary": "If Flood & access_terrain == 'riverine_canal' => RescueTeam.vehicle_type == 'rescue_boat'",
+          "failureReason": "Team lacks rescue boat deployment capability for deep or riverine flooding."
+        },
+        {
+          "id": "HC-04",
+          "name": "Critical Structural Collapse Extrication Gate",
+          "category": "Hard",
+          "enabled": true,
+          "targetEntities": [
+            "Report",
+            "RescueTeam"
+          ],
+          "requiredTags": [
+            "heavy_debris_gear"
+          ],
+          "conditionSummary": "If Building Collapse & Severity >= 88 => RescueTeam.heavy_debris_gear == true",
+          "failureReason": "Critical structural collapse requires heavy hydraulic extrication & shoring gear."
+        },
+        {
+          "id": "SC-01",
+          "name": "Agile Vehicle Bonus for Narrow Alley",
+          "category": "Soft",
+          "enabled": true,
+          "weightDelta": 12,
+          "contextWeights": {
+            "Fire": 12,
+            "Building Collapse": 10,
+            "Flood": 4,
+            "Traffic Accident": 0
+          },
+          "targetEntities": [
+            "Report",
+            "RescueTeam"
+          ],
+          "requiredTags": [
+            "narrow_entrance",
+            "vehicle_type"
+          ],
+          "conditionSummary": "Report.narrow_entrance == true && vehicle_type in ['compact_moto', 'rescue_van']",
+          "reasonText": "Agile vehicle (+12 pts) prioritized for narrow alley access."
+        },
+        {
+          "id": "SC-03",
+          "name": "Ultra-Dense Sector Local Unit Priority",
+          "category": "Soft",
+          "enabled": true,
+          "weightDelta": 8,
+          "contextWeights": {
+            "Fire": 8,
+            "Building Collapse": 8,
+            "Flood": 8,
+            "Traffic Accident": 8
+          },
+          "targetEntities": [
+            "Location",
+            "RescueTeam"
+          ],
+          "requiredTags": [
+            "population_density"
+          ],
+          "conditionSummary": "Location.population_density == 'ultra_dense' && sameArea == true",
+          "reasonText": "Local sector unit (+8 pts) prioritized in ultra-dense population zone."
+        },
+        {
+          "id": "SC-04",
+          "name": "Heavy Extrication Gear Readiness Bonus",
+          "category": "Soft",
+          "enabled": true,
+          "weightDelta": 8,
+          "contextWeights": {
+            "Fire": 0,
+            "Building Collapse": 10,
+            "Flood": 0,
+            "Traffic Accident": 8
+          },
+          "targetEntities": [
+            "RescueTeam"
+          ],
+          "requiredTags": [
+            "heavy_debris_gear"
+          ],
+          "conditionSummary": "Incident.type in ['Building Collapse', 'Traffic Accident'] && RescueTeam.heavy_debris_gear == true",
+          "reasonText": "Heavy hydraulic extrication gear (+8 pts) available for trapped victims."
+        }
+      ]
+    }
+  },
+  "counters": {
+    "report": 9000,
+    "attempt": 5000,
+    "incident": 9000,
+    "dispatch": 3000,
+    "mission": 3000,
+    "team": 20
+  },
+  "audit": [
+    {
+      "id": "AUD-0001",
+      "event": "DEMO_INITIALIZED",
+      "at": "2026-11-04T16:54:34.077Z",
+      "detail": "National SkyRescue dataset: 20 incidents across 7 provinces"
+    }
+  ],
+  "customTagSchema": [
+    {
+      "key": "narrow_entrance",
+      "label": "Narrow Alley Entrance",
+      "dataType": "Boolean",
+      "source": "Reporter",
+      "targetEntity": "Report",
+      "aiOutput": false,
+      "description": "Indicates whether the incident scene is inside a narrow alley or restricted corridor.",
+      "normalization": {
+        "type": "Boolean",
+        "trueCoeff": 1,
+        "falseCoeff": 0,
+        "formula": "true => 1.0 (100% weight), false => 0.0 (0 pts)"
+      }
+    },
+    {
+      "key": "detected_people_count",
+      "label": "Detected People Count",
+      "dataType": "Number",
+      "unit": "persons",
+      "min": 0,
+      "max": 100,
+      "source": "Admin",
+      "targetEntity": "Report",
+      "aiOutput": true,
+      "description": "Number of victims detected by Tier 2 YOLO human/pose model.",
+      "normalization": {
+        "type": "Number",
+        "scaling": "Linear Cap",
+        "formula": "x_norm = clamp(count / 10, 0, 1)",
+        "stepThresholds": [
+          {
+            "threshold": "1 - 2 persons",
+            "coeff": 0.3,
+            "label": "Small squad"
+          },
+          {
+            "threshold": "3 - 5 persons",
+            "coeff": 0.7,
+            "label": "Medium dispatch"
+          },
+          {
+            "threshold": "> 5 persons",
+            "coeff": 1,
+            "label": "Mass casualty protocol"
+          }
+        ]
+      }
+    },
+    {
+      "key": "access_terrain",
+      "label": "Sector Access Terrain",
+      "dataType": "Enum",
+      "enumValues": [
+        "urban_arterial",
+        "narrow_alley",
+        "riverine_canal",
+        "mountain_pass"
+      ],
+      "source": "Location GIS",
+      "targetEntity": "Location",
+      "aiOutput": false,
+      "description": "Primary geographic terrain classification of the administrative sector.",
+      "normalization": {
+        "type": "Enum",
+        "mapping": {
+          "urban_arterial": 0.25,
+          "narrow_alley": 0.75,
+          "mountain_pass": 0.85,
+          "riverine_canal": 1
+        },
+        "formula": "Categorical scale to severity coefficient [0..1]"
+      }
+    },
+    {
+      "key": "population_density",
+      "label": "Population Density Tier",
+      "dataType": "Enum",
+      "enumValues": [
+        "low",
+        "medium",
+        "high",
+        "ultra_dense"
+      ],
+      "source": "Location GIS",
+      "targetEntity": "Location",
+      "aiOutput": false,
+      "description": "Census-based population density tier maintained by GIS administrators.",
+      "normalization": {
+        "type": "Enum",
+        "mapping": {
+          "low": 0.25,
+          "medium": 0.5,
+          "high": 0.75,
+          "ultra_dense": 1
+        },
+        "formula": "Ordinal density rank => linear coefficient [0.25, 0.50, 0.75, 1.00]"
+      }
+    },
+    {
+      "key": "vehicle_type",
+      "label": "Primary Deployment Vehicle",
+      "dataType": "Enum",
+      "enumValues": [
+        "compact_moto",
+        "rescue_van",
+        "heavy_truck",
+        "rescue_boat"
+      ],
+      "source": "Admin",
+      "targetEntity": "RescueTeam",
+      "aiOutput": false,
+      "description": "Primary response vehicle class updated by fleet administrators.",
+      "normalization": {
+        "type": "Enum",
+        "mapping": {
+          "compact_moto": 0.3,
+          "rescue_van": 0.6,
+          "rescue_boat": 0.85,
+          "heavy_truck": 1
+        },
+        "formula": "Fleet vehicle classification scale"
+      }
+    },
+    {
+      "key": "heavy_debris_gear",
+      "label": "Heavy Extrication & Shoring Gear",
+      "dataType": "Boolean",
+      "source": "Admin",
+      "targetEntity": "RescueTeam",
+      "aiOutput": false,
+      "description": "Hydraulic cutters, airbags, and structural shoring equipment for building collapse.",
+      "normalization": {
+        "type": "Boolean",
+        "trueCoeff": 1,
+        "falseCoeff": 0,
+        "formula": "true => 1.0 (100% weight), false => 0.0 (0 pts)"
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+services:
+  app:
+    build: .
+    image: skyrescue:local
+    ports:
+      - "8000:8000"
+    environment:
+      DEMO_MODE: "true"
+      MAX_UPLOAD_MB: "35"
+    volumes:
+      - skyrescue-data:/data
+    restart: unless-stopped
+
+volumes:
+  skyrescue-data:

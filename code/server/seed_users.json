@@ -1,0 +1,92 @@
+[
+  {
+    "id": "DISPATCH",
+    "name": "SkyRescue Dispatch",
+    "role": "Dispatch",
+    "portal": "dispatch",
+    "logins": [
+      "dispatcher",
+      "USR-DISP-01",
+      "USR-COORD-01",
+      "dispatch@skyrescue.org",
+      "dispatcher@skyrescue.org",
+      "ranjith@skyrescue.org",
+      "dispatch",
+      "ranjith"
+    ],
+    "passwordHashes": [
+      "scrypt$df31c5535d326e3380b00be686cb6828$e40506dcf035b439a57a015dfb8f0dfa5b9a2d1da212f987c3f1cb4b6d28fdaa522d59703444730138fee4a6410cd35372c50224daf29b1797ea32716c6be75b",
+      "scrypt$cb08857ceea5261ed2a94bed69b5f24a$8c8d7a0673acc984276d49a6e19d3a2a01bb4e32c0eb566612f768d488cd7feaf5c1911fdb3653bfa23fcabef3a892564f1633d333eaf74e73399c83a754e6b1",
+      "scrypt$14d36b06e7b3a7eeb6001df33c0e8a7d$4cc7eaaf28a79d3e34fc761b98deeb076328301fe60404a09bc27a890c76aa2481601f77ad05e10b26ebdb35102c69f42747ae2317231c48130f1e4feed1a8b0"
+    ],
+    "trustTier": "Dispatch Admin",
+    "verified": true
+  },
+  {
+    "id": "REPORTER",
+    "name": "SkyRescue Reporter",
+    "role": "Reporter",
+    "portal": "reporter",
+    "logins": [
+      "report",
+      "USR-REPORTER-01",
+      "USR-UAV-07",
+      "reporter@skyrescue.org",
+      "reports@skyrescue.org",
+      "drone07@skyrescue.org",
+      "reporter",
+      "reports",
+      "drone07"
+    ],
+    "passwordHashes": [
+      "scrypt$c5724d074c7c6c93d5682449d563133c$8fed94f759a8d63d2e6d6712dac830c35ceb76c1316f643704eb71f6c5c48c2344a5eb38031187c5deb4713ec68b070d3ca58ed6631886960bb6d452cf4a4ac5",
+      "scrypt$91db6fb4c81e921223df8eaf86c15309$d1c59704a3aebd096df68126256d520b3d68ddce58622328929490779c656c04a053b73c740bcf615d8efa6905016ab845909cc2ef959a22bed56402694e0d83",
+      "scrypt$64d4060c3d1a04f98a66bacff41dcd23$9ddd0603d95523c962a1fe76882ea50e464ba3faff904be52df17cb6ee00e95ed05228226d734248ac14ae9a3a1db5f6b767d691a2fd45648f4f8c36a3431f94"
+    ],
+    "trustTier": "Standard Reporter",
+    "verified": true
+  },
+  {
+    "id": "CITIZEN",
+    "name": "Nguyen Van An (demo)",
+    "role": "Citizen",
+    "portal": "reporter",
+    "logins": [
+      "citizen"
+    ],
+    "passwordHashes": [
+      "scrypt$0699f50aa3d982bc84e7ec283be31e62$518dd2805a34821a5cb850bc64dc2e3b144d3212257ce22ceadd0d3cc1fcda9c6be00b52be157dc0251b27db1dc3e6d4368f3a78b17b87a37a068dfd07fccdba"
+    ],
+    "trustTier": "Unverified Citizen",
+    "verified": false
+  },
+  {
+    "id": "UAV07",
+    "name": "UAV Operator 07 (demo)",
+    "role": "UAV Operator",
+    "portal": "reporter",
+    "logins": [
+      "uav07"
+    ],
+    "passwordHashes": [
+      "scrypt$2bb0a014e2491b7139620d6b1b2a08bd$741c15724025179cfc9fd77e90d66f9e62b2a53ede59c188fc90b18516978d1bb6552ac690c9edffd690d0c608522a03dc2b2c6eb2774ef2634cfc7c6d074885"
+    ],
+    "trustTier": "Verified Specialist",
+    "verified": true,
+    "uavId": "AEGIS-UAV-07"
+  },
+  {
+    "id": "CTV01",
+    "name": "Specialist CTV 01 (demo)",
+    "role": "UAV Specialist / CTV",
+    "portal": "reporter",
+    "logins": [
+      "ctv01"
+    ],
+    "passwordHashes": [
+      "scrypt$f1403d51b80df994e2235231fdc79400$a4f999f2ca453614d21bde15677c8dfb98955d6af51eb7a664b207e2819c349fb3e27b16453bb49eb88f5dfd466a70af3875e8e056b88a2e53baae144716b6e2"
+    ],
+    "trustTier": "Verified Specialist",
+    "verified": true
+  }
+]

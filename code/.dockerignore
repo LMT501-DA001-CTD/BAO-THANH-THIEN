@@ -1,0 +1,11 @@
+data/
+proto_reporter/
+proto_dispatch/
+**/__pycache__/
+backend_ml/best_vehicle.pt
+backend_ml/app.py
+backend_ml/start_server.bat
+backend_ml/desktop.ini
+backend_ml/requirements.txt
+*.zip
+tests/e2e/

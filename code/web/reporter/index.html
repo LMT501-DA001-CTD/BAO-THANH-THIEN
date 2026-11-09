@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="SkyRescue Reporter Portal">
+  <title>SkyRescue — Reporter</title>
+  <link rel="stylesheet" href="/common/css/styles.css?v=20261103_ui_v11">
+</head>
+<body>
+  <main id="reporter-login-view" class="portal-auth-view">
+    <div class="portal-auth-panel">
+      <a class="brand portal-auth-brand" href="/"><span class="brand-mark">◎</span><span>SkyRescue<small>REPORTER</small></span></a>
+      <section class="card portal-auth-card" aria-labelledby="reporter-login-title">
+        <div class="portal-auth-heading">
+          <span class="role-icon" aria-hidden="true">◎</span>
+          <p class="eyebrow">Independent Reporter Portal</p>
+          <h1 id="reporter-login-title">Sign in to Reporter</h1>
+          <p class="muted">Sign in to submit reports and track their progress.</p>
+        </div>
+        <form id="reporter-login-form" class="portal-auth-form" novalidate>
+          <div id="reporter-login-error" class="alert danger portal-auth-error" role="alert"></div>
+          <label class="field">
+            <span>Email or username</span>
+            <input id="reporter-login-id" type="text" autocomplete="username" placeholder="reporter" required>
+          </label>
+          <label class="field">
+            <span>Password</span>
+            <input id="reporter-login-pass" type="password" autocomplete="current-password" placeholder="Enter password" required>
+          </label>
+          <button class="btn success full" type="submit">Enter Reporter <span aria-hidden="true">→</span></button>
+          <button type="button" class="btn ghost full" style="margin-top:8px" onclick="SkyUI.openAuthModal('register')">Register a Citizen account</button>
+          </form>
+      </section>
+      <!-- Standalone Reporter Portal -->
+    </div>
+  </main>
+
+  <div id="reporter-portal-view" style="display:none">
+    <header class="app-header">
+      <a class="brand" href="/"><span class="brand-mark">◎</span><span>SkyRescue<small>REPORTER</small></span></a>
+      <nav class="top-nav" id="reporter-top-nav" aria-label="Reporter navigation">
+        <button data-nav="R1">Submit Report</button>
+        <button data-nav="R4">My Reports</button>
+      </nav>
+      <div class="header-user"><strong>Reporter</strong>Field reporting workspace</div>
+      <div class="header-tools"><div id="header-profile-slot" class="header-profile-slot"></div></div>
+    </header>
+    <main class="content" id="reporter-app"></main>
+  </div>
+  <script src="/common/js/datasets/region-vietnam.js?v=20261104_national"></script>
+  <script src="/common/js/datasets/region-hcmc.js?v=20261104_national"></script>
+  <script src="/common/js/datasets/region-cantho.js?v=20261104_national"></script>
+  <script src="/common/js/datasets/region-hanoi.js?v=20261104_national"></script>
+  <script src="/common/js/datasets/region-danang.js?v=20261104_national"></script>
+  <script src="/common/js/datasets/region-khanhhoa.js?v=20261104_national"></script>
+  <script src="/common/js/datasets/region-lamdong.js?v=20261104_national"></script>
+  <script src="/common/js/datasets/region-quangnam.js?v=20261104_national"></script>
+  <script src="/common/js/demo-data.js?v=20261103_ui_v11"></script>
+  <script src="/api/boot.js?portal=reporter"></script>
+  <script src="/common/js/sync-client.js"></script>
+  <script src="/common/js/shared-state.js?v=20261103_ui_v11"></script>
+  <script src="/common/js/ui.js?v=20261103_ui_v11"></script>
+  <script src="/common/js/portal-auth.js?v=20261027c"></script>
+  <script>
+    SkyPortalAuth.init({
+      portal: "reporter",
+      loginView: "reporter-login-view",
+      appView: "reporter-portal-view",
+      form: "reporter-login-form",
+      identifier: "reporter-login-id",
+      password: "reporter-login-pass",
+      error: "reporter-login-error"
+    });
+  </script>
+  <script src="reporter.js?v=20261103_ui_v11"></script>
+</body>
+</html>

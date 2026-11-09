@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620">
+  <defs><linearGradient id="s" x2="0" y2="1"><stop stop-color="#586879"/><stop offset="1" stop-color="#bd9b84"/></linearGradient><radialGradient id="f"><stop stop-color="#ffd44d"/><stop offset=".45" stop-color="#ef702e"/><stop offset="1" stop-color="#b82d24"/></radialGradient></defs>
+  <rect width="1000" height="620" fill="url(#s)"/><rect x="165" y="95" width="670" height="465" fill="#37424c"/><g fill="#9ba4aa"><rect x="215" y="150" width="105" height="80"/><rect x="365" y="150" width="105" height="80"/><rect x="515" y="150" width="105" height="80"/><rect x="665" y="150" width="105" height="80"/><rect x="215" y="275" width="105" height="80"/><rect x="365" y="275" width="105" height="80"/><rect x="515" y="275" width="105" height="80"/><rect x="665" y="275" width="105" height="80"/></g>
+  <g opacity=".82"><ellipse cx="500" cy="164" rx="245" ry="150" fill="#4c5258"/><ellipse cx="590" cy="112" rx="160" ry="90" fill="#363b42"/></g><g fill="url(#f)"><path d="M265 425c-45-70 35-72 30-150 60 55 72 85 42 150z"/><path d="M520 422c-35-80 50-97 30-175 75 65 72 125 35 175z"/></g>
+  <path d="M0 560h1000v60H0z" fill="#1a2530"/><text x="24" y="603" fill="#f3e7dd" font-family="monospace" font-size="17">SIMULATED UAV EVIDENCE • THERMAL/EO • ALT 72M • HCMC</text>
+</svg>

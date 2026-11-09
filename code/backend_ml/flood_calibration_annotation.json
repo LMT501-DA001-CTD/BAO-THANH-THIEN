@@ -1,0 +1,24 @@
+{
+  "min_w": 8,
+  "min_h": 30,
+  "min_conf": 0.4,
+  "human_cm": 165.0,
+  "unknown_severity": 1.0,
+  "max_flag_eps": 1e-09,
+  "default_ext": ".png",
+  "base": 2.066666666666667,
+  "ci95": [
+    2.0434782608695654,
+    2.2
+  ],
+  "n_ref_boxes": 488,
+  "n_ref_images": 304,
+  "n_backgrounds": 218,
+  "base_from": "annotation",
+  "bbox_source": "annotation",
+  "calibrated_on": "train",
+  "split_file": "split_by_background_seed42.json",
+  "split_sha256_16": "f926c0e09529d986",
+  "detections_file": null,
+  "date": "2026-10-12"
+}

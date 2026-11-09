@@ -1,0 +1,369 @@
+% Springer Nature manuscript generated from SkyRescue_rewritten.md.
+% Retains the Springer Nature sn-jnl class and numbered math/physical-sciences citations.
+% The Springer Nature class/style files (sn-jnl.cls and sn-mathphys-num.bst)
+% must be present in the project when compiling (e.g., in the official template bundle).
+
+\documentclass[pdflatex,sn-mathphys-num]{sn-jnl}
+
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{multirow}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage[title]{appendix}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage{manyfoot}
+\usepackage{booktabs}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{listings}
+
+\raggedbottom
+
+\begin{document}
+
+\title[SkyRescue for Search and Rescue]{SkyRescue: A UAV-Image-Based Decision Support System for Search and Rescue}
+
+\author*[1]{\fnm{Minh Hoang} \sur{Tran}}\email{tmhoang1902@gmail.com}
+\equalcont{These authors contributed equally to this work.}
+
+\author[1]{\fnm{Ngoc Thao Anh} \sur{Tran}}
+\equalcont{These authors contributed equally to this work.}
+
+\author[1]{\fnm{Thai Bao} \sur{Le}}
+\equalcont{These authors contributed equally to this work.}
+
+\author[1]{\fnm{Nguyen Phuong Nghi} \sur{Dang}}
+\equalcont{These authors contributed equally to this work.}
+
+\author[1]{\fnm{Minh Triet} \sur{Le}}
+\equalcont{These authors contributed equally to this work.}
+
+% Replace the bracketed affiliation fields with the authors' verified institution details.
+\affil*[1]{\orgdiv{Institue of Intelligent and Interactive Technologies (3i Institue)}, \orgname{College of Technology and Desgin (CTD), University of Economics Ho Chi Minh City (UEH)}, \orgaddress{\city{Ho Chi Minh City}, \country{Vietnam}}}
+
+\abstract{Search and rescue (SAR) coordinators work from incomplete evidence. They have to rank competing reports and find a suitable team for each one under tight operational limits. This paper describes SkyRescue, a prototype decision-support system that takes in images from unmanned aerial vehicles (UAVs), analyses them, ranks incidents, and lets a Coordinator control dispatch. The system has a Reporter portal and a Dispatch portal, validates images and metadata on the server, classifies the aerial scene, detects people, and runs one of four incident-specific assessment branches. Incidents are ranked with the Analytic Hierarchy Process (AHP) and the Technique for Order Preference by Similarity to Ideal Solution (TOPSIS), and a rule-based module recommends one primary rescue team. Each AI component was tested on its own dataset. EfficientNet-B0 reached 95.2\% accuracy and 0.927 macro-F1 on the AIDER test split. The Fire classifier reached 93.57\% test accuracy and 0.9352 weighted F1 on the FLAME2 RGB test split. The Building Collapse classifier reached 0.9512 weighted F1 on the UAVs-TEBDE test split. YOLOv8m results on C2A are validation metrics only: precision 0.415, recall 0.692, mAP50 of about 0.454, and mAP50-95 of 0.302. The Traffic figures are internal consistency indicators and the Flood figure is a review rate; neither measures severity accuracy in the field. The demonstration uses fixed AHP weights, and the Coordinator keeps authority over verification and dispatch. The materials available for this revision contain no final-build system benchmarks, no reproducible ranking or sensitivity outputs, and no ground-truthed SAR deployment. SkyRescue is therefore reported as an integrated prototype. The paper does not claim better field performance or better rescue outcomes.}
+
+\keywords{UAV imagery; search and rescue; decision support; disaster assessment; multi-criteria decision-making}
+
+\maketitle
+
+\section{Introduction}\label{sec:introduction}
+
+After earthquakes, floods, fires, and major accidents, SAR coordinators must decide which incidents to handle first and how to spread a small number of response teams across them. UAVs can photograph places that are dangerous or hard to reach on foot. Those images help planning only if they are reviewed consistently and the results reach the people who make operational decisions. SkyRescue links aerial-image analysis to incident coordination. Cutting the manual effort of image review is a design goal. This study does not measure response times or rescue outcomes.
+
+An image does not decide the response. Coordinators must read incident-specific indicators, compare reports of different urgency, and find teams whose specialization, location, and free capacity fit the case. Multi-criteria decision-making (MCDM) offers a structured way to compare alternatives on several criteria. Model outputs can be wrong, though, and synthetic images or heuristic indicators may not match real incident conditions. SkyRescue therefore treats AI outputs as evidence for human review. A prediction does not verify an incident and does not authorize dispatch.
+
+This paper presents a prototype that links UAV-image intake and validation to scene classification, human detection, incident-specific assessment, incident prioritization, and rescue-team recommendation under Coordinator control. The scene classifier assigns one of five model classes: Collapsed Building, Fire, Flood, Traffic Accident, or Normal. The predicted class and its confidence select the assessment branch. A high-confidence Normal prediction skips severity scoring but stays visible for Coordinator review. Uncertain and Unclassified outputs are not treated as confirmed incidents. Human detection runs alongside scene classification and passes image-space person detections and posture labels to the branches that use them.
+
+For prioritization, SkyRescue derives criterion weights from pairwise judgments with AHP \cite{saaty1980ahp} and ranks reports by their distance from positive and negative ideal solutions with TOPSIS \cite{hwang1981madm}. Once the Coordinator verifies a non-Normal incident, team matching scores eligible teams on specialization, distance, and capacity, applies operational constraints, and recommends one primary team. The Coordinator reviews the recommendation, selects the assignment, and confirms dispatch explicitly. The system never dispatches on its own.
+
+The paper makes three contributions. First, it specifies a workflow from UAV-image intake and visual analysis through incident prioritization to Coordinator-controlled response planning. Second, it organizes incident-specific assessments and human-detection outputs as structured evidence, and it states the limits of synthetic data, proxy indicators, and unvalidated severity scales. Third, it defines a single-primary-team recommendation and dispatch workflow with explicit eligibility rules and Coordinator authorization.
+
+SkyRescue is a prototype. Its evaluation draws on separate model-level datasets, synthetic human-scene compositions, heuristic Flood and Traffic indicators, and simulated team records. No ground-truthed SAR deployment was available. The paper reports component-level results and the system design. It does not claim field validation, operational superiority, shorter response times, or better rescue outcomes.
+
+\section{Related Work}\label{sec:related-work}
+
+\subsection{UAV-Based Aerial Scene Classification for Emergency Monitoring}\label{sec:uav-scene-classification}
+
+UAV imagery gives an aerial view of affected areas and can show visual patterns linked to emergencies. Kyrkou and Theocharides~\cite{kyrkou2020emergencynet} proposed EmergencyNet, a compact aerial-scene classifier for drone-based emergency monitoring. AIDER supplies labeled aerial images for emergency-response scene understanding and has been used in scene-classification work \cite{kyrkou2020aider}. Together these frame the classification task in SkyRescue.
+
+SkyRescue uses EfficientNet-B0 \cite{tan2019efficientnet} and not the EmergencyNet architecture. Its classifier puts each incoming image into one of five project classes: Collapsed Building, Fire, Flood, Traffic Accident, or Normal. The result gives the initial incident category and selects the assessment route. Section 3 describes the architecture, training setup, confidence thresholds, and operational label mapping.
+
+\subsection{Human Detection in Disaster Scenarios}\label{sec:human-detection}
+
+Detecting people in UAV imagery is hard. A person may cover only a few pixels, lie or crouch in an unusual posture, or be partly hidden by terrain and nearby objects. C2A (Combination to Application) is a synthetic benchmark for human detection in disaster scenes \cite{nihal2024c2a}. Its backgrounds come from AIDER, and its human figures come from the LSP and MPII-MPHB datasets. The figures are adjusted and composited onto the backgrounds to produce controlled training and evaluation examples. This makes experiments repeatable, but it cannot fully reproduce how people look in real rescue imagery.
+
+Work on real aerial imagery adds different evidence. Gotovac et al.~\cite{gotovac2020uas} tested visual person detection for SAR missions with UAS imagery and compared algorithmic detection with human interpretation. B{\"u}ttner et al.~\cite{buttner2026airesq} released AIResQ, a high-resolution thermal dataset and benchmark collected during drone-flight exercises with SAR organizations. These resources cover small targets, unusual poses, varied terrain, and thermal sensing. Their sensors, environments, and evaluation settings differ from the synthetic RGB compositions in C2A.
+
+C2A reuses AIDER backgrounds, so the two datasets are not independent by construction. Shared provenance alone does not show that leakage occurred. Still, no background-overlap audit or further split-level check has been done for this study. The current evaluations should not be read as independent cross-dataset validation between AIDER and C2A.
+
+\subsection{Incident-Specific Disaster Assessment}\label{sec:incident-assessment}
+
+Visual-analysis datasets and methods usually target one disaster type. FLAME2 provides UAV-acquired RGB and thermal imagery recorded during a prescribed forest-fire experiment \cite{chen2022wildlandfire}. Because the fire was controlled, the data do not span the range of uncontrolled wildfires. For post-earthquake building assessment, UAVs-TEBDE supports damage estimation from a multi-source image collection \cite{mowla2025uavstebde}. It is not the product of a single UAV field campaign.
+
+These datasets do not show that every disaster type needs its own model, and image-level recognition alone does not set incident priority. Priority also depends on what an assessment implies, on available response resources, on geography, and on Coordinator judgment.
+
+SkyRescue has assessment branches for Fire, Building Collapse, Flood, and Traffic Accident. The Fire and building-damage branches use specialized classifiers based on MobileNetV3-Small \cite{howard2019mobilenetv3}. The Traffic branch borrows Fruin's~\cite{fruin1971pedestrian} pedestrian level-of-service concept as a heuristic reference for estimated pedestrian density. Fruin's scale was built for pedestrian-flow analysis and is not a standard for accident severity. The Flood branch uses the apparent height-to-width ratio of an upright person as a visual proxy.
+
+Neither the Traffic proxy nor the Flood proxy is a physically calibrated measure of severity. C2A has no ground-truth flood depth, and composited human figures cannot validate real immersion geometry. A pedestrian-density estimate from synthetic scenes likewise says nothing certain about how severe a real traffic accident is. SkyRescue reports both outputs as heuristic indicators. Results from live detector output are kept apart from analyses that use ground-truth annotation boxes, since annotation boxes carry no detector error.
+
+\subsection{Multi-Criteria Decision-Making for Incident Prioritization}\label{sec:mcdm-related-work}
+
+When resources are limited, responders must pick which locations or incidents to address first. Urgency, geographic conditions, and resource needs can all enter that choice. He and Jung~\cite{he2018votingtopsis} proposed a voting-TOPSIS method for prioritizing disaster-damaged areas for relief distribution. They combined judgments from several experts and tested the method on a real flood case, which shows that multi-criteria ranking can be adapted to disaster prioritization.
+
+SkyRescue uses AHP and TOPSIS to order active incident reports so that Coordinators can review higher-priority cases first. Section 3.5 gives the criteria, fixed weights, criterion directions, normalization, and consistency information. AHP and TOPSIS supply a ranking procedure. They do not validate the chosen criteria or the operational meaning of the scores.
+
+The branches in SkyRescue produce indicators with different meanings and different evidence behind them. Ranking them together assumes that the severity scores are comparable enough for prioritization. No SAR domain expert has validated the AHP judgments, and the comparability assumption is untested. The TOPSIS ranking is a decision-support output. It is not a validated measure of incident risk or ground-truth severity.
+
+\subsection{Integrated Decision Support for Disaster Response}\label{sec:integrated-dss}
+
+Decision support for disaster response covers more than single prediction models. Rye and Aktas~\cite{rye2022predis} studied PREDIS, a disaster-management model that pairs impact and needs estimation with supplier selection. Their participatory simulation involved experts and non-experts and looked at how people use recommendations as well as model outputs. Cavdur et al.~\cite{cavdur2020spreadsheetdss} built a tool for allocating temporary disaster-response facilities under uncertainty. Rolland et al.~\cite{rolland2010disasterdss} addressed the assignment and scheduling of personnel and assets for disaster response and recovery.
+
+These systems take different inputs and address different decisions. PREDIS links impact and needs estimates to humanitarian supplier selection. Facility-allocation tools deal with relief-distribution infrastructure. Personnel-and-asset scheduling assigns resources under operational constraints. SkyRescue starts from UAV imagery and connects scene classification and incident-specific visual indicators to incident prioritization and to the recommendation of one eligible primary rescue team. Its scope is the combination of visual evidence, multi-criteria prioritization, and Coordinator-controlled dispatch. The paper does not claim that earlier systems lack integration or human oversight.
+
+The contribution of SkyRescue is the workflow design and an explicit account of the evidence behind it: synthetic human-scene compositions, heuristic Flood and Traffic indicators, simulated team information, and the lack of ground-truthed field evaluation. The study does not claim operational superiority or uniqueness.
+
+\section{Data and Method}\label{sec:data-method}
+
+\subsection{System Overview and Architecture}\label{sec:system-overview}
+
+SkyRescue is demonstrated locally. It links UAV-image intake to incident assessment, prioritization, rescue-team selection, and Coordinator-controlled dispatch through two web portals. The Reporter portal (\texttt{/reporter/}) accepts incident images and lets reporters follow their submitted reports. The Dispatch portal (\texttt{/dispatch/}) is for the SAR Coordinator or an administrator, who inspects reports, reviews AI evidence, corrects operational incident information, verifies incidents, selects a rescue team, confirms dispatch, and closes incidents. One FastAPI application origin serves the static frontends, the API endpoints, and the machine-learning service.
+
+The FastAPI application, SQLite persistence, and machine-learning inference all run locally. The Dispatch basemap normally loads OpenStreetMap tiles over the internet, and the interface switches to a static map when there is no connection. The demonstration is hosted locally but is not fully offline during normal map display.
+
+The server makes the final decision on every upload. The browser may give early validation feedback, but the upload API decides acceptance. It takes JPEG and PNG files up to 35 MB and checks file magic bytes before reading EXIF metadata. EXIF holds standardized image metadata such as capture time, device information, and GPS fields \cite{cipa2024exif}. In UAV mode, the API compares the registered UAV record with the serial number and camera manufacturer read from the image. It also checks geographic and temporal constraints and detects duplicate content.
+
+EXIF GPS is the preferred location source. Browser GPS is a fallback only for personal uploads that lack EXIF GPS, and demo-mode metadata is the last fallback and must be labeled as simulated. The active-region geofence is a bounding box with a 0.5-degree margin, not an administrative polygon. Capture time may be at most 30 minutes old and at most 60 seconds in the future. SHA-256 hashes \cite{nist2015fips1804} identify duplicate images. Failed uploads are logged with an error code, and the API allows each IP address 30 upload requests per minute.
+
+After a successful upload, the server creates a report ID and stores the image under \texttt{media/} with a random 128-bit filename. A background job then processes the report. A semaphore serializes inference, so the local demonstration runs one inference job at a time, and the processing route times out after 60 seconds. Model 1 classifies the aerial scene and Model 2 detects people. The incident router selects the severity branch, validates its output contract, and stores the accepted prediction and person detections. Model 2 returns image-pixel coordinates only. A bounding box is not treated as a victim's GPS position.
+
+The frontends stay in sync with the server through Server-Sent Events \cite{whatwg_sse} at \texttt{/api/events}, and they poll \texttt{/api/version} every two seconds as a fallback. The server is authoritative for validation and for AHP/TOPSIS results. A JavaScript priority calculation may appear as a preview but never replaces the server result. AI outputs are advisory. They do not verify an incident or dispatch a team, and the Coordinator reviews the evidence and authorizes each operational action.
+
+A report has four persisted states: Unverified, Matching Team, In Progress, and Resolved. A new report enters Unverified. For a non-Normal incident, Coordinator verification moves the report to Matching Team and enables detailed team matching. An Unclassified report cannot be verified until the Coordinator selects a supported incident type. A Normal report stays visible for review and can be closed through a Normal-specific path with no dispatch. When dispatch is confirmed, the selected team becomes On Mission and the report becomes In Progress. Finalize \& Resolve closes the report as Resolved, marks the dispatch Completed, returns the team to Available, and writes an audit record.
+
+The Registered UAV is a registered image source in the Reporter workflow. It is not a separate login actor, so the workflow has two actors: Reporter and SAR Coordinator/Administrator.
+
+% TODO (production note): [FIGURE 1 ABOUT HERE. Overall SkyRescue system architecture. Show only two actors (Reporter and SAR Coordinator/Administrator). Include the Registered UAV as a registered resource and keep the "Connect Registered UAV" step in the Reporter flow. Show the two portals; FastAPI upload validation and the local background ML service; Model 1 and Model 2; the four incident-specific assessment branches; server-side AHP/TOPSIS; Coordinator review and verification; selection of exactly one primary team; Confirm Dispatch and the dispatch lifecycle; SQLite, media storage, and audit logging. Do not add a Rescue Team actor or lane, and do not depict functions absent from the current demonstration. Place at the end of Section 3.1.]
+
+\subsection{Datasets and Data Preparation}\label{sec:datasets}
+
+Four datasets serve four separate tasks. Their image sources, labels, and evaluation questions differ, so they are kept apart and not merged into one benchmark.
+
+AIDER supports aerial-scene classification. It has 6,433 aerial images in five classes: Collapsed Building (511), Fire (521), Flood (526), Normal (4,390), and Traffic Accident (485) \cite{kyrkou2020aider}. A stratified 70/15/15 split with seed 42 gives 4,503 training, 965 validation, and 965 test images. Normal makes up 4,390 of the 6,433 images and 658 of the 965 test images, so accuracy and class-wise metrics have to be read with that imbalance in mind. AIDER addresses aerial emergency-response scene understanding, the same task studied in the drone-based EmergencyNet work \cite{kyrkou2020emergencynet}.
+
+C2A supports human detection. It has 10,215 synthetic disaster-scene images and 360,467 person bounding boxes \cite{nihal2024c2a}. Human figures from LSP and MPII-MPHB are composited onto disaster-scene backgrounds taken from AIDER. The original posture labels (Upright, Bent, Kneeling, Lying, and Sitting) are mapped to two project labels, Upright and Other, where Other merges the four non-upright postures. Images are split by background with seed 42 into 7,150 training, 1,530 validation, and 1,535 test images. Splitting by background reduces contextual overlap between subsets. C2A still reuses AIDER backgrounds, so the datasets are not independent by construction, and C2A performance is not independent cross-dataset validation against AIDER.
+
+FLAME2 supports Fire assessment. It provides UAV-acquired RGB and thermal imagery from a prescribed-fire experiment \cite{chen2022wildlandfire}. The Fire branch uses an RGB subset of 2,800 images and no thermal frames: 718 No Flame/No Smoke, 750 Flame/No Smoke, and 1,332 Flame/Smoke. Temporal blocks separated by buffer blocks form the training, validation, and test subsets of 1,960, 420, and 420 images. The prescribed-fire setting gives controlled imagery but does not cover uncontrolled wildfires.
+
+UAVs-TEBDE supports building-damage assessment. It has 1,636 post-earthquake UAV images labelled Intact (498), Damaged (664), and Collapsed (474) \cite{mowla2025uavstebde}. A stratified 70/15/15 split with seed 42 gives 1,145 training, 245 validation, and 246 test images. The dataset is multi-source and tied to one post-earthquake imaging domain, so its results do not automatically carry over to other building types, camera geometries, or disaster environments.
+
+% TODO (production note): [TABLE I ABOUT HERE. Data sources and data splits. One row each for AIDER, C2A, the FLAME2 RGB subset, and UAVs-TEBDE. Columns: task, labels, total images or boxes, train/validation/test counts, split method and seed, and the relevant imbalance or domain caveat. Do not infer class counts within individual splits unless the split manifest or label files support them. Place in Section 3.2.]
+
+\subsection{Scene Classification and Human Detection}\label{sec:classification-detection}
+
+\subsubsection{UAV Scene Classification}\label{sec:scene-classification}
+
+Model 1 assigns each accepted UAV image to Collapsed Building, Fire, Flood, Normal, or Traffic Accident. It is an EfficientNet-B0 initialized with ImageNet weights and given a five-output head \cite{tan2019efficientnet}. The input size is $224 \times 224$ pixels, and the inference checkpoint is \texttt{aider\_classifier.pth}. For consistency in operation, the AIDER class "Collapsed Building" is mapped to the database and interface label "Building Collapse", and the traffic class appears as "Traffic Accident".
+
+Training starts with the backbone frozen and then unfreezes the last feature blocks and the classification head. Augmentation includes RandomResizedCrop with scale 0.6 to 1.0, horizontal and vertical flips, rotation up to $\pm 20^\circ$, ColorJitter, Gaussian blur, sharpness adjustment, and RandomErasing, followed by ImageNet normalization. Optimization uses Adam \cite{kingma2015adam} with learning rates of $1 \times 10^{-3}$ for the head and $1 \times 10^{-4}$ for the backbone, weighted cross-entropy, a batch size of 32, and at most 15 epochs. ReduceLROnPlateau tracks validation macro-F1. Training ran on a Google Colab T4 GPU.
+
+The router applies the Normal gate before the incident-class thresholds. When Normal is predicted with $P(\mathrm{Normal}) \geq 0.90$, severity processing is skipped and the report stays in the Unverified queue for Coordinator review. When Normal is predicted below 0.90, the image goes to the most probable incident class with a review flag. For an incident-class prediction, confidence of at least 0.70 keeps the class. Confidence from 0.50 to below 0.70 keeps the class with a low-confidence review flag. Confidence below 0.50 gives Unclassified. An Unclassified report stays visible but cannot be verified until a supported incident type is assigned. The top incident prediction may remain as a review signal, but it is not a confirmed classification.
+
+A threshold diagnostic for the 0.90 Normal gate recovered all 11 incident cases that the model had misclassified as Normal on AIDER, and it flagged 46 of 630 Normal examples (7.3\%) without need. On C2A it recovered 44 of 60 such cases and missed 16. These counts describe threshold behavior on the stated datasets and are not a calibration guarantee. The 0.70 and 0.50 incident-confidence thresholds are initial operating values, and no systematic threshold sweep has been run.
+
+\subsubsection{Human Detection and Posture Classification}\label{sec:human-detection-model}
+
+Model 2 detects people and gives each detection one of two posture labels, Upright or Other. It is Ultralytics YOLOv8m, version 8.4.171, initialized from yolov8m.pt and run at $640 \times 640$ pixels \cite{jocher2023yolov8}. The inference checkpoint is \texttt{v8m\_up2\_best.pt}, with a confidence threshold of 0.25 and an IoU threshold of 0.50. Each detection holds a pixel-space bounding box (x1, y1, x2, y2), a confidence score, and a posture label. The coordinates locate a detection inside the image. They are not geographic coordinates.
+
+Training on C2A used 40 epochs, batch size 16, image size 640, automatic optimizer selection, initial and final learning rates of 0.01, momentum 0.937, weight decay $5 \times 10^{-4}$, three warm-up epochs, mosaic augmentation of 1.0, horizontal-flip probability 0.5, close-mosaic 10, seed 0, and automatic mixed precision. Training took about 2.9 hours on Colab. The available metrics come from the C2A validation split and are reported as validation metrics, not test performance.
+
+% TODO (production note): [TABLE II ABOUT HERE. Configuration of the four core AI models: EfficientNet-B0, YOLOv8m, Fire MobileNetV3-Small, and Building Collapse MobileNetV3-Small. Report input size, dataset, output labels, checkpoint, optimizer and training configuration, and the available evaluation split. Traffic and Flood must be marked as heuristic or proxy branches, not separately trained models. Place after Section 3.3.2.]
+
+\subsection{Incident-Specific Severity Assessment}\label{sec:severity-assessment}
+
+SkyRescue sends each non-Normal incident report to one of four assessment branches. Fire and Building Collapse use trained image classifiers. Traffic and Flood use heuristic indicators computed from detector output. The four outputs differ in meaning and in the evidence behind them, and none is a ground-truth severity measurement that could stand in for another.
+
+\subsubsection{Fire Severity}\label{sec:fire-severity}
+
+The Fire branch is a MobileNetV3-Small initialized with ImageNet weights and trained to separate three states: No Flame/No Smoke, Flame/No Smoke, and Flame/Smoke \cite{howard2019mobilenetv3}. It is trained on the 2,800-image RGB subset of FLAME2 with weighted cross-entropy, batch size 32, and a two-phase AdamW procedure \cite{loschchilov2019adamw}. The second phase unfreezes the last three feature blocks. The inference checkpoint is \texttt{best\_fire\_mobilenetv3\_phase2.pth}. The three states map to branch scores of 0.0, 0.5, and 1.0. These values are ordinal conventions of the decision-support layer. They are not probabilities of injury, loss of life, or fire spread, and they are not calibrated fire-severity measurements.
+
+\subsubsection{Building Collapse Severity}\label{sec:building-collapse-severity}
+
+The Building Collapse branch is a second MobileNetV3-Small initialized with ImageNet weights and trained to separate Intact, Damaged, and Collapsed \cite{howard2019mobilenetv3}. The classes map to scores of 0.0, 0.5, and 1.0. Training on UAVs-TEBDE uses weighted cross-entropy, AdamW with a learning rate of $1 \times 10^{-4}$, batch size 32, up to 30 epochs, and patience 8 \cite{loschchilov2019adamw}. The inference checkpoint is \texttt{collapsed\_building\_best\_v2.pt}.
+
+The current rule sets needs\_review when $P(\mathrm{Collapsed}) \geq 0.04$, and the earlier 0.75 confidence rule is disabled. The 0.04 threshold was tuned on the test set and has not been validated independently, so threshold-dependent review behavior and recall may be optimistic. The router also flags a zero-severity output for a Fire or Building Collapse report for Coordinator review, because it may mean that the predicted incident class and the branch output disagree.
+
+\subsubsection{Traffic Severity}\label{sec:traffic-severity}
+
+The Traffic branch estimates pedestrian density from Model 2 detections. Detections with confidence of at least 0.25 are reduced to bounding-box centres and converted from pixels to metres with a ground-sampling-distance (GSD) assumption. GSD depends on flight altitude, focal length, and sensor geometry \cite{colomina2014uas}. The calibration assumes an altitude of 12 m, a $6.4 \times 4.8\,\mathrm{mm}$ sensor, and a 4.5 mm focal length. Trustworthy altitude metadata takes precedence when it exists.
+
+A $4 \times 4\,\mathrm{m}$ window moves across the estimated ground plane in $1\,\mathrm{m}$ steps to find the densest region. Density is the number of detected people per $16\,\mathrm{m}^2$. The estimate is mapped to Fruin pedestrian level-of-service (LOS) grades A to F, which give branch scores from 0.0 to 1.0 in steps of 0.2 \cite{fruin1971pedestrian}. Fruin's scale was developed for pedestrian flow, not accident severity. The Traffic output is a pedestrian-density proxy that can help the Coordinator read crowd concentration. It is not a validated traffic-accident severity label.
+
+\subsubsection{Flood Severity}\label{sec:flood-severity}
+
+The Flood branch uses a detected Upright person as a visual scale reference. A detection is eligible when its width is at least 8 pixels, its height is at least 30 pixels, and its confidence is at least 0.40. The reference baseline is 2.0667, estimated from 488 reference boxes across 304 C2A training images. For each eligible detection i, the branch computes the body-proportion proxy $s_i = \mathrm{clip}\left(1 - \frac{h_i/w_i}{2.0667}, 0, 1\right)$ and takes the maximum, $s_{\mathrm{flood}} = \max_i(s_i)$.
+
+When no eligible Upright detection exists, the branch assigns the maximum score of 1.0 and sets needs\_review. This stops a missing reference person from being read as low flood severity, but it can raise the priority of such reports and add to Coordinator review workload. The score is an image-based body-proportion proxy. It is not flood depth, a water-level measurement, or calibrated immersion geometry.
+
+\subsection{Incident Prioritization Using AHP and TOPSIS}\label{sec:incident-prioritization}
+
+Once severity and report data exist, the server uses AHP to derive criterion weights from pairwise judgments and TOPSIS to rank the eligible incident reports in the current batch \cite{hwang1981madm,saaty1980ahp}. The decision matrix has three criteria.
+
+The first is the severity score, a benefit criterion: a higher value raises priority. Each Prediction stores \texttt{ai\_severity\_score} and \texttt{final\_severity\_score}. The latter starts as the AI score and is the operational value that AHP/TOPSIS reads. A Coordinator edit to the numeric severity updates \texttt{final\_severity\_score}, while a label-only correction leaves the numeric value alone. \texttt{ai\_severity\_score} is kept for traceability.
+
+The second is the distance to the nearest qualifying team, also a benefit criterion: a greater distance raises priority. This is a deliberate policy choice meant to give more attention to locations far from suitable resources. It is not a travel-time minimization rule.
+
+The third is the number of free qualifying teams, a cost criterion: fewer available qualifying teams raise priority. A shortage of teams with the required specialization and coverage is treated as a resource constraint.
+
+The demo uses fixed AHP weights of 0.648 for severity, 0.230 for distance, and 0.122 for the number of free qualifying teams, with a consistency ratio (CR) of 0.003. The development team set the pairwise judgments. The weights appear in the DSS Trace and cannot be edited in the current interface. They were not learned from rescue outcomes and no SAR expert has validated them. The weights and CR describe the current demo configuration, not empirically optimized policy parameters.
+
+The server vector-normalizes the decision matrix, applies the AHP weights, finds the positive and negative ideal solutions according to the criterion directions, and computes each incident's relative distance from both. The closeness coefficient is the priority score, bounded by [0, 1]. It is relative to the current batch. It is not a probability of harm or a calibrated risk measure. The ranking includes active emergency incidents, verified or not. Normal and Unclassified reports stay visible in the Coordinator queue but are left out of the ranking. A needs\_review flag does not add to or subtract from the TOPSIS score.
+
+The nearest qualifying team is chosen from teams marked Available whose specialization and coverage fit the incident. Fire maps to a fire team, Flood to water rescue, Building Collapse to urban SAR, and Traffic Accident to traffic rescue. Coverage rests on explicit TeamCoverage records and a 10 km radius rule. Distance is the Haversine distance between the report GPS location and the team headquarters. When no qualifying team exists, distance is NULL. For the TOPSIS calculation only, the server substitutes the maximum distance in the current batch and sets \texttt{no\_team\_flag}.
+
+Under the current criterion directions, this imputation has a direct effect. An incident with no qualifying team receives the maximum distance value and also has zero free qualifying teams. Both push it up the ranking, and its rank may be inflated. The imputation and the criterion directions are therefore material policy choices. Favoring distant incidents may help geographic equity and coverage of underserved areas, but it can conflict with minimizing response travel time. The conventional directions (distance as a cost, free-team count as a benefit) have not been shown to be better and have not been compared in a completed sensitivity analysis.
+
+In the current data definition, \texttt{free\_teams} is the number of distinct team records marked Available whose specialization matches the incident and whose coverage includes the report location. Each qualifying team counts once, whatever its headcount or \texttt{deployableUnits} value. This definition must be checked against the final \texttt{ahp\_priority.py} implementation and the API response before submission. The Python server computes the authoritative priority values, and the client-side calculation is only a preview. At dispatch confirmation, the server stores a priority snapshot with the dispatch evidence and includes it in the Digital Evidence Dossier, which can be exported as CSV or PDF.
+
+\subsection{Rescue-Team Matching}\label{sec:rescue-team-matching}
+
+Detailed matching starts only after the Coordinator verifies a non-Normal incident. The current demonstration selects exactly one primary team per report, and eligibility is checked before weighted ranking. The matching score combines specialization (0.50), distance (0.35), and capacity (0.15). In the demo, RescueTeam.capacity stores team headcount, not the number of deployable sub-units.
+
+When a deployable-unit estimate is needed, the system uses an explicit \texttt{deployableUnits} value if one is present. Otherwise it derives an estimate as $\lfloor\mathrm{capacity}/4\rfloor$. The available documentation does not say whether the final implementation sets a minimum for this derived value, and none is assumed here. \texttt{free\_teams}, capacity, and \texttt{deployableUnits} are three different quantities. \texttt{free\_teams} counts qualifying available team records, capacity is the headcount of one team, and \texttt{deployableUnits} is a declared or derived estimate of deployment units.
+
+The rule engine combines hard constraints and soft context bonuses, and hard constraints take precedence. HC-02 excludes a heavy truck from a narrow entrance. HC-03 requires a rescue boat for deep-flood or riverine-canal situations. HC-04 requires hydraulic heavy-debris equipment for a Building Collapse incident with severity of 88 or more. The seeded soft constraints are SC-01, which favors an agile vehicle (+12 for Fire, +10 for Building Collapse, and +4 for Flood); SC-03, which adds +8 for a same-area team in an ultra-dense context; and SC-04, which adds +10 for heavy-debris equipment in Building Collapse and +8 in Traffic Accident. When required context is missing, the evaluator records a soft warning and does not treat the missing value as a confirmed condition.
+
+Custom rules use one-sided \texttt{CR-xx} equality conditions over \texttt{targetEntity}, \texttt{customTagKey}, and \texttt{expectedValue}. The built-in HC-02, HC-03, and HC-04 predicates run in application code. The matching Rule rows are projection mirrors shown in the interface and are not what executes those built-in constraints.
+
+The operational notes define a demand convention of max(4, 2 people), where the person count comes from detections or Coordinator input. This convention is not specified as a separate hard eligibility gate and is not described here as an exclusion rule. A dedicated deadlock-override path exists, and its use and the responsible actor are recorded in Dispatch and the Audit Log. The override is not an unrestricted bypass. No further permission or predicate details are given, because no implementation evidence for them was supplied.
+
+% TODO (production note): [TABLE III ABOUT HERE. Decision-support configuration. Consolidate the AHP criteria, benefit/cost directions, fixed weights and CR; the team-match weights; the headcount meaning of capacity and the demand convention; HC-02/03/04; SC-01/03/04; the semantics of custom \texttt{CR-xx} rules; and the audit behavior of the deadlock-override path. Do not add a multiple-team allocation column. Place after Section 3.6.]
+
+\subsection{End-to-End Workflow, Coordinator Control, API, and Database}\label{sec:workflow-api-database}
+
+The workflow starts with image upload and server-side validation, then runs through report creation, model inference, severity routing, AHP/TOPSIS ranking, Coordinator review and verification, one-team matching, and dispatch confirmation. In the current demonstration, each submitted report is one operational incident. The workflow does not merge several reports into one incident through evidence fusion or corroboration. Public report identifiers take the form \texttt{INC-XXXX}.
+
+The server exposes endpoints for state retrieval and synchronization (\texttt{/api/state} and \texttt{/api/sync}), event and version updates (\texttt{/api/events} and \texttt{/api/version}), uploads (\texttt{/api/uploads}), prediction and rerun operations (\texttt{/api/ml/predict} and \texttt{/api/ml/rerun}), priority calculation (\texttt{/api/ahp/priority}), and service health (\texttt{/api/health}). Both portals call these routes, and authoritative operational state stays on the server.
+
+The Coordinator can review the original image, classification and detection evidence, severity output, review flags, priority information, and team recommendation. Before verification, the Coordinator may correct the incident type, the numeric severity, and the victim count. An Unclassified report cannot pass the verification gate until a supported incident type is selected. A Normal report follows a separate close path with no dispatch. For a verified non-Normal report, the matching module recommends one eligible primary team, and the Coordinator selects the assignment and confirms dispatch. Confirm Dispatch sets the team to On Mission and the report to In Progress. Finalize \& Resolve sets the report to Resolved, marks the dispatch Completed, returns the team to Available, and appends an audit record. There is no separate rescue-result form and no field for the number of people recovered.
+
+The persistent backend is SQLite in relational mode. The database is stored at \texttt{data/skyrescue.db} with write-ahead logging (WAL) and foreign-key enforcement on \cite{sqlite_docs}. \texttt{DATA\_BACKEND=relational} is the default, and JSON is a fallback backend. JSON and camelCase representations also carry server state to the frontends, but the persistent application model is relational. Uploaded images stay in the media directory and are not stored as database blobs.
+
+The logical data model has 15 domain tables: users, uavs, locations, rescue teams, team coverage, reports, predictions, person detections, dispatches, rules, tags, entity tags, system config, audit log, and upload attempts. The implementation also has four infrastructure tables (sessions, media uploads, ml results, and app meta) for session state, media processing, ML outputs, and application metadata. The documented logical baseline is 130 attributes. The checklist separately lists 54 implementation or projection columns, but the available materials do not say whether that count includes columns from the four infrastructure tables. The total physical-column count is therefore not reported as final until the schema is audited.
+
+A Report has one Prediction, enforced by a unique report\_id in Prediction, and a Prediction can have many PersonDetection records, one per bounding box. A Report has zero or one Dispatch in the current demonstration, and the unique Dispatch.report\_id enforces that one-to-zero-or-one relationship. A dispatched report therefore has one recorded primary team. The data model stores AI-originated values and operationally corrected values separately, so a Coordinator edit does not overwrite the AI score. The TOPSIS priority score is a closeness coefficient in [0, 1] and is distinct from the incident-severity scale. The \texttt{no\_team\_flag} and model-version fields are kept for traceability. A Dispatch record stores the selected team, match score, rule evaluation, override information, and AHP priority snapshot. Audit Log entries are append-only and tie each action to the authenticated server session.
+
+\section{Results and Discussion}\label{sec:results-discussion}
+
+\subsection{Experimental Setup and Evaluation Protocol}\label{sec:evaluation-protocol}
+
+Results are reported separately by model, dataset, and type of evidence. Three learned branches have held-out test metrics: EfficientNet-B0 on AIDER, the Fire MobileNetV3-Small on FLAME2, and the Building Collapse MobileNetV3-Small on UAVs-TEBDE. YOLOv8m has validation metrics on C2A and no test metrics. Traffic is evaluated by a consistency analysis, and Flood is summarized by its review and fallback behavior. AHP/TOPSIS and team matching need reproducible decision-support scenarios, and system integration needs tests and a local end-to-end run. These kinds of evidence are not interchangeable and are not merged into one system-accuracy figure.
+
+Scene classification is reported with accuracy, macro precision, macro recall, and macro-F1. Fire and Building Collapse are reported with test accuracy, weighted F1, and class-wise values where available. Object detection uses precision, recall, and mean average precision, with mAP50 and mAP50-95 following the COCO evaluation convention \cite{lin2014coco} as implemented in Ultralytics \cite{jocher2023yolov8}. The four core AI models were trained on a Colab T4.
+
+System-level measurements have to be reported apart from training and evaluation results, and they must name the CPU model, RAM, operating system or WSL2 version, Docker or runtime, commit or build ID, model-loading procedure, and warm or cold state. None of these host and build details were in the materials supplied for this revision, so no performance benchmark for the current build is claimed.
+
+\subsection{AI Model and Severity Results}\label{sec:ai-severity-results}
+
+% TODO (production note): [TABLE IV ABOUT HERE. Consolidated AI and severity results. Six rows: scene classification, human detection, Fire, Building Collapse, Traffic, and Flood. Columns: dataset, split or evidence type, metric, reported value, and interpretation or caveat. Mark YOLOv8m as validation only, Traffic as consistency analysis, and Flood as review and fallback statistics. Do not combine the six rows into an overall system accuracy. Place at the beginning of Section 4.2.]
+
+\subsubsection{Scene Classification}\label{sec:scene-results}
+
+EfficientNet-B0 reached 95.2\% accuracy on the 965-image AIDER test split, with 919 correct predictions. Macro precision was 0.912, macro recall was 0.945, and macro-F1 was 0.927. The test split has 658 Normal images (about 68.2\%), so a classifier that always predicted Normal would score 68.2\%. The reported accuracy is 27.0 percentage points above that baseline. Because of the class imbalance, the confusion matrix and class-wise results are still needed to interpret the number. The result supports scene classification on the held-out AIDER split. It says nothing certain about operational UAV imagery from other cameras, altitudes, weather, or disaster environments \cite{kyrkou2020aider,tan2019efficientnet}.
+
+\subsubsection{Human Detection}\label{sec:detection-results}
+
+On the C2A validation split, YOLOv8m obtained precision 0.415, recall 0.692, mAP50 of about 0.454, and mAP50-95 of 0.302. The mAP values follow the COCO evaluation convention \cite{lin2014coco}. The model found some annotated people but also produced many false positives. The gap between recall and precision affects the downstream branches. False detections can inflate person counts or supply unsuitable Upright references, and missed small people leave Traffic and Flood assessment with less evidence.
+
+These are validation results, not test results. C2A consists of synthetic composites built from AIDER backgrounds and figures from other datasets \cite{nihal2024c2a}, and it cannot fully reproduce the small targets, occlusion, unusual postures, terrain, sensors, and search conditions of real UAS missions. Studies on real UAS imagery and on the thermal AIResQ dataset cover other operational conditions \cite{buttner2026airesq,gotovac2020uas}. The detector has not been evaluated on the C2A test split or on real UAV imagery, so no field-detection claim is made.
+
+\subsubsection{Fire Severity}\label{sec:fire-results}
+
+The Fire classifier reached 93.57\% accuracy and a weighted F1 of 0.9352 on the 420-image FLAME2 test split. Validation accuracy and weighted F1 were higher, and the values given here are the held-out test figures. They apply to the RGB subset of a prescribed-fire experiment and do not establish performance on uncontrolled wildfires or on other thermal and RGB acquisition settings \cite{chen2022wildlandfire,howard2019mobilenetv3}. The branch values 0.0, 0.5, and 1.0 are ordinal scores mapped from three visual states. They are not injury or life-safety probabilities.
+
+\subsubsection{Building Collapse Severity}\label{sec:building-results}
+
+On the 246-image UAVs-TEBDE test split, the Building Collapse classifier reached a weighted F1 of 0.9512. For the Collapsed class, precision was 1.00 and recall was 0.90. The review threshold $P(\mathrm{Collapsed}) \geq 0.04$ was tuned on this same test set, so the threshold-dependent review behavior is exploratory, may be optimistic, and is not an independently validated operating point. UAVs-TEBDE is a multi-source dataset centred on post-earthquake building imagery, and its metrics do not automatically transfer to other disaster regions or building domains \cite{howard2019mobilenetv3,mowla2025uavstebde}.
+
+\subsubsection{Traffic Severity}\label{sec:traffic-results}
+
+The C2A consistency analysis reports 71\% same-grade agreement, 98\% agreement within one grade, and a Spearman correlation of 0.73 between people count and the generated severity value. These are internal consistency indicators, not field-accuracy metrics. The Traffic score is computed from estimated pedestrian density, so its correlation with people count cannot independently validate the severity of a real traffic incident. Fruin's LOS scale is a pedestrian-flow reference and has no ground-truth labels for the consequences of traffic incidents \cite{fruin1971pedestrian}. Camera geometry and altitude assumptions also affect the pixel-to-ground-distance estimate \cite{colomina2014uas}.
+
+\subsubsection{Flood Severity}\label{sec:flood-results}
+
+About 83.5\% of the evaluated C2A images were flagged for review by the Flood branch. This is a review rate. It is not classification accuracy and not a measure of flood-depth estimation. When no eligible Upright detection exists, the fail-safe rule assigns the maximum score and requests review. That avoids reading a missing visual reference as low flood severity, but it can raise a report's priority and add to Coordinator workload. The available evidence does not quantify how much the fallback cases contribute to the queue ranking.
+
+% TODO (production note): [FIGURE 2 ABOUT HERE. AI model evaluation panel, as composite panels: (a) EfficientNet-B0 training and validation curves; (b) the AIDER test confusion matrix; (c) representative YOLOv8m detections showing successes, false positives, and missed people; (d) a YOLOv8m precision-recall or validation plot. Label all YOLOv8m plots as validation unless a test evaluation has been run and logged. Place after the model-result subsections.]
+
+% TODO (production note): [FIGURE 3 ABOUT HERE. Incident-specific assessment examples, four panels: (a) the three Fire states and their branch scores; (b) Intact, Damaged, and Collapsed outputs; (c) a Traffic density map with bounding-box centres and the $4 \times 4\,\mathrm{m}$ sliding window; (d) a Flood Upright-reference case and a no-reference fallback case. State whether each panel uses live detector boxes or annotation boxes. For Traffic, name the comparator used in the 71%/98% consistency analysis. Use real system outputs, not invented illustrations. Place after Section 4.2.6.]
+
+\subsection{AHP/TOPSIS and Team-Matching Results}\label{sec:mcdm-matching-results}
+
+The configured AHP weights are 0.648 for severity, 0.230 for distance, and 0.122 for the number of free qualifying teams, with a consistency ratio of 0.003. Severity and distance are benefit criteria, and free-team count is a cost criterion. Under this policy, an incident tends to get a higher priority when its severity is higher, when the distance to a qualifying team is greater, or when fewer qualifying teams are available. He and Jung~\cite{he2018votingtopsis} give a precedent for TOPSIS in disaster-area prioritization, but their work does not validate SkyRescue's criteria, directions, or weights.
+
+The distance direction encodes an underserved-area policy. It may favour remote locations with little access to suitable resources, and it can conflict with minimizing travel time or reaching the largest number of incidents quickly. Treating free-team count as a cost criterion gives priority to scarcity and not to immediate response capacity. A consistency ratio of 0.003 shows that the pairwise judgments agree with each other. It does not show that the weights match operational priorities. Expert validation and sensitivity analysis are still needed \cite{hwang1981madm,saaty1980ahp}.
+
+The demonstration inventory is described as a national dataset with seven province views, 18 rescue-team records, and 21 sectors. These are demonstration records and not a verified operational roster, so team locations, availability, coverage, equipment, and incident timestamps say nothing about real field capacity. The supplied materials contain no saved incident-batch snapshot with the inputs and TOPSIS closeness coefficients needed to report reproducible incident ranks. They also contain no completed sensitivity outputs and no candidate-level match trace. The manuscript claims no incident-level rank, no sensitivity statistic, and no empirically optimal team assignment.
+
+The design does define the evidence a reproducible scenario would need: a consistent batch of five to eight incidents with public \texttt{INC-XXXX} identifiers, incident type, \texttt{final\_severity\_score} and its source, nearest qualifying distance, \texttt{free\_teams}, and \texttt{no\_team\_flag}; fixed AHP weights and criterion directions; and a candidate trace showing availability, specialization, coverage, hard-constraint results, soft bonuses, and matching-score components. One saved snapshot is needed to make these values comparable. Those records were not in the supplied files, so the paper limits its current result to the documented configuration and infers no ranks or sensitivity effects.
+
+% TODO (production note): [FIGURE 4 ABOUT HERE. AHP/TOPSIS and one-team matching evidence. Fill only from one reproducible saved demonstration snapshot, with at most three panels: (a) batch ranking with the input criteria and TOPSIS closeness coefficients; (b) a sensitivity comparison using the specified alternative criterion directions and weight settings; (c) candidate filtering and the choice of exactly one primary team. If no team is eligible, show \texttt{no\_team\_flag} and the distance-imputation effect. Label all team inventory and GPS information as demonstration data. The scenario and sensitivity outputs were not in the supplied materials. Do not invent values or build a synthetic result panel. Place at the end of Section 4.3 once the evidence exists.]
+
+\subsection{End-to-End System Testing and Demonstration}\label{sec:end-to-end-tests}
+
+The system design specifies a testable workflow covering upload validation, AI and severity output contracts, AHP ranking, one-team matching, Coordinator actions, dispatch confirmation, relational persistence, and audit traceability. The materials supplied for this revision, however, include no test logs from the final build after the planned interface changes. The earlier manuscript reported 45 passing pytest tests, four passing Node tests, and a Playwright end-to-end smoke test recorded as PASS. Those are historical results from an earlier state of the demonstration and are not reported here as final-build results.
+
+The earlier manuscript also gave single-machine measurements for inference, upload-to-AI timing, memory use, model loading, Docker image size, SSE propagation, and polling fallback. The revision plan requires these measurements to be repeated on the current build and tied to a named host, build identifier, timestamp, measurement scope, and warm or cold condition. The earlier timing and resource values are therefore not carried forward as current performance claims. A single-host measurement cannot establish multi-user capacity, deployment-scale inference, or operational reliability.
+
+A current system evaluation should separate cold model loading from warm inference, separate the execution of Model 1, Model 2, and the severity branches from upload-to-result time, separate server-to-client event propagation from polling fallback, and separate container memory from host memory. For each metric it should state the number of runs and one summary statistic, such as median and p95, or mean and standard deviation. The Python, Node, and Playwright suites should all run against the same final build, and every test count and pass/fail status should trace back to its log.
+
+% TODO (production note): [TABLE V ABOUT HERE. End-to-end functional test summary. Separate rows for upload validation; AI/severity output contracts; AHP ranking; one-team matching and Coordinator actions; Confirm Dispatch and lifecycle; relational persistence and audit trace; the Python, Node, and Playwright suites; and current-build single-machine performance. Do not reuse the earlier 45/4/PASS counts as current results. Attach the same final build ID and runtime context to every test and performance entry. Place in Section 4.4.]
+
+% TODO (production note): [FIGURE 5 ABOUT HERE. End-to-end workflow and persistence evidence. Capture one fresh run with a single incident ID in the \texttt{INC-XXXX} format throughout: Reporter upload; Dispatch queue and AI evidence; Coordinator review and verification; priority snapshot; one-team match; Confirm Dispatch with the selected team On Mission and the report In Progress; and the matching SQLite rows, Audit Log entry, and Digital Evidence Dossier snapshot. Do not mix incident IDs or builds. The screenshots must come from one continuous run. Place at the end of Section 4.4.]
+
+\subsection{Discussion and Limitations}\label{sec:discussion-limitations}
+
+Each component result belongs to its own dataset and evaluation setting. AIDER's scene-classification accuracy has to be read against its Normal-heavy class distribution. C2A gives a controlled synthetic setting for human detection, but its composited people and AIDER-derived backgrounds differ from real UAV search imagery \cite{nihal2024c2a}. The YOLOv8m metrics are validation values and are modest, especially precision and mAP, so an independent test and an evaluation on real UAV imagery are still needed. Real UAS SAR studies and thermal datasets such as AIResQ involve different target scales, sensors, terrain, and postures \cite{buttner2026airesq,gotovac2020uas}.
+
+The Fire and Building Collapse classifiers were evaluated on their own datasets and not on a shared deployment benchmark. FLAME2's prescribed-fire imagery does not cover uncontrolled wildfires \cite{chen2022wildlandfire}, and UAVs-TEBDE is multi-source and focused on post-earthquake building assessment \cite{mowla2025uavstebde}. The Building Collapse review threshold was tuned on the test split, so its behavior may be optimistic. Traffic and Flood outputs stay proxies with no field ground truth. Traffic depends on camera geometry, altitude, GSD, and pedestrian-flow categories and not on direct accident-severity labels \cite{colomina2014uas,fruin1971pedestrian}. Flood depends on the availability and geometry of Upright detections, and its maximum-score fallback can raise queue priority and review demand.
+
+The decision-support layer contains policy choices. The development team picked the fixed AHP weights, and no SAR expert has validated them. A low consistency ratio does not show that the weights match operational priorities. Giving higher priority to incidents far from suitable teams, and to incidents with fewer qualifying teams, reflects an underserved-area and resource-scarcity objective that may conflict with minimizing response time. TOPSIS scores are relative to the current batch, and the maximum-distance imputation for a no-team case can raise its rank. The ranking is a decision aid. It is not a validated risk measure or an optimal allocation policy.
+
+The demonstration inventory limits the team recommendations. Seeded records do not establish real team availability, location, coverage, specialization, equipment, or headcount. The inventory is a national demonstration dataset with seven province views, 18 team records, and 21 sectors, and those views are not evidence that incidents exist in each province. The incident count was not verified in the materials supplied for this revision.
+
+The local deployment also relies on external services for some map functions. The Dispatch basemap normally fetches OpenStreetMap tiles online and falls back to a static map when there is no connection. Reverse geocoding through Nominatim \cite{nominatim_docs} sends report coordinates to an external service. Tile delivery and reverse geocoding are separate services and should be documented separately in privacy notices and deployment policy. Location sharing, retention, and access controls need explicit governance before any real personal or operational data are used.
+
+Security and authorization are also limits of the demonstration. The Reporter role can read reports beyond its own submissions, and broad state keys remain writable. Real personal or operational data should not go into a public deployment until role-based filtering and state-write authorization are tightened. The active-region geofence is a bounding-box approximation, and the system has not passed a security audit. The earlier single-machine performance figures are no evidence of multi-user capability or deployment-scale reliability.
+
+Overall, the results describe a prototype that connects UAV-image processing with server-side prioritization and human-controlled dispatch. They do not establish field accuracy, operational superiority, shorter response time, better survival, or better rescue outcomes. Those claims need ground-truthed field data and evaluation with SAR personnel.
+
+\section{Conclusion}\label{sec:conclusion}
+
+\subsection{Summary}\label{sec:summary}
+
+SkyRescue is a UAV-image-based decision-support prototype. It connects image intake and server-side validation with aerial-scene classification, person detection, incident-specific assessment, AHP/TOPSIS prioritization, rule-based recommendation of one primary rescue team, Coordinator verification, dispatch confirmation, and relational persistence with audit traceability. The two-portal implementation treats AI outputs as evidence and recommendations. Incident verification, team selection, and dispatch confirmation stay with the Coordinator.
+
+\subsection{Main Findings}\label{sec:main-findings}
+
+EfficientNet-B0 reached 95.2\% accuracy and 0.927 macro-F1 on the AIDER test split \cite{kyrkou2020aider,tan2019efficientnet}. The Fire branch reached 93.57\% test accuracy and 0.9352 weighted F1 on the FLAME2 RGB test subset \cite{chen2022wildlandfire,howard2019mobilenetv3}. The Building Collapse branch reached 0.9512 weighted F1 on the UAVs-TEBDE test split, though its review threshold was tuned on that set \cite{howard2019mobilenetv3,mowla2025uavstebde}. YOLOv8m obtained C2A validation precision of 0.415, recall of 0.692, mAP50 of about 0.454, and mAP50-95 of 0.302, and no independent detector test result exists \cite{jocher2023yolov8,nihal2024c2a}. Traffic's 71\% same-grade agreement, 98\% within-one-grade agreement, and 0.73 Spearman correlation are consistency indicators. Flood's 83.5\% is a review rate. Neither set of values measures field severity accuracy.
+
+The decision-support configuration uses fixed AHP weights of 0.648 for severity, 0.230 for distance, and 0.122 for free qualifying teams, with $\mathrm{CR}=0.003$. The weights are visible in the DSS Trace and cannot be edited in the current interface. The directions encode a policy preference for higher severity, greater distance, and fewer available qualifying teams. The supplied material contains no reproducible incident-ranking scenario, no completed sensitivity results, and no final-build test or performance logs. This revision therefore makes no claim about incident ranks, sensitivity statistics, current integration-test counts, or current system latency. The component metrics stay separated by model, dataset, and type of evidence, and are not combined into an overall system accuracy.
+
+\subsection{Limitations and Future Work}\label{sec:future-work}
+
+YOLOv8m should be evaluated on the held-out C2A test split and on real UAV imagery, including small or occluded people and unusual postures \cite{buttner2026airesq,gotovac2020uas,nihal2024c2a}. The scene-classification confidence thresholds need systematic sweeps and calibration analysis. The Building Collapse review threshold should be chosen on validation data and then assessed once on a separate test set.
+
+Flood and Traffic need field-relevant ground truth: flood-depth or immersion references, traffic-incident severity labels, and GSD calibration with actual altitude and camera geometry. The Fruin-derived Traffic indicator should remain a pedestrian-density proxy until it is validated against incident outcomes \cite{colomina2014uas,fruin1971pedestrian}. How often the Flood fallback triggers, and what it does to queue rankings and Coordinator workload, also needs measuring.
+
+SAR experts should review the AHP judgments, fixed weights, and criterion directions, followed by a sensitivity analysis of alternative directions and weight settings \cite{hwang1981madm,saaty1980ahp}. A reproducible batch-ranking and one-team matching scenario should be generated from one saved snapshot, with all inputs, outputs, rule evaluations, and \texttt{no\_team\_flag} behavior preserved. The team inventory, locations, coverage, availability, equipment, and headcount should be checked against operationally verified records. The final SQLite DDL and API implementation should be audited to reconcile logical attributes, implementation and projection columns, infrastructure columns, and the definition of \texttt{free\_teams}.
+
+On the system side, role-based access control should be tightened, the approximate geofence should be replaced with a precise boundary, and external map tiles and Nominatim reverse geocoding should be brought into privacy and data-governance procedures. A current-build evaluation should report host specifications, build identifiers, cold-start and warm-inference measurements, event propagation, memory use, image size, and test-suite logs. The system should then be tested with SAR Coordinators in structured usability and decision-time studies that examine whether they understand and use the evidence and recommendations appropriately. Rye and Aktas~\cite{rye2022predis} give a precedent for participatory evaluation of decision-support recommendations. Integration with personnel and asset allocation is a further research direction, in line with earlier disaster-response scheduling research \cite{rolland2010disasterdss}. Benefits in response time or rescue outcomes can be claimed only after a controlled evaluation against operational baselines with outcome data.
+
+\backmatter
+
+\section*{Declarations}
+
+Funding: To be completed by the authors.
+
+Competing interests: To be completed by the authors.
+
+Ethics approval and consent to participate: To be completed, or state not applicable with the appropriate rationale.
+
+Consent for publication: To be completed, or state not applicable.
+
+Data availability: To be completed, including any access restrictions and dataset or source links.
+
+Materials availability: To be completed, or state not applicable.
+
+Code availability: To be completed with the repository or an appropriate access statement.
+
+Author contributions: To be completed using the journal's required contribution taxonomy.
+
+\bibliography{sn-bibliography}
+
+\end{document}
