@@ -22,7 +22,7 @@ Search and rescue (SAR) coordinators work from incomplete evidence. They have to
 - Incident Classification: https://www.kaggle.com/datasets/axin192/aiderv2-aerial-disaster-dataset/data
 - Human Detection: https://www.kaggle.com/datasets/rgbnihal/c2a-dataset/code
 - Model for FLAME: https://www.kaggle.com/datasets/axin192/flame2-fire-3class-2800/data
-- Model for COLLAPSED BUILDINGS: 
+- Model for COLLAPSED BUILDINGS: https://www.kaggle.com/datasets/axin192/uavs-tebde/data?select=UAVs-TEBDE+%28Original+Dataset%29
 
 ## Demo
 The system currently runs locally.
