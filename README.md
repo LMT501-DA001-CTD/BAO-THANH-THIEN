@@ -19,8 +19,15 @@ Search and rescue (SAR) coordinators work from incomplete evidence. They have to
 - HTML, CSS, JavaScript
 
 ## Dataset
-Full dataset: [Kaggle Link](YOUR_KAGGLE_LINK)
+Full dataset:
+- Incident Classification: https://www.kaggle.com/datasets/axin192/aiderv2-aerial-disaster-dataset/data
+- Human Detection: https://www.kaggle.com/datasets/rgbnihal/c2a-dataset/code
+- 
 
 ## Demo
-Live Demo: [Demo Link](YOUR_DEMO_LINK)
+The system currently runs locally.
+
+To run the system, follow the installation
+and execution instructions in /code/START_HERE.md
+
 
