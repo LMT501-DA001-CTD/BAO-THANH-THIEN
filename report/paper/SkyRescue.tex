@@ -1,0 +1,466 @@
+\documentclass[pdflatex,sn-mathphys-ay]{sn-jnl}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{xltabular}
+\usepackage{array}
+\usepackage{capt-of}
+\setlength{\abovecaptionskip}{1pt} 
+\setlength{\belowcaptionskip}{1pt} 
+\usepackage{makecell}
+\usepackage{amsmath,amssymb}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{pdfpages}
+\raggedbottom
+
+\begin{document}
+
+\title[SkyRescue]{SkyRescue: A UAV-Image-Based Decision Support System for Search and Rescue}
+
+\author*[1]{\fnm{Minh} \sur{Hoang Tran}}\email{tmhoang1902@gmail.com}
+\author[1]{\fnm{Ngoc} \sur{Thao Anh Tran}}
+\author[1]{\fnm{Thai} \sur{Bao Le}}
+\author[1]{\fnm{Nguyen} \sur{Phuong Nghi Dang}}
+\author[1]{\fnm{Minh} \sur{Triet Le}}
+
+\affil*[1]{\orgdiv{Institute of Intelligent and Interactive Technologies (3i Institute)}, \orgname{College of Technology and Design (CTD), University of Economics Ho Chi Minh City (UEH)}, \orgaddress{\city{Ho Chi Minh City}, \country{Vietnam}}}
+
+\equalcont{All authors contributed equally to this work.}
+
+\abstract{After a disaster, search and rescue coordinators have to turn large volumes of unmanned aerial vehicle (UAV) imagery into usable incident information. This paper presents SkyRescue, a web-based decision-support system that combines image validation, artificial-intelligence-assisted assessment, incident prioritization, and rescue-team recommendation, while dispatch stays under human control. The system uses EfficientNet-B0 for scene classification and YOLOv8m for person and posture detection. It adds four incident-specific assessment branches, source-aware Hybrid Trust verification, Code Red escalation, Analytic Hierarchy Process (AHP) weighting, and Technique for Order Preference by Similarity to Ideal Solution (TOPSIS) ranking. Rule-based team matching then assigns teams by specialty fit, distance, capacity, and operational constraints. The component models were evaluated separately on AIDER, C2A, FLAME2, and UAVs-TEBDE, and an end-to-end benchmark ran three controlled scenarios through the browser interface. On the AIDER test split (n = 965), scene classification reached 95.2 accuracy and a macro-F1 of 0.927. On the synthetic C2A validation split, person detection reached 0.415 precision, 0.692 recall, and a mean average precision of approximately 0.454 at an intersection-over-union threshold of 0.50. The fire and building-collapse classifiers reached 93.57 and 95.12 accuracy on their reported test splits, respectively. The Traffic and Flood branches remain heuristic, with no reproducible quantitative validation. The integrated benchmark passed all 98 predefined checks and all 12 safety-invariant checks. The results show that the components work together under controlled conditions.}
+
+\keywords{UAV imagery; search and rescue; decision support; disaster assessment; multi-criteria decision-making; software architecture}
+
+\maketitle
+
+\section*{Highlights}
+\begin{itemize}
+    \item Integrates UAV image validation, AI assessment, prioritization, and team matching.
+    \item Combines Hybrid Trust verification with Coordinator-controlled dispatch.
+    \item Reports model-specific results across four disaster-imagery datasets.
+    \item Passes 98/98 workflow checks across three controlled scenarios.
+    \item Tests Code Red with preset fixtures; no live image reached its thresholds.
+\end{itemize}
+\captionof{table}{Software metadata}
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.15}
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\textwidth}{|X|X|}\hline
+Field & Current evidence in supplied release \\ \hline
+Code version & Benchmark metadata: branch rebuild/v2, base commit 19cb7f9; working-tree changes were uncommitted at the final run. The supplied source archive has no .git directory, so the exact committed tree cannot be reconstructed from that archive. \\ \hline
+Repository and release & No public repository URL, release tag, permanent release identifier, or reproducibility capsule was included in the supplied files. \\ \hline
+License & No LICENSE file is present in the supplied source tree; redistribution terms must be selected by the authors before public release. \\ \hline
+Languages and services & Python, JavaScript, SQL, HTML/CSS; FastAPI, SQLite, Docker, PyTorch, Ultralytics, Pillow, NumPy, pandas, SciPy, OpenCV. \\ \hline
+Runtime environment & Python 3.11 Docker image; CPU inference build. Runtime pins include PyTorch 2.5.1, torchvision 0.20.1, Ultralytics 8.3.40, FastAPI 0.115.6, Uvicorn 0.32.1, Pillow 11.0.0, NumPy 2.1.3, pandas 2.2.3, SciPy 1.14.1, and OpenCV-headless 4.10.0.84. \\ \hline
+Model package and tests & Four primary checkpoints are listed in Supplementary Table S6. The test suite includes pytest in relational and JSON modes, Node tests, and a Playwright smoke test. \\ \hline
+Documentation and support & README.md, START\_HERE.md, HANDOFF.md, and docs/ are included in the local source archive. Support contact: tmhoang1902@gmail.com. \\ \hline
+\end{tabularx}
+\end{center}
+
+\section*{1. Introduction}
+
+After earthquakes, floods, fires, and major accidents, search and rescue (SAR) coordinators receive more incident reports than they can inspect one by one. Resources, time, and early information are limited at the same moment. Unmanned aerial vehicles (UAVs) can photograph areas that are dangerous or hard to reach on foot, but an image supports coordination only after it has been received, checked, analyzed, and turned into structured information that a coordinator can compare with other reports. This study describes software that links these steps; it does not measure rescue outcomes or field response-time improvements.
+
+Three practical difficulties shape the design. First, reports are heterogeneous: they come from registered UAV operators, identified reporters, specialist volunteers, and citizens, and their provenance and metadata differ. SkyRescue applies server-side upload validation and a source-aware verification policy called Hybrid Trust. Second, scene classification does not by itself establish incident priority. SkyRescue combines a scene classifier and a person/posture detector with four incident-specific assessment branches. Third, rescue teams differ in specialty, location, availability, equipment, and headcount. The system ranks active incidents with the Analytic Hierarchy Process (AHP) and Technique for Order Preference by Similarity to Ideal Solution (TOPSIS). After a Coordinator verifies a non-Normal incident, detailed team matching ranks available teams using specialty fit, distance, headcount capacity, and operational rules, then presents one primary recommendation. The Coordinator can override the recommendation and must confirm every dispatch.
+
+SkyRescue is a local web application with two portals. The Reporter portal accepts incident images and lets reporters follow their reports. The Dispatch portal lets a SAR Coordinator or administrator inspect AI evidence, verify incidents, select a team, confirm dispatch, and close incidents. A FastAPI application with SQLite persistence serves both portals. The software combines image intake, AI-assisted assessment, prioritization, team matching, and human-controlled dispatch in one workflow.
+
+The paper makes three contributions. First, it describes an integrated UAV-image workflow from server-side validation through severity assessment and dispatch. Second, it documents the implemented safeguards: Hybrid Trust verification, Code Red escalation, an append-only audit trail, and Coordinator-only dispatch confirmation. Third, it reports component-level evaluation separately from scenario-level workflow checks and identifies the evidence that is and is not reproducible from the supplied artifacts.
+
+\section*{2. Related Work}
+
+\subsection*{2.1. UAV-based aerial scene classification for emergency monitoring}
+
+Kyrkou and Theocharides proposed EmergencyNet, a compact aerial-scene classifier for drone-based emergency monitoring \cite{ref03}. The AIDER dataset supplies labeled aerial images for emergency-response scene understanding \cite{ref04}. SkyRescue uses EfficientNet-B0 \cite{ref05}, not EmergencyNet, and maps each incoming image to five project classes: Collapsed Building, Fire, Flood, Traffic Accident, or Normal. The result selects the initial assessment route. Transformer-based classifiers and knowledge distillation have been studied in other image-classification domains \cite{ref27}; SkyRescue uses neither technique.
+
+\subsection*{2.2. Human detection in disaster scenarios}
+
+Detecting people in UAV imagery is difficult because a person may occupy few pixels, lie or crouch, or be partly hidden by terrain and nearby objects. C2A is a synthetic benchmark for human detection in disaster scenes \cite{ref06}. It composites human figures from LSP and MPII-MPHB onto AIDER backgrounds. This supports repeatable experiments but does not reproduce the full appearance of people in field rescue imagery. Work on real aerial imagery provides complementary evidence: Gotovac et al. compared algorithmic person detection with human interpretation of UAS imagery for SAR missions \cite{ref07}, while Büttner et al. introduced AIResQ and evaluated person detection using UAV imagery from SAR exercises and operational sources \cite{ref08}. These sensors and evaluation settings differ from C2A synthetic RGB composites. Because C2A reuses AIDER backgrounds, the two datasets are not independent by construction. A background-overlap audit for the split used in this study was not present in the supplied artifacts; AIDER and C2A results are therefore not independent cross-dataset validation.
+
+\subsection*{2.3. Incident-specific disaster assessment}
+
+Visual-analysis datasets usually target one disaster type. FLAME2 provides UAV-acquired RGB and thermal imagery from a prescribed forest-fire experiment \cite{ref09}. UAVs-TEBDE supports building-damage estimation after the 2023 Turkey earthquakes \cite{ref10}. SkyRescue uses one branch per incident type. Fire and Building Collapse use MobileNetV3-Small image classifiers \cite{ref11}. The Traffic branch estimates pedestrian density and maps it to Fruin level-of-service grades \cite{ref12}, which were developed for pedestrian flow rather than accident severity. The Flood branch uses the apparent height-to-width ratio of an upright person as a visual proxy. Traffic and Flood outputs are heuristics, not calibrated physical measures: C2A does not provide flood-depth ground truth, and composited figures cannot validate real immersion geometry. The Traffic pixel scale depends on camera geometry and altitude \cite{ref23}.
+
+\subsection*{2.4. Multi-criteria decision-making for incident prioritization}
+
+When resources are limited, responders must choose which locations or incidents to address first. He and Jung proposed a voting-TOPSIS method for prioritizing disaster-damaged areas \cite{ref13}. SkyRescue uses AHP \cite{ref01} to derive criterion weights and TOPSIS \cite{ref02} to rank active incident reports. These procedures create a ranking but do not validate the operational meaning of the criteria or scores. The severity indicators from the four branches are assumed to be sufficiently comparable for ranking, an assumption that has not been validated by SAR experts. Geospatial decision-support software such as CityZones computes urban risk zones \cite{ref28}; SkyRescue instead connects UAV-image assessment with incident prioritization and team recommendation.
+
+\subsection*{2.5. Integrated decision support for disaster response}
+
+Rye and Aktas studied PREDIS, a disaster-management model that pairs impact and needs estimation with supplier selection \cite{ref14}. Cavdur et al. built a spreadsheet-based tool for allocating temporary disaster-response facilities under uncertainty \cite{ref15}. Rolland et al. addressed assignment and scheduling of personnel and assets for disaster response and recovery \cite{ref16}. These systems support supplier selection, facility allocation, or personnel scheduling. SkyRescue starts from UAV imagery and connects scene classification and incident-specific visual indicators to incident prioritization and the recommendation of one primary rescue team, with dispatch remaining under Coordinator control.
+
+\section*{3. Data and Method}
+
+This section describes the software from image input to dispatch decision. Model details are included to the extent supported by the supplied training notes, checkpoints, code, and evaluation records. Missing split manifests and unevaluated metrics are stated explicitly rather than inferred.
+
+\subsection*{3.1. System overview and architecture}
+
+SkyRescue is demonstrated as a local deployment. It has two actors: the Reporter and the SAR Coordinator/Administrator. A registered UAV is an image source in the Reporter workflow, not a separate login actor. The Reporter portal (/reporter/) accepts incident images and shows submission status. The Dispatch portal (/dispatch/) lets the Coordinator inspect reports, review AI evidence, correct incident information, verify incidents, select a rescue team, confirm dispatch, and close incidents. One FastAPI application serves the static frontends, API, and local machine-learning service. SQLite stores workflow state; uploaded images are stored in a media directory under generated filenames. The relational backend uses SQLite write-ahead logging and foreign-key enforcement \cite{ref24}.
+
+The frontends receive updates through Server-Sent Events (SSE) at /api/events \cite{ref19}, with polling of /api/version every two seconds as an application-level fallback. The Dispatch basemap normally loads OpenStreetMap tiles over the internet and switches to a static map when tile access is unavailable. Reverse geocoding uses Nominatim \cite{ref26}, so the demonstration is local but not fully offline. The current inference path is serialized through a semaphore and is not a distributed microservice architecture.
+
+\begin{center}\includegraphics[width=\textwidth,height=0.78\textheight,keepaspectratio]{figures/figure1.png}\end{center}
+
+\captionof{figure}{Overall architecture of SkyRescue, showing the Reporter and Dispatch portals, the FastAPI application, local ML inference, SQLite persistence, real-time synchronization, and external map services.}
+
+\subsection*{3.2. Image intake and validation}
+
+The upload API makes the final acceptance decision; browser-side checks provide early feedback only. Server-side validation runs in a fixed order: file type and size, metadata and location, capture time, UAV identity, exact and near-duplicate checks, rate limiting, and storage. The API accepts JPEG and PNG files up to 35 MB and checks file magic bytes before reading EXIF fields such as capture time, device information, and GPS coordinates \cite{ref17}. EXIF GPS is preferred. Browser GPS is a fallback for personal uploads without EXIF GPS; demonstration metadata is the final fallback and must be identified as simulated. When EXIF and browser GPS differ by more than 300 m, the report is accepted with a review flag, EXIF remains authoritative, and automatic verification is blocked. The active-region geofence is a rectangular bounding box with a 0.5-degree margin, not an administrative polygon.
+
+In UAV mode, EXIF device fields are compared with the registered UAV record \cite{ref17}. This metadata comparison is not cryptographic source authentication and does not prove that metadata is unmodified. Capture time may be at most 30 minutes old and at most 60 seconds in the future. Exact-file duplicates are rejected using SHA-256 \cite{ref18}. Near-duplicates are evaluated separately using perceptual dHash; Hamming distance at most 6 adds a warning but does not reject the upload. Per-IP and per-account rate limits are 30 and 40 upload requests per minute, respectively. The Reporter portal also computes a Laplacian-variance sharpness indicator, but it is informational and not a server-side rejection gate.
+
+After successful validation, the server creates a report identifier and stores the image under a random 128-bit filename. A background job processes the report. The local demonstration serializes inference and applies a 60-second processing timeout. Model 2 bounding boxes are image-pixel coordinates and are not interpreted as victim GPS positions. Rejections return an ERR\_* code with a reason and remedy; the implemented gates are summarized in Table 3 and Supplementary Table S3.
+
+\subsection*{3.3. Datasets and AI components}
+
+Four datasets support four separate tasks (Table 2). They differ in image source, labels, and evaluation question and are not pooled into a single benchmark. The available records do not provide all manifests needed to reproduce the C2A background split or the FLAME2 subset sampling.
+\vspace{8pt}
+\captionof{table}{Datasets used for model training and evaluation. Split details are distinguished from those that can be reconstructed from supplied artifacts.}
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.15}
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\textwidth}{|X|X|X|}\hline
+Dataset & Task and reported composition & Split information and evidence limitation \\ \hline
+AIDER \cite{ref04} & 6,433 images, five classes: Collapsed Building 511; Fire 521; Flood 526; Normal 4,390; Traffic Accident 485. & Stratified 70/15/15 split, seed 42: 4,503/965/965. Test split has 658 Normal images. Split file was not included in the source archive. \\ \hline
+C2A \cite{ref06} & 10,215 synthetic images and 360,467 person boxes, as reported for the dataset. People are composited onto AIDER backgrounds; postures are mapped to Upright and Other. & Paper records a background-based 7,150/1,530/1,535 split (seed 42). The composite-to-background mapping, grouping script, and leakage-audit output were not supplied; the split cannot be independently reproduced from this package. \\ \hline
+FLAME2 RGB \cite{ref09} & Reported 2,800-image RGB subset: No Flame/No Smoke 718; Flame/No Smoke 750; Flame/Smoke 1,332. Thermal frames were not used. & Paper records 1,960/420/420 temporal-block splits. Video IDs, selected frame IDs, temporal block boundaries, sampling rule, and exclusion-buffer lengths are absent; exact subset construction is not reproducible from supplied records. \\ \hline
+UAVs-TEBDE \cite{ref10} & 1,636 original images: Intact 498; Damaged 664; Collapsed 474; the augmented collection was not used. & A split JSON is included and records 1,145/245/246 files (seed 42). It does not independently establish whether augmentation occurred only after the split; training/evaluation origin-ID audit was not provided. \\ \hline
+\end{tabularx}
+\end{center}
+
+\subsubsection*{3.3.1. UAV scene classification (Model 1)}
+
+Model 1 is an ImageNet-initialized EfficientNet-B0 \cite{ref05} with a five-output head and 224$\times$224 input. The inference checkpoint is aider\_classifier.pth. The AIDER label ``Collapsed Building'' is displayed as ``Building Collapse''. Training first freezes the backbone and then unfreezes the last feature blocks and classification head. Augmentation includes RandomResizedCrop (scale 0.6--1.0), horizontal and vertical flips, rotation up to 20 degrees, ColorJitter, Gaussian blur, sharpness adjustment, and RandomErasing, followed by ImageNet normalization. Optimization uses Adam \cite{ref20}, weighted cross-entropy, batch size 32, and at most 15 epochs; learning rates are 10-3 for the head and 10-4 for the backbone. ReduceLROnPlateau tracks validation macro-F1. Training is recorded as having run on a Colab T4 GPU.
+
+The router first applies the Normal gate. If Normal is predicted with P(Normal) $\geq$ 0.90, severity processing is bypassed and the report remains visible for Coordinator review. Otherwise, an incident-class prediction with confidence $\geq$0.70 is accepted; confidence from 0.50 to below 0.70 retains the predicted class with a review flag; confidence below 0.50 produces Unclassified. An Unclassified report cannot be verified until the Coordinator assigns a supported incident type. The Hybrid Trust auto-verification threshold of 0.85 is a separate source-and-consistency decision, not a scene-classification threshold.
+
+\subsubsection*{3.3.2. Human detection and posture classification (Model 2)}
+
+Model 2 is Ultralytics YOLOv8m initialized from yolov8m.pt and run at 640$\times$640 pixels \cite{ref21}. The inference checkpoint is v8m\_up2\_best.pt, with detector confidence threshold 0.25 and IoU threshold 0.50. Each detection has a pixel-space bounding box, confidence score, and posture label Upright or Other (displayed as Non-Upright). The C2A training record specifies 40 epochs, batch size 16, image size 640, automatic optimizer selection, initial and final learning rates 0.01, momentum 0.937, weight decay 5$\times$10-4, three warm-up epochs, mosaic augmentation 1.0, horizontal flip probability 0.5, close-mosaic 10, seed 0, and automatic mixed precision. Training duration was recorded as approximately 2.9 hours on Colab.
+
+The manuscript evaluation record reports Model 2 metrics on the C2A validation split, not the test split. Training/evaluation used Ultralytics 8.4.171 while the packaged runtime pins 8.3.40. No load/inference compatibility test across these versions was included, so numerical equivalence between the evaluation and runtime stacks has not been verified. The 0.25 detector threshold is distinct from the Code Red confidence thresholds of 0.70 and 0.75 (Section 3.6.1).
+
+\subsection*{3.4. Incident-specific severity assessment}
+
+Each non-Normal report enters one of four assessment branches. Fire and Building Collapse use trained image classifiers; Traffic and Flood use heuristic indicators computed from Model 2 detections. Their outputs have different meanings and different evidence bases. Each branch produces a normalized score S\_branch in [0,1], which the application stores/displays on a 0--100 operational scale as S\_operational = 100 $\times$ S\_branch. These are operational ordinal/proxy scores, not calibrated probabilities of injury or physical severity. The AHP adapter converts the stored score back to [0,1] before TOPSIS by dividing by 100.
+
+\subsubsection*{3.4.1. Fire}
+
+The Fire branch is an ImageNet-initialized MobileNetV3-Small \cite{ref11} with three classes: No Flame/No Smoke, Flame/No Smoke, and Flame/Smoke. It uses weighted cross-entropy, batch size 32, and a two-phase AdamW procedure \cite{ref22}, with the last three feature blocks unfrozen in the second phase. The reported training subset contains 2,800 FLAME2 RGB images: 718, 750, and 1,332 examples in the three classes. The checkpoint is best\_fire\_mobilenetv3\_phase2.pth. The states map to branch scores 0.0, 0.5, and 1.0. The 2,800-image selection and temporal split cannot be reproduced from the available files (Table 2), so the reported test metric is retained with that provenance limitation.
+
+\subsubsection*{3.4.2. Building Collapse}
+
+A second MobileNetV3-Small classifies UAVs-TEBDE images as Intact, Damaged, or Collapsed and maps them to 0.0, 0.5, and 1.0. The source data are the 1,636 original images rather than the 16,500-image augmented collection \cite{ref10}. Training uses weighted cross-entropy, AdamW at learning rate 10-4, batch size 32, up to 30 epochs, and patience 8. The checkpoint is collapsed\_building\_best\_v2.pt. The current operating rule sets needs\_review when P(Collapsed) $\geq$ 0.04. This threshold was selected on the same test split used for the reported classifier result, so threshold-dependent review behavior may be optimistic. The supplied split JSON supports the split file counts but does not resolve training-time augmentation order.
+
+\subsubsection*{3.4.3. Traffic Accident}
+
+The Traffic branch estimates pedestrian density from Model 2 detections with confidence at least 0.25. Detection centres are converted from pixels to metres using a pinhole-camera ground-sampling-distance approximation for a locally planar scene. The prototype reference configuration assumes altitude H=12 m, sensor width Sw=6.4 mm, and focal length f=4.5 mm; trustworthy altitude metadata takes precedence when available. A 4$\times$4 m window moves over the estimated ground plane in 1 m steps to find the densest area. The output is mapped to Fruin pedestrian level-of-service (LOS) grades A--F \cite{ref12}. The class boundaries implemented in the code are A: $\rho$\textless{}0.31; B: 0.31$\leq$$\rho$\textless{}0.43; C: 0.43$\leq$$\rho$\textless{}0.72; D: 0.72$\leq$$\rho$\textless{}1.08; E: 1.08$\leq$$\rho$\textless{}2.15; and F: $\rho$$\geq$2.15 persons/m\textsuperscript{2} (Table 4). The previous ``\textgreater{}2.15'' endpoint is corrected to ``$\geq$2.15''.
+
+Fruin LOS describes pedestrian flow, not traffic-accident severity. The density estimate also depends on the assumed camera geometry, altitude, ground plane, and detector output. It must therefore be interpreted as a crowd-density proxy. No Traffic agreement or error metric is reported because the available records do not identify a reproducible reference, sample denominator, and numerator for the previously reported consistency values.
+\vspace{8pt}
+
+\captionof{table}{Fruin LOS intervals used in the Traffic branch. The intervals are left-closed/right-open, except grade A and grade F.}
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.15}
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\textwidth}{|X|X|X|}\hline
+Fruin grade & Density interval (persons/m\textsuperscript{2}) & Traffic branch score \\ \hline
+A & $\rho$ \textless{} 0.31 & 0.0 \\ \hline
+B & 0.31 $\leq$ $\rho$ \textless{} 0.43 & 0.2 \\ \hline
+C & 0.43 $\leq$ $\rho$ \textless{} 0.72 & 0.4 \\ \hline
+D & 0.72 $\leq$ $\rho$ \textless{} 1.08 & 0.6 \\ \hline
+E & 1.08 $\leq$ $\rho$ \textless{} 2.15 & 0.8 \\ \hline
+F & $\rho$ $\geq$ 2.15 & 1.0 \\ \hline
+\end{tabularx}
+\end{center}
+
+\subsubsection*{3.4.4. Flood}
+
+The Flood branch uses an upright person as a visual scale reference. A detection is eligible when its width is at least 8 pixels, height at least 30 pixels, and confidence at least 0.40. The reference ratio $\beta$=2.0667 was estimated from 488 boxes across 304 C2A training images. For eligible detection i, the branch score is s\_i = clip(1 - (h\_i/w\_i)/$\beta$, 0, 1), and S\_flood is the maximum eligible score. When no eligible upright detection exists, the branch assigns the maximum score 1.0 and sets needs\_review. The score is an apparent body-proportion proxy, not flood depth, water level, or calibrated immersion geometry. The associated reference split and complete sampling manifest were not provided; no Flood accuracy or review-rate statistic is reported.
+
+\subsection*{3.5. Hybrid Trust and incident verification}
+
+Verification depends on the source identity, Model 1 evidence, and consistency checks. Registered UAV, identified specialist/CTV, and identified verified reporter sources may be auto-verified when the Model 1 incident confidence is at least 0.85, needs\_review is false, and no contradiction or GPS conflict is present. Citizen reports are never auto-verified. AI failure also forces manual verification, including for otherwise trusted sources. The 0.85 threshold refers to Model 1 incident confidence and is independent of the Model 1 class-routing thresholds (0.90/0.70/0.50) and Model 2 Code Red thresholds (0.70/0.75).
+\vspace{8pt}
+\captionof{table}{Hybrid Trust verification policy. Confidence alone is not a verification or dispatch authorization.}
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.15}
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\textwidth}{|X|X|X|}\hline
+Source/condition & Verification handling & Condition \\ \hline
+Registered UAV & May auto-verify & Registered device and matched metadata; Model 1 incident confidence $\geq$0.85; no review flag, contradiction, or GPS conflict. \\ \hline
+Specialist / CTV & May auto-verify & Identified, credential-verified source with the same confidence and consistency conditions. \\ \hline
+Identified verified reporter & May auto-verify & Verified account, Model 1 incident confidence $\geq$0.85, and no review/consistency flags. \\ \hline
+Citizen & Manual verification & Never auto-verified; requires Coordinator review. \\ \hline
+AI failure & Manual verification & Remains Unverified and requires Coordinator review, regardless of source tier. \\ \hline
+\end{tabularx}
+\end{center}
+
+When a Coordinator edits the incident type of an auto-verified report, the report returns to the verification screen and must be verified again before matching or dispatch. The Unified Triage Workspace can combine verification and dispatch preparation in one interface, and the audit event TRIAGE\_VERIFY\_AND\_DISPATCH records the combined action. Model confidence alone neither verifies an incident nor authorizes dispatch. Auto-verification additionally requires the source and consistency conditions of Hybrid Trust, while every dispatch requires Coordinator authorization. In the current implementation auto-verification runs in the Dispatch client and depends on an open Dispatch tab; server-side auto-verification is a future improvement.
+
+\subsection*{3.6. Code Red detection and incident prioritization}
+
+\subsubsection*{3.6.1. Code Red conditions}
+
+Code Red is an operational queue pin applied only to Flood, Fire, Building Collapse, or Traffic Accident incidents. Let H\_i denote an eligible emergency type. Code Red applies when H\_i $\wedge$ (L1a $\vee$ L1b $\vee$ L3) is true: L1a requires at least one Non-Upright detection and maximum Non-Upright box confidence $\geq$0.70; L1b requires N$\geq$3 detected people and mean box confidence $\geq$0.75; L3 requires N$\geq$1, an unassigned incident, and waiting time $\geq$45 min. Model 2 confidences are used for L1a/L1b; they are not the Model 1 Hybrid Trust threshold.
+
+An incident is considered unassigned only when no team is assigned, no dispatch record exists, and its status is neither In Progress nor Resolved. The Golden Hour warning is distinct from escalation: for a non-Code-Red emergency with at least one detected person and an unassigned state, 30$\leq$t\_wait\textless{}45 min displays a warning badge and one-time chime for Coordinator review; it does not itself change queue order. At 45 min, L3 can apply. Code Red does not alter the AHP score; it pins the incident ahead of non-Code-Red incidents. If the AI detector fails and no detections are available, the detection-dependent L1a/L1b conditions cannot be evaluated from the missing output. The current manual review controls do not provide a manual pose-confidence input. The age-based L3 condition remains independently available when its prerequisites are met.
+
+\subsubsection*{3.6.2. AHP weight derivation}
+
+The three AHP criteria are incident severity, distance to the nearest qualifying available team, and the number of free qualifying teams. The pairwise comparison matrix is [[1,3,5],[1/3,1,2],[1/5,1/2,1]]. Its principal eigenvector gives weights (0.648, 0.230, 0.122), with $\lambda$max$\approx$3.0037, CI$\approx$0.0018, and CR$\approx$0.0032 (reported as 0.003). These judgments were selected by the development team and have not been reviewed by SAR experts. The low consistency ratio indicates internal consistency of the pairwise judgments, not operational validity.
+
+\subsubsection*{3.6.3. TOPSIS incident ranking}
+
+TOPSIS is applied to active incidents in the current batch. Severity is a benefit criterion. Distance to the nearest qualifying team is also treated as a benefit under the prototype underserved-area policy, so a greater distance raises priority. The count of free qualifying teams is a cost criterion, so fewer free teams raise priority. A qualifying team must be available, not have an open dispatch order, match the required rescue-team type, and cover the incident location. The adapter uses explicit TeamCoverage records and a 10 km proximity rule for the seeded data. When no qualifying team exists, the distance is missing; during TOPSIS calculation it is replaced by the maximum distance in the batch (or 0 if all distances are missing), and no\_team\_flag is retained.
+
+The server converts the application severity score from 0--100 to 0--1 before TOPSIS. needs\_review is not included in the TOPSIS criterion matrix. The closeness coefficient C\_i is relative to the current batch and is not a probability of harm. Vector normalization is applied by criterion. If an entire criterion column is zero, the norm is set to 1 to avoid division by zero. If the sum of distances to the ideal and anti-ideal solutions is zero, the implementation returns closeness 0.5. The code contains fallbacks for these numerical degeneracies; the supplied test report does not demonstrate a dedicated test for every edge case.
+
+\subsubsection*{3.6.4. Queue ordering and Golden Hour}
+
+The displayed queue is ordered lexicographically: Code Red first, then higher TOPSIS priority score, then longer waiting time (older creation time first). The backend priority module can optionally use a tie-break value, but that option is disabled by default in the current adapter. The queue comparator has no additional domain-based tie-break beyond the stated fields. Golden Hour warning (30--45 min) and escalation ($\geq$45 min) are two thresholds of the same mechanism, not two separate ranking criteria.
+
+\subsection*{3.7. Rescue-team matching}
+
+Detailed matching begins only after the Coordinator verifies a non-Normal incident. Candidate evaluation and final dispatch authorization are separate. The matching interface begins with teams whose status is Available and that have no active assignment. Specialty suitability contributes to the score rather than acting as a single binary filter. Hard constraints remove candidates before ranking. The built-in hard rules in the supplied seed configuration are: HC-02 blocks a heavy truck when the entrance is narrow; HC-03 requires a rescue boat for deep or riverine/canal Flood cases; and HC-04 requires heavy-debris equipment for Building Collapse incidents with severity $\geq$88. Rule configuration is editable.
+
+For each candidate, specialty score S\_spec uses the SPECIALTY\_MATRIX, with an equipment-text fallback when no matrix row exists. Two 5-point bonuses may apply: a detected Non-Upright victim paired with medical/triage equipment, and severity $\geq$85 paired with UAV/drone/thermal equipment. The specialty score is capped at 100. The distance score decays linearly over a configurable 15 km default and adds 10 points for the same area, capped at 100. The capacity score uses team headcount: M\_req=max(4,2$\times$max(1,N\_det)) and S\_cap=min(100, round(100$\times$headcount/M\_req)). The base score is round(0.50S\_spec+0.35S\_dist+0.15S\_cap); active soft-rule deltas are then added and the final score is clamped to [0,100].
+
+The supplied seed configuration enables SC-01 (agile vehicle bonus for a narrow entrance: +12 for Fire, +10 for Building Collapse, +4 for Flood, and 0 for Traffic Accident); SC-03 (+8 for a same-area unit in an ultra-dense sector); and SC-04 (+10 for heavy-debris equipment in Building Collapse, +8 in Traffic Accident, 0 otherwise). The rule configuration also records missing-data policy and conflict handling. Candidates are sorted by descending score and then shorter distance. If no available team passes the hard constraints, the application does not auto-propose a disqualified team; it exposes a manual override that requires a Coordinator-selected unit and an operational justification recorded with the dispatch/audit record. This ranking is a prototype compatibility score, not a learned probability or validated optimal assignment.
+\vspace{8pt}
+
+\captionof{table}{Team-matching score and active seed-rule configuration.}
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.15}
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\textwidth}{|X|X|X|}\hline
+Matching element & Implemented rule/configuration & Interpretation \\ \hline
+Specialty fit & 50\% base score contribution; SPECIALTY\_MATRIX; equipment fallback and up to two +5 bonuses. & A compatibility score, not a verified skill certification. \\ \hline
+Distance & 35\% contribution; linear decay over 15 km by default; +10 same-area bonus; Haversine distance. & Score is distinct from the 10 km team-coverage heuristic in the AHP adapter. \\ \hline
+Capacity & 15\% contribution; M\_req=max(4,2$\times$max(1,N\_det)); based on headcount. & A simple headcount-to-demand ratio. \\ \hline
+Hard constraints & HC-02 narrow entrance/heavy truck; HC-03 deep/riverine flood/rescue boat; HC-04 collapse severity $\geq$88/heavy-debris equipment. & Candidates failing an enabled hard constraint are excluded from automatic recommendation. \\ \hline
+Soft constraints & SC-01, SC-03, SC-04; seed values are editable. & Context-dependent score adjustments after the weighted base score. \\ \hline
+Decision authority & One primary recommendation; Coordinator may override and confirms dispatch. & The benchmark scripts the team-selection action and does not evaluate recommendation correctness. \\ \hline
+\end{tabularx}
+\end{center}
+
+\subsection*{3.8. End-to-end workflow and implementation}
+
+A report passes through submission, Layer 1 validation, report creation, parallel Model 1 and Model 2 inference, severity assessment, Hybrid Trust verification, priority update, detailed matching, Coordinator dispatch, resolution, and audit persistence. Each submitted report maps to one operational incident; the prototype does not merge several reports into a single incident. Normal reports follow a Normal-specific close path without dispatch. AI failures remain Unverified and go to manual triage.
+\vspace{8pt}
+\captionof{table}{Persisted report states. Team status (Available/On Mission) is separate from the report state.}
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.15}
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\textwidth}{|X|X|}\hline
+Persisted state & Meaning and transition \\ \hline
+Unverified & New report awaiting verification or triage. An Unclassified report cannot be verified until a supported incident type is selected. \\ \hline
+Matching Team & A non-Normal incident has been verified and detailed team matching is open. \\ \hline
+In Progress & The Coordinator confirmed dispatch; the selected team moves to On Mission. \\ \hline
+Resolved & Finalize and Resolve: the dispatch becomes Completed, the team returns to Available, and a closure audit record is written. \\ \hline
+\end{tabularx}
+\end{center}
+
+The append-only audit trail records events including REPORT\_SUBMITTED, AI\_COMPLETED or AI\_FAILED, REPORT\_AUTO\_VERIFIED or REPORT\_ADMIN\_VERIFIED, TRIAGE\_VERIFY\_AND\_DISPATCH, and INCIDENT\_RESOLVED. The database is SQLite with write-ahead logging and foreign-key enforcement \cite{ref24}. The ERD, API inventory, and file-level artifacts are part of the supplied project package, but the source package does not include a complete release manifest or a public repository reference.
+
+\begin{center}\includegraphics[width=\textwidth,height=0.78\textheight,keepaspectratio]{figures/figure2.png}\end{center}
+
+\captionof{figure}{Report workflow from image intake through verification, matching, Coordinator dispatch, and resolution.}
+
+\begin{center}\includegraphics[width=\textwidth,height=0.78\textheight,keepaspectratio]{figures/figure3.png}\end{center}
+
+\captionof{figure}{Decision pipeline and operational gates used by SkyRescue.}
+\vspace{8pt}
+Figure 4 presents representative screens from the supplied final-build capture set. Panel (c) is marked as a seeded sample and must not be interpreted as a live inference result. All names, contact details, incident identifiers, and operational records visible in these interface screenshots are fictitious demonstration data created for software testing; they do not identify real people or real incidents.
+
+\begin{center}\includegraphics[width=\textwidth,height=0.78\textheight,keepaspectratio]{figures/figure4.png}\end{center}
+
+\captionof{figure}{Final-build user-interface screenshots: (a) Reporter upload portal and Layer 1 feedback; (b) Dispatch review inbox; (c) seeded AI-evidence view, not a live inference image; and (d) team matching and rule audit. All names, contact details, incident identifiers, and operational records shown are fictitious demonstration data generated for software testing.}
+
+\section*{4. Results}
+
+\subsection*{4.1. Evaluation design and evidence categories}
+
+The evaluation separates component-model results from integrated workflow checks. Component metrics are tied to their dataset and split. The system benchmark runs three controlled scenarios through the user interface. Each scenario combines live AI-processed reports with preset fixtures that exercise rule and queue behavior. The six final live images are AI-generated; their role is to exercise the operational workflow, not to provide an independent AI benchmark. The final scenario set was adjusted after the pilot, so the final run is a regression-oriented functional demonstration rather than a blind evaluation.
+
+Scenario Pass Rate is scenarios passing all predefined critical assertions divided by scenarios executed. Functional Check Pass Rate is passed assertions divided by all assertions. Routing conformance is live reports following the expected workflow route divided by eligible live reports; it is not scene-classification accuracy. Dispatch state-transition conformance checks that scripted Coordinator selection and subsequent state changes are recorded correctly; it does not score the matching recommendation. Safety-invariant rate is satisfied benchmarked invariant checks divided by evaluated checks. Audit event-type presence is weaker than report-level audit completeness because the benchmark output does not carry report IDs and ordered event timestamps needed for matching event instances.
+
+\subsection*{4.2. Component-level AI and severity results}
+
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{3pt}
+\begin{xltabular}{\textwidth}{|>{\raggedright\arraybackslash}p{0.15\textwidth}|>{\raggedright\arraybackslash}p{0.16\textwidth}|>{\raggedright\arraybackslash}p{0.10\textwidth}|>{\raggedright\arraybackslash}p{0.27\textwidth}|>{\raggedright\arraybackslash}p{0.26\textwidth}|}
+\caption{Component-level results with split and evidence scope. Held-out test, validation, threshold diagnostic, and unavailable heuristic metrics are not directly comparable.}\label{tab:component-results}\\
+\hline
+\textbf{Component} & \textbf{Dataset / split} & \textbf{N} & \textbf{Reported result} & \textbf{Evidence scope / limitation} \\ \hline
+\endfirsthead
+\hline
+\textbf{Component} & \textbf{Dataset / split} & \textbf{N} & \textbf{Reported result} & \textbf{Evidence scope / limitation} \\ \hline
+\endhead
+EfficientNet-B0 scene classification & AIDER test & 965 & Accuracy 95.2\% (919/965); macro-P 0.912; macro-R 0.945; macro-F1 0.927. & Held-out AIDER test split. Always-Normal baseline 68.2\%; 658/965 test images are Normal. \\ \hline
+Normal gate diagnostic & AIDER / C2A threshold diagnostic & AIDER Normal N=630; incident cases N=11; C2A hidden incident N=60 & AIDER: 11/11 incident cases rerouted for review; 46/630 Normal cases flagged (7.3\%). C2A: 44/60 rerouted. & Threshold diagnostic, not calibration guarantee; review-routing is not correct incident-class identification. \\ \hline
+EfficientNet-B0 cross-background routing & C2A test & 1,535 & 1,460/1,535 (95.1\%) matched the class of their AIDER background. & Labels originate from AIDER backgrounds, so this is not independent cross-dataset validation. \\ \hline
+YOLOv8m person detection & C2A validation & 1,530 & Precision 0.415; recall 0.692; mAP50 $\approx$0.454; mAP50--95 0.302. & Validation only. A final detector test-split evaluation was not provided; these values must not be relabelled as test results. \\ \hline
+MobileNetV3-Small Fire & FLAME2 RGB test (reported split) & 420 & Accuracy 93.57\%; weighted F1 0.9352; macro-F1 0.9368; Flame/Smoke recall 95.0\%. & Prescribed-fire imagery. The subset sampling and temporal split manifest are unavailable; exact sample reconstruction is not reproducible. \\ \hline
+MobileNetV3-Small Building Collapse & UAVs-TEBDE test & 246 & Accuracy 95.12\%; macro-F1 0.9510; Collapsed precision 1.00 and recall 0.90. & Split file exists. P(Collapsed)$\geq$0.04 review threshold was selected on this same test split; threshold-specific behavior may be optimistic. \\ \hline
+Traffic density proxy & C2A & Not established & No quantitative agreement or density-error result reported. & Previously circulated agreement values lack a traceable denominator, reference definition, and raw analysis artifact. \\ \hline
+Flood visual proxy & C2A & Not established & No quantitative review-rate or severity-error result reported. & Previously circulated review-rate figures lack a traceable denominator and evaluation manifest; no water-depth ground truth exists. \\ \hline
+\end{xltabular}
+
+\subsubsection*{4.2.1. Scene classification}
+
+On the AIDER test split (n=965), EfficientNet-B0 achieved 95.2\% accuracy (919 correct), macro-F1 0.927, macro-precision 0.912, and macro-recall 0.945. A classifier always predicting Normal would score 68.2\% because the test split contains 658 Normal images. These results apply to the AIDER split and do not establish performance on other cameras, altitudes, weather, or disaster environments. The Normal-gate diagnostic rerouted all 11 AIDER incident examples that the classifier initially predicted as Normal, while flagging 46 of 630 Normal examples (7.3\%). On C2A, 44 of 60 such cases were routed for review. Rerouting means review rather than correct incident-class prediction.
+
+On the 1,535-image C2A test split, 1,460 images (95.1\%) were routed to the class of their AIDER background. This is a background-label cross-check, not independent validation, because C2A is constructed from AIDER backgrounds. No background-overlap audit was available for this study.
+
+\subsubsection*{4.2.2. Human detection}
+
+On the C2A validation split (n=1,530), YOLOv8m obtained precision 0.415, recall 0.692, mAP50 approximately 0.454, and mAP50--95 0.302. The detector retrieves many annotated people but also produces false positives. C2A is synthetic, and the reported result is validation-only; a completed final test evaluation on the 1,535-image C2A test split is not in the supplied artifacts.
+
+\subsubsection*{4.2.3. Fire and Building Collapse}
+
+The Fire classifier reached 93.57\% accuracy, weighted F1 0.9352, macro-F1 0.9368, and Flame/Smoke recall 95.0\% on the reported 420-image FLAME2 RGB test split. However, the exact 2,800-image subset and temporal split cannot be reconstructed from supplied files. The Collapse classifier reached 95.12\% accuracy and macro-F1 0.9510 on 246 UAVs-TEBDE test images, with Collapsed precision 1.00 and recall 0.90. The P(Collapsed)$\geq$0.04 review threshold was selected on that same test split, so no independent threshold-performance claim is made.
+
+\subsubsection*{4.2.4. Traffic and Flood indicators}
+
+The Traffic branch converts detected-person density to a Fruin LOS proxy, while the Flood branch uses upright-person geometry. The earlier draft contained Traffic same-grade agreement, within-one-grade agreement, and Spearman values, and a Flood review rate. The supplied files do not include the denominator, reference definition, selection criteria, and raw analysis required to reproduce these statistics. They are therefore removed from the quantitative results rather than repeated without an auditable basis. Neither branch has a calibrated field severity target.
+
+\subsection*{4.3. End-to-end scenario-based pipeline evaluation}
+
+The final benchmark run dated 15 November 2026 executes three controlled scenarios through the browser interface: HCMC-FLOOD, DANANG-COLLAPSE, and CANTHO-AI-FAILURE. Each has live reports and preset fixtures. The final run passed 98 of 98 assertions across 3 of 3 scenarios (Table 9). This is scenario-level functional validation, not AI accuracy or overall system accuracy. Nine assertions derived from pilot-observed AI outputs are regression checks, not independent accuracy measurements.
+\vspace{8pt}
+
+\captionof{table}{Final-run scenario-level functional validation across three controlled scenarios. Harness elapsed time includes upload, AI/UI actions, dispatch, and finalization; it is not stage latency.}
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.15}
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\textwidth}{|X|X|X|X|X|X|}\hline
+Scenario & Checks & Live report routes & Code Red fixtures & Scripted dispatch case & Harness elapsed time \\ \hline
+HCMC-FLOOD & 41/41 & H-L1 auto\_drone; H-L2 Citizen/manual; H-L3 auto\_specialist & H-M4 non-upright 96\%; H-M1 Golden Hour & SAR-01 for H-L1 & 31.0 s \\ \hline
+DANANG-COLLAPSE & 31/31 & D-L1 auto\_specialist; D-L2 Citizen/manual & D-M1 Golden Hour & DN-USAR-01 for D-L1 & 23.1 s \\ \hline
+CANTHO-AI-FAILURE & 26/26 & C-L1 AI failure $\rightarrow$ manual review $\rightarrow$ dispatch $\rightarrow$ finalize & C-M1 non-upright 96\% & CT-TRAFFIC-01 for C-L1 & 17.4 s \\ \hline
+Total & 98/98; 3/3 scenarios & 6/6 expected live routes & 4/4 preset fixtures & 3/3 scripted dispatches & Not summed \\ \hline
+\end{tabularx}
+\end{center}
+
+All six live reports followed their expected workflow routes. In HCMC-FLOOD, a registered-UAV report and a specialist report were auto-verified, while a Citizen report required manual review. In DANANG-COLLAPSE, a specialist report was auto-verified and a Citizen report required manual review. In CANTHO-AI-FAILURE, AI failure left the report Unverified and it proceeded through manual review.
+
+In all three dispatch cases, no dispatch order existed before the scripted Coordinator action; the order then became Confirmed and the team On Mission; after finalization the incident became Resolved, the dispatch Completed, and the team Available. The benchmark selects the team through a scripted Coordinator action and names that team in the scenario file. These checks establish recorded state transitions but do not evaluate whether the matching module recommended the same team or whether the assignment was operationally suitable.
+
+The automated test run comprises 49 pytest cases in relational mode, 49 pytest cases in JSON mode, 10 Node tests for frontend formulas and policy, and a Playwright end-to-end smoke test; all are recorded as passing. The 10 Node tests were rerun on the archived source. Four invariants were checked in each scenario: no autonomous dispatch, no automatic verification of a Citizen report, no Code Red for Normal or Unclassified reports, and no dispatch before verification. All 12 of 12 invariant checks passed.
+
+Audit evidence is limited to event-type presence. After the last reset in each run, the four required event types were present (auto-verification or AI\_FAILED, REPORT\_ADMIN\_VERIFIED, TRIAGE\_VERIFY\_AND\_DISPATCH, and INCIDENT\_RESOLVED), giving 4/4 per scenario and 12/12 overall. The benchmark output does not retain report IDs, timestamps, and ordered event-instance matches, and two real-AI scenarios share a data directory. Report-level audit completeness is therefore not measured; 12/12 must not be interpreted as 100\% report-level audit completeness.
+
+\subsubsection*{4.3.1. Code Red and queue ordering}
+
+Four preset fixtures exercised Code Red precedence: two L1a fixtures with Non-Upright confidence 96\% and two Golden Hour L3 fixtures. All four appeared ahead of non-Code-Red incidents according to the configured queue policy. The archived Node policy test named ``Code Red requires confidence gates and a confirmed disaster context'' provides unit-level boundary checks for L1a (69\% versus 70\%) and L1b with three detections (74\% versus 75\%), and confirms that a Normal scene is excluded. This is unit-test coverage, not scenario coverage: the final benchmark contains no L1b fixture, and the supplied test does not include a dedicated two-detection/high-confidence negative assertion. No live report in the evaluated sample reached a Code Red threshold. The final live images therefore do not provide live Code Red precision, recall, or F1. In the AI-failure scenario no person detections were available; there is no manual pose-confidence entry in the review interface that could recreate the missing model evidence for L1a/L1b. The time-based L3 remains a separate condition for an eligible unassigned report.
+
+\begin{center}\includegraphics[width=\textwidth,height=0.78\textheight,keepaspectratio]{figures/figure5.png}\end{center}
+
+\captionof{figure}{Recorded incident queue order in the three final scenarios. Code Red entries are preset fixtures; live reports are shown separately.}
+
+\begin{center}\includegraphics[width=\textwidth,height=0.78\textheight,keepaspectratio]{figures/figure6.png}\end{center}
+
+\captionof{figure}{Aggregate Code Red confidence maxima in the 18-candidate pilot. No per-image distribution is plotted because the archived pilot summary preserves only aggregate maxima for the relevant comparisons.}
+
+\subsection*{4.4. Performance and Layer 1 rejection evaluation}
+
+Stage latency is defined as the interval between recorded stage start and end times, with P50 and P95 computed across samples. Stage latency was not measured on the final build. The 31.0 s, 23.1 s, and 17.4 s scenario elapsed times in Table 9 span upload, AI inference, UI interactions, dispatch, and finalization and must not be presented as per-stage latency. Earlier measurements from a different system build and hardware configuration are not carried into this release evaluation.
+
+Layer 1 rejection accuracy requires a labeled set of valid and invalid uploads with a defined positive class. No such labeled evaluation set was provided. During preparation, the six handoff images lacked DateTimeOriginal; Layer 1 rejected them with a time error. After capture timestamps were inserted, all six were accepted. This is a single-cause workflow observation, not a rejection-accuracy measurement.
+\vspace{8pt}
+
+\captionof{table}{Measurements and non-measurements in the final system evaluation.}
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.15}
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\textwidth}{|X|X|X|}\hline
+Metric & Status in final benchmark & Reason \\ \hline
+Per-stage latency (P50/P95) & Not measured & No stage-level start/end timing records in final benchmark. \\ \hline
+Layer 1 rejection accuracy & Not measured & No labeled valid/invalid upload set with ground truth. \\ \hline
+Scenario elapsed time & Measured: 31.0 s, 23.1 s, 17.4 s & End-to-end harness intervals; include UI and dispatch; not stage latency. \\ \hline
+Report-level audit completeness & Not measured & No report-ID/time/order event-instance matching in benchmark output. \\ \hline
+Queue-rank conformance / Kendall tau & Not measured & No saved per-incident criteria and closeness reference order for a measured comparison. \\ \hline
+Team matching accuracy & Not measured & No independent reference team ranking; benchmark team was selected by script/Coordinator. \\ \hline
+\end{tabularx}
+\end{center}
+
+\subsection*{4.5. Pilot history and image provenance}
+
+The six live images used in the final end-to-end evaluation were generated with an AI image-generation tool on 15 November 2026. Eighteen candidates were generated (three per final image); the tool version and seed were not recorded. The final image selection was pilot-driven. The original user-selected H-L1 and D-L1 images were replaced because Model 2 found zero people and set needs\_review=true; the selected replacement frames enabled the intended trusted-source workflow route. The selection and reason are recorded in the benchmark manifest and image metadata CSV.
+
+The EXIF-stamping utility injects a new EXIF APP1 segment without re-encoding JPEG scan data. The benchmark record verifies identical decoded pixels for the six raw and stamped images, fresh capture times, expected GPS/device fields, and no Layer 1 errors after stamping. Original-image and stamped/upload-file SHA-256 values are listed in Supplementary Table S7. These generated images exercise upload and workflow behavior and are not included in AIDER, C2A, FLAME2, or UAVs-TEBDE model-accuracy metrics. The final run is not a blind AI benchmark because selected images and scenario expectations were revised after observing pilot outputs.
+
+\subsection*{4.6. Discussion}
+
+The final benchmark supports the claim that the tested software workflow can route six live reports through their expected verification paths, record the three scripted dispatch lifecycles, satisfy the four tested safety invariants in each scenario, and apply Code Red precedence to four preset fixtures. It does not establish field effectiveness, end-to-end AI accuracy, team-matching accuracy, audit completeness per report, or stage-level performance. The distinction is important because the benchmark combines real model calls for live reports with preset values for fixtures.
+
+The component metrics also have different evidence strengths. EfficientNet-B0 is reported on an AIDER held-out split, while YOLOv8m is reported on a synthetic C2A validation split. FLAME2 results depend on a subset and temporal split whose manifest is missing. The UAVs-TEBDE split file exists, but the exact placement of training-time augmentation relative to splitting is not documented. The collapse review threshold was selected on its test split. Traffic and Flood quantitative results are omitted because their previous summary statistics cannot be reconstructed from supplied raw records. None of the component results demonstrates performance on operational UAV imagery.
+
+The pilot highlights a limitation of Model 2 on the six selected workflow images: it detects 8 of 24 visually annotated people and 1 of 8 annotated Non-Upright people. In the 18-candidate pilot, the highest Non-Upright confidence was 37.6\%, below the 70\% L1a gate; the maximum mean box confidence among images with at least three detections was 61.1\%, below the 75\% L1b gate. One image reached 91.5\% confidence with only two detected people, so the MCI rule did not apply. Consequently, no live report became Code Red; the rule precedence was tested with preset fixtures. The pilot summary also reports poor detections on public-domain real rescue photographs, supporting a domain-gap concern rather than demonstrating robustness.
+
+The decision policy reflects development-team choices. AHP weights have not been reviewed by SAR experts, and the branch severity proxies are not a validated common scale. TOPSIS is batch-relative, while distance is intentionally treated as a benefit to prioritize underserved locations. The team matcher is a transparent heuristic score with configurable constraints; no independent reference allocation or expert suitability review was performed. The benchmark cannot support a claim of optimal or accurate team assignment.
+
+For deployment, auto-verification currently depends on the Dispatch client being open. Role-based access remains incomplete: the handoff notes report that a Reporter session can read all reports and write all state keys. The configured remote Nominatim service receives coordinates for reverse geocoding \cite{ref26}, and map tiles also require internet access. The system has not undergone a security audit, load test under concurrent ingestion, privacy governance review, or field trial. Those limitations preclude operational deployment with sensitive live incident data without further work.
+
+\subsection*{4.7. Reproducibility and software availability}
+
+The benchmark record identifies base commit 19cb7f9 on branch rebuild/v2, with uncommitted working-tree changes at the final run. The supplied source archive contains no .git directory and no LICENSE file; the repository URL, release tag, final commit SHA, and reproducibility capsule were not supplied. The primary checkpoint checksums are listed in Supplementary Table S6. The source archive, benchmark JSON/Markdown records, fixtures, generated images, and selected project documentation were supplied as local files for this revision. Public dataset contents are not redistributed where their providers' terms do not allow it. The FLAME2 subset manifest and C2A background mapping remain unavailable, and the Traffic/Flood analysis records are insufficient to reproduce the withdrawn statistics.
+
+\section*{5. Conclusion}
+
+\subsection*{5.1. Summary}
+
+SkyRescue is UAV-image-based decision-support software that connects image intake and validation, aerial scene classification, person and posture detection, incident-specific assessment, incident prioritization, rule-based recommendation of one primary rescue team, Coordinator verification and dispatch, and audit persistence. Hybrid Trust permits conditional auto-verification for identified trusted sources, while Citizen reports and AI-failure paths require manual review. Every dispatch remains a Coordinator decision.
+
+\subsection*{5.2. Main findings}
+
+The component-level results are dataset-specific and should not be combined into a single AI score. The final integrated benchmark passed 98 of 98 predefined checks across three controlled scenarios and satisfied 12 of 12 tested safety-invariant checks. Four Code Red fixtures followed the expected precedence; no live image reached a Code Red threshold. The benchmark confirms the tested prototype workflow, not system accuracy, field readiness, or rescue effectiveness.
+
+\subsection*{5.3. Future work}
+
+Future work should validate the models on real UAV imagery with documented ground truth; publish dataset manifests, source-video/frame identifiers, background mappings, and split scripts; rerun detector evaluation on the held-out C2A test split; and tune operating thresholds on validation data before independent testing. The Traffic and Flood branches need validated physical references, while the shared severity scale and AHP criteria require SAR-expert review. Team matching needs an independent reference-ranking or expert suitability study. The software also needs server-side auto-verification, complete role-based access control, a security/privacy review, report-level audit matching, reproducible performance measurements, and testing under concurrent loads.
+
+\section*{Appendix A. Supplementary data}
+
+\section*{Declarations}
+
+Funding. This work was supported by [FUNDING AGENCY / ORGANIZATION NAME] under grant [GRANT NUMBER].
+
+Competing interests. The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
+
+Ethics approval and consent to participate. The integrated workflow benchmark used synthetic scenario images generated with DALL·E (ChatGPT image generation) and software fixtures. No human participants were recruited, and no new human-subject data were collected for the workflow benchmark. All names, phone numbers, incident records, and citizen reports used in the demonstration are fictitious. Component-level evaluations used previously released AIDER, C2A, FLAME2, and UAVs-TEBDE datasets under the terms of their respective original releases. No additional participant consent was obtained for these previously released datasets.
+
+Consent for publication. All names, phone numbers, and incident records shown in the interface screenshots are fictitious demonstration values. No real personal data are included in these screenshots. Third-party dataset images are reproduced under the terms of their original releases, and the UEH logo is used with permission.
+
+Data availability. AIDER, C2A, FLAME2, and UAVs-TEBDE are third-party datasets cited in the References and are available from their respective providers under their original access and licensing terms. The authors do not redistribute these datasets. The final workflow benchmark package, including scenario definitions, software fixtures, synthetic benchmark images, generation prompts, model-version information, and benchmark results, is not currently archived in a public repository with a DOI. The FLAME2 sampling manifest and C2A background mapping are not currently available in the supplied research materials.
+
+Materials availability. The SkyRescue source code is available through the project repository at https://github.com/LMT501-DA001-CTD/BAO-THANH-THIEN. The benchmark files, supplementary materials, and source screenshots are not currently deposited in a separate public research-data archive. Redistribution of third-party images and model weights is subject to their respective licenses and terms.
+
+Code availability. The SkyRescue source code is available at https://github.com/LMT501-DA001-CTD/BAO-THANH-THIEN. The project team intends to release its original code under the MIT License. The repository license file and a versioned release identifying the exact code state used for the reported benchmark should be added before publication. Third-party components, including Ultralytics YOLOv8, remain subject to their own licensing terms.
+
+Author contributions. A CrediT contribution statement will be provided after the authors have confirmed the individual contributions of all co-authors.
+
+\backmatter
+\bibliography{sn-bibliography}
+\end{document}
